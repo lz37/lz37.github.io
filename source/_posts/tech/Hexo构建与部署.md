@@ -60,6 +60,8 @@ name: Hexo # 名称随意
          node-version: [16.17.1] # 版本建议和本地一致
      steps:
        - uses: actions/checkout@v3
+         with:
+           fetch-depth: 0 # 读取更多历史信息，hexo-filter-date-from-git 要用到
        - uses: pnpm/action-setup@v2
          with:
            version: 7
