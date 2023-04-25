@@ -20,7 +20,7 @@ baidusitemap:
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
 url: http://www.zerozawa.top
-permalink: /:year/:title/
+permalink: /:categories/:title/
 permalink_defaults:
 pretty_urls:
   trailing_index: false # Set to false to remove trailing 'index.html' from permalinks
@@ -72,7 +72,7 @@ index_generator:
   order_by: -date
 
 # Category & Tag
-default_category: 其他
+default_category: etc
 category_map:
 tag_map:
 
@@ -126,7 +126,6 @@ markdown:
     - markdown-it-mark
     - markdown-it-regexp
     - markdown-it-task-checkbox
-    - '@renbaoshuo/markdown-it-katex'
     - name: markdown-it-container
       options:
         - success
@@ -136,6 +135,9 @@ markdown:
     - name: markdown-it-emoji
       options:
         shortcuts: {}
+    - name: '@neilsustc/markdown-it-katex'
+      options:
+        strict: false
   anchors:
     level: 1
     collisionSuffix: 'v'
