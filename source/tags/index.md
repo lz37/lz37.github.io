@@ -1,7 +1,7 @@
 ---
 title: tags
 date: 2022-04-27 15:35:58
-type: "tags"
+type: 'tags'
 comments: false
 description:
 keywords:

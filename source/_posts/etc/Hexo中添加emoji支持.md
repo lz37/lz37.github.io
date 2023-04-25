@@ -43,7 +43,7 @@ markdown:
   plugins:
     - markdown-it-emoji
     - plugin:
-      name: "@neilsustc/markdown-it-katex"
+      name: '@neilsustc/markdown-it-katex'
       options:
         strict: false
 ```

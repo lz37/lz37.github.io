@@ -1,7 +1,7 @@
 ---
 title: categories
 date: 2022-04-27 15:36:20
-type: "categories"
+type: 'categories'
 comments: false
 description:
 keywords:
