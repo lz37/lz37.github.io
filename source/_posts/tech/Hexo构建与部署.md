@@ -162,14 +162,14 @@ butterfly 的 `pangu.js` 的 load 周期是在文章渲染之后才执行的，�
 懒得一篇篇文章手动格式化的直接运行命令就好
 
 ```bash
-npx prettier --write **/*.md
+pnpm dlx prettier --write **/*.md
 ```
 
 设置 git 提交时自动格式化。
 
 ```bash
 pnpm i -D husky lint-staged prettier
-npx husky install
+pnpm dlx husky install
 ```
 
 编辑`.husky/pre-commit`:
