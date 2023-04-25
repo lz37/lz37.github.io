@@ -19,8 +19,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
-      - name: Install Git
-        run: sudo apt-get install git
       - name: Install dependencies
         run: pnpm install
       - name: Clean

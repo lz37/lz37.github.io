@@ -10,9 +10,6 @@ importers:
       hexo:
         specifier: ^6.3.0
         version: 6.3.0
-      hexo-filter-date-from-git:
-        specifier: ^0.1.2
-        version: 0.1.2
       hexo-forme:
         specifier: workspace:^
         version: link:lib/hexo-forme
@@ -103,6 +100,9 @@ importers:
       markdown-it-task-checkbox:
         specifier: ^1.0.6
         version: 1.0.6
+      moment-timezone:
+        specifier: ^0.5.43
+        version: 0.5.43
     devDependencies:
       husky:
         specifier: ^8.0.3
@@ -1357,12 +1357,6 @@ packages:
       minimist: 1.2.8
       resolve: 1.22.2
       tildify: 2.0.0
-    dev: false
-
-  /hexo-filter-date-from-git@0.1.2:
-    resolution: {integrity: sha512-nGQFdheRo244h62jLN/ih8uAY4z/MvTPJTbjfNecPjdSnRycIL2B6RNAc2UFZvl4rptjir3mk1B9oXVQDCWw7A==}
-    dependencies:
-      moment-timezone: 0.5.43
     dev: false
 
   /hexo-front-matter@0.2.3:
