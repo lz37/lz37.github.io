@@ -45,7 +45,7 @@ favicon: /img/favicon.png
 
 # Avatar (頭像)
 avatar:
-  img: https://www.zerozawa.top/img/pixiv/30837811_90929970_p0_%E3%83%92%E3%83%88%E3%81%93%E3%82%82%E3%82%8B_%E7%84%A1%E9%A1%8C.jpg
+  img: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_90929970_p0_%E3%83%92%E3%83%88%E3%81%93%E3%82%82%E3%82%8B_%E7%84%A1%E9%A1%8C.jpg
   effect: false
 
 # Disable all banner image
@@ -56,7 +56,7 @@ index_img:
 
 # If the banner of page not setting, it will show the top_img
 default_top_img:
-  - https://www.zerozawa.top/img/pixiv/30837811_94573417_p0_%E3%83%92%E3%83%88%E3%81%93%E3%82%82%E3%82%8B_%E7%A5%AD%E8%8A%B1.jpg
+  - https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_94573417_p0_%E3%83%92%E3%83%88%E3%81%93%E3%82%82%E3%82%8B_%E7%A5%AD%E8%8A%B1.jpg
 
 # The banner image of archive page
 archive_img:
@@ -78,7 +78,7 @@ category_img:
 # format:
 #  - category name: xxxxx
 category_per_img:
-  - 其他: https://www.zerozawa.top/img/pixiv/30837811_94573417_p0_%E3%83%92%E3%83%88%E3%81%93%E3%82%82%E3%82%8B_%E7%A5%AD%E8%8A%B1.jpg
+  - 其他: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_94573417_p0_%E3%83%92%E3%83%88%E3%81%93%E3%82%82%E3%82%8B_%E7%A5%AD%E8%8A%B1.jpg
 
 cover:
   # display the cover or not (是否顯示文章封面)
