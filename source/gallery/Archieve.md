@@ -1,6 +1,5 @@
 ---
 title: Archieve
-date: 2022-04-27 15:40:56
 top_img: https://www.zerozawa.top/img/pixiv/29535589_74215883_p0_Archive%20%20%E9%87%8C%E4%B8%AA%E4%BA%BA%E5%AD%98%E6%A1%A3%E5%A4%84_Melody%20of%20dream.jpg
 ---
 

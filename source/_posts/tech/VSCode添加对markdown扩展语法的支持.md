@@ -7,7 +7,6 @@ tags:
   - Markdown
   - Blog
   - Hexo
-keywords:
 description: Markdown Preview Enhanced 插件的冷知识，以及其替代方法
 comments:
 toc:
@@ -41,7 +40,7 @@ sticky:
 
 参考资料传送门：[利用 vscode 插件与 git hook 提升 hexo 编写部署体验](https://www.jianshu.com/p/a117650f6c76)
 
-于是我想到可以利用一样的方法，把$\{\%\ mermaid\ \%\}$映射成`\`\`\`mermaid `不就好了？
+于是我想到可以利用一样的方法，把$\{\%\ mermaid\ \%\}$映射成*mermaid 代码块*不就好了？
 
 ## 解决
 
@@ -90,6 +89,8 @@ hexo.extend.filter.register(
 ````
 
 mermaid 代码块会按正则被替换为标签形式
+
+不过要注意日常写的时候，**不要**随便写符合 mermaid 代码块的正则，否则会出现**渲染错误**。
 
 文档参考：[Hexo: Filter](https://hexo.io/api/filter)
 

@@ -5,7 +5,6 @@ categories: tech
 tags:
   - Linux
   - Swap
-keywords:
 description: 适用于使用swap文件的linux系统，使用分区的请另外搜索
 comments:
 toc:

@@ -2,7 +2,6 @@
 title: { { title } }
 categories:
 tags:
-keywords:
 description:
 comments:
 toc:
