@@ -1,11 +1,22 @@
 {
   "cSpell.words": [
+    "devel",
+    "dkms",
     "lintstagedrc",
-    "pangu"
+    "pacman",
+    "pangu",
+    "Wemeet",
+    "wemeetapp"
   ],
   "[markdown]": {
     "editor.tabSize": 4,
     // 不允许检测自动检测缩进
     "editor.detectIndentation": false,
+    // 关闭自动提示
+    "editor.quickSuggestions": {
+      "other": "on",
+      "comments": "off",
+      "strings": "off"
+    }
   }
 }
