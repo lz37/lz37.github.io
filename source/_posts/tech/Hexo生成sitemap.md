@@ -5,7 +5,6 @@ tags:
   - Blog
   - Hexo
   - Sitemap
-  - Github Action
 description: hexo 生成 google sitemap 和 baidu sitemap
 comments:
 toc:
@@ -51,3 +50,5 @@ Sitemap: https://xqhppt.github.io/baidusitemap.xml
 这样一来，在 `hexo g` 的时候就会自动生成 `sitemap` 文件，但是要注意，baidusitemap 插件比较古老，不会生成分类和 tag 页面的地图，介意的话可以使用 sitemap 模板功能定制一个。
 
 [hexo-generator-sitemap 项目地址](https://github.com/hexojs/hexo-generator-sitemap)
+
+sitemap 生成好后直接在 seo 控制台提交就好。

@@ -4,11 +4,15 @@
     "devel",
     "dkms",
     "endgallery",
+    "Fcitx",
     "lintstagedrc",
     "pacman",
     "pangu",
     "Wemeet",
-    "wemeetapp"
+    "wemeetapp",
+    "xorg",
+    "xprofile",
+    "xwayland"
   ],
   "[markdown]": {
     "editor.tabSize": 4,
