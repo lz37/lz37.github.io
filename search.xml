@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>KDE窗口最大化标题栏与面板“融合”</title>
+      <link href="/2023/kde%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%8C%96%E6%A0%87%E9%A2%98%E6%A0%8F%E4%B8%8E%E9%9D%A2%E6%9D%BF%E2%80%9C%E8%9E%8D%E5%90%88%E2%80%9D/"/>
+      <url>/2023/kde%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%8C%96%E6%A0%87%E9%A2%98%E6%A0%8F%E4%B8%8E%E9%9D%A2%E6%9D%BF%E2%80%9C%E8%9E%8D%E5%90%88%E2%80%9D/</url>
+      
+        <content type="html"><![CDATA[<p>首先三个插件：</p><ul><li>Window AppMenu</li><li>Active Window Control</li><li>Window Button</li></ul><p>不出意外应该有两个是已经安装了的，额外安装的只需要 <code>Active Window Control</code> 就好了。这里<strong>注意</strong>：不使用 Active Window Control 的任何额外功能，只用来显示标题（不用 Application Title 是感觉这个标题显示做的太烂了）</p><p>安装 Latte Dock</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S latte-dock</span><br></pre></td></tr></table></figure><p>打开 latte dock，右键点击配置 latte,首选项选择在<code>不同布局间支持无边最大化窗口</code>，然后在布局编辑器里打开对应的布局的无边框选项就好了。</p><p><strong>建议不要使用 Active Window Control 的无边框选项</strong>，因为会被 latte 覆盖，所以只要修改 latte 的就好了。</p><p>参考: <a href="https://blog.csdn.net/yalin1997/article/details/122711033">kde 最大化窗口时隐藏标题栏</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> beautify </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> KDE </tag>
+            
+            <tag> Plasma </tag>
+            
+            <tag> Latte Dock </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Manjaro Plasma Wayland 下使用腾讯会议</title>
       <link href="/2023/manjaro-plasma-wayland-%E4%B8%8B%E4%BD%BF%E7%94%A8%E8%85%BE%E8%AE%AF%E4%BC%9A%E8%AE%AE/"/>
       <url>/2023/manjaro-plasma-wayland-%E4%B8%8B%E4%BD%BF%E7%94%A8%E8%85%BE%E8%AE%AF%E4%BC%9A%E8%AE%AE/</url>
@@ -20,11 +49,11 @@
       
         <tags>
             
-            <tag> Linux </tag>
-            
             <tag> KDE </tag>
             
             <tag> Plasma </tag>
+            
+            <tag> Linux </tag>
             
             <tag> Wayland </tag>
             
