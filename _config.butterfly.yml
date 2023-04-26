@@ -81,6 +81,7 @@ category_per_img:
   etc: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_94573417_p0_ヒトこもる_祭花.jpg
   tech: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_97608845_p0_ヒトこもる_落花.png
   algorithm: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_94748376_p0_ヒトこもる_舞獅.jpg
+  beautify: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_96145490_p0_ヒトこもる_暁旦.jpg
 
 cover:
   # display the cover or not (是否顯示文章封面)
@@ -787,7 +788,7 @@ wordcount:
 
 # medium-zoom
 # https://github.com/francoischalifour/medium-zoom
-medium_zoom: true
+medium_zoom: false
 
 # fancybox
 # https://fancyapps.com/fancybox/
