@@ -74,7 +74,7 @@ yay -S qtscrcpy guiscrcpy # 选一个安装就行，或者都不安装，就用�
 
 参考：[ReDroid 教學：用 Docker 跑 Android 系統，在 x86 電腦玩 ARM 手機遊戲](https://ivonblog.com/posts/redroid-android-docker/)
 
-普通的镜像是无法运行 arm 架构的程序的，所幸碧蓝航线支持 X86_64 架构，所以无需使用转译器，对于需要转译器的同学，以下是一点点参考：
+普通的镜像是无法运行 arm 架构的程序的，所幸碧蓝航线支持 X86_64 架构，所以无需使用转译器，对于需要转译器的同学，以下是一点点参考（就完几个特定游戏的并且支持 X86 的建议别上转译器，吃的内存多了一倍）：
 
 先找一个目录，新建一个文件，名为`dockerfile`，内容如下：
 
@@ -110,7 +110,7 @@ sudo rm -r native-bridge
 
 这样一来就得到 ARM 转译器`native-bridge.tar`了。
 
-使用这个转译器与`redroid:11.0.0-latest`镜像构建出一个心得镜像。
+使用这个转译器与`redroid:11.0.0-latest`镜像构建出一个新的镜像。
 
 回到`dockerfile`存在的目录，将 native-bridge.tar 复制到此处,运行
 
@@ -189,3 +189,13 @@ docker compose up -d
 启动好后记得去修改`config/deploy.yaml`文件，把一些路径和代理改了。
 
 至此，全部完成。
+
+## 一些方便的工具
+
+安装 `podman-desktop-bin` 方便一键打开/关闭容器
+
+```bash
+yay -S podman-desktop-bin
+```
+
+当然也可以用 vscode 的 Docker 插件，但是 podman 起的容器不会被管理到。
