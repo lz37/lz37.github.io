@@ -3,7 +3,7 @@
 # --------------------------------------
 
 nav:
-  logo: https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png
+  logo: /icons/icon-512x512.png
   display_title: true
   fixed: false # fixed navigation bar
 
@@ -41,7 +41,7 @@ social:
 # --------------------------------------
 
 # Favicon（網站圖標）
-favicon: /img/favicon.png
+favicon: /icons/icon-512x512.png
 
 # Avatar (頭像)
 avatar:
@@ -875,13 +875,13 @@ lazyload:
 # PWA
 # See https://github.com/JLHwung/hexo-offline
 # ---------------
-# pwa:
-#   enable: false
-#   manifest: /pwa/manifest.json
-#   apple_touch_icon: /pwa/apple-touch-icon.png
-#   favicon_32_32: /pwa/32.png
-#   favicon_16_16: /pwa/16.png
-#   mask_icon: /pwa/safari-pinned-tab.svg
+pwa:
+  enable: true
+  manifest: /manifest.json
+  apple_touch_icon: /icons/icon-180x180.png
+  favicon_32_32: /icons/icon-32x32.png
+  favicon_16_16: /icons/icon-16x16.png
+  mask_icon: /icons/icon-916x916.min.svg
 
 # Open graph meta tags
 # https://developers.facebook.com/docs/sharing/webmasters/
