@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>Hexo 生成 sitemap</title>
+      <link href="/2023/hexo-%E7%94%9F%E6%88%90-sitemap/"/>
+      <url>/2023/hexo-%E7%94%9F%E6%88%90-sitemap/</url>
+      
+        <content type="html"><![CDATA[<p>参考：<a href="https://xqhppt.github.io/2020/01/31/hexo-seo-sitemap/">Hexo 生成 sitemap</a></p><p>安装插件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pnpm install hexo-generator-sitemap</span><br><span class="line">pnpm install hexo-generator-baidu-sitemap</span><br></pre></td></tr></table></figure><p>编辑 <code>_config.yml</code> 添加配置：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sitemap:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">sitemap.xml</span></span><br><span class="line"><span class="attr">baidusitemap:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">baidusitemap.xml</span></span><br></pre></td></tr></table></figure><p><code>source</code> 目录下添加 <code>robots.txt</code></p><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">User-agent: *</span><br><span class="line">Disallow:</span><br><span class="line">Sitemap: https://xqhppt.github.io/sitemap.xml</span><br><span class="line">Sitemap: https://xqhppt.github.io/baidusitemap.xml</span><br></pre></td></tr></table></figure><p>这样一来，在 <code>hexo g</code> 的时候就会自动生成 <code>sitemap</code> 文件，但是要注意，baidusitemap 插件比较古老，不会生成分类和 tag 页面的地图，介意的话可以使用 sitemap 模板功能定制一个。</p><p><a href="https://github.com/hexojs/hexo-generator-sitemap">hexo-generator-sitemap 项目地址</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> tech </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+            <tag> Blog </tag>
+            
+            <tag> Github Action </tag>
+            
+            <tag> Sitemap </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>KDE窗口最大化标题栏与面板“融合”</title>
       <link href="/2023/kde%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%8C%96%E6%A0%87%E9%A2%98%E6%A0%8F%E4%B8%8E%E9%9D%A2%E6%9D%BF%E2%80%9C%E8%9E%8D%E5%90%88%E2%80%9D/"/>
       <url>/2023/kde%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%8C%96%E6%A0%87%E9%A2%98%E6%A0%8F%E4%B8%8E%E9%9D%A2%E6%9D%BF%E2%80%9C%E8%9E%8D%E5%90%88%E2%80%9D/</url>
