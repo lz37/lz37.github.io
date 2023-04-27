@@ -3,7 +3,7 @@
 # --------------------------------------
 
 nav:
-  logo: /icons/icon-512x512.png
+  logo: /icons/android-chrome-512x512.png
   display_title: true
   fixed: false # fixed navigation bar
 
@@ -41,7 +41,7 @@ social:
 # --------------------------------------
 
 # Favicon（網站圖標）
-favicon: /icons/icon-512x512.png
+favicon: /favicon.ico
 
 # Avatar (頭像)
 avatar:
@@ -877,11 +877,11 @@ lazyload:
 # ---------------
 pwa:
   enable: true
-  manifest: /manifest.json
-  apple_touch_icon: /icons/icon-180x180.png
-  favicon_32_32: /icons/icon-32x32.png
-  favicon_16_16: /icons/icon-16x16.png
-  mask_icon: /icons/icon-916x916.min.svg
+  manifest: /site.webmanifest
+  apple_touch_icon: /icons/apple-touch-icon.png
+  favicon_32_32: /icons/favicon-32x32.png
+  favicon_16_16: /icons/favicon-16x16.png
+  mask_icon: /icons/safari-pinned-tab.svg
 
 # Open graph meta tags
 # https://developers.facebook.com/docs/sharing/webmasters/
