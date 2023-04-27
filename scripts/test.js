@@ -1,3 +1,4 @@
+// function(exports, require, module, __filename, __dirname, hexo)
 const reg = /```mermaid([\s\S]+?)```/g
 /** @type {import("hexo")} */
 hexo.extend.filter.register(

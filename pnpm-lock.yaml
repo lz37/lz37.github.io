@@ -1,135 +1,128 @@
 lockfileVersion: '6.0'
 
-importers:
+dependencies:
+  '@neilsustc/markdown-it-katex':
+    specifier: ^1.0.0
+    version: 1.0.0(katex@0.16.6)(markdown-it@13.0.1)
+  hexo:
+    specifier: ^6.3.0
+    version: 6.3.0
+  hexo-clean-css:
+    specifier: ^2.0.0
+    version: 2.0.0
+  hexo-filter-date-from-git:
+    specifier: ^0.1.2
+    version: 0.1.2
+  hexo-fs:
+    specifier: ^4.1.1
+    version: 4.1.1
+  hexo-generator-archive:
+    specifier: ^2.0.0
+    version: 2.0.0
+  hexo-generator-baidu-sitemap:
+    specifier: ^0.1.9
+    version: 0.1.9
+  hexo-generator-category:
+    specifier: ^2.0.0
+    version: 2.0.0
+  hexo-generator-index:
+    specifier: ^3.0.0
+    version: 3.0.0
+  hexo-generator-search:
+    specifier: ^2.4.3
+    version: 2.4.3
+  hexo-generator-sitemap:
+    specifier: ^3.0.1
+    version: 3.0.1
+  hexo-generator-tag:
+    specifier: ^2.0.0
+    version: 2.0.0
+  hexo-html-minifier:
+    specifier: ^1.0.0
+    version: 1.0.0
+  hexo-offline:
+    specifier: ^2.0.1
+    version: 2.0.1(hexo@6.3.0)
+  hexo-renderer-ejs:
+    specifier: ^2.0.0
+    version: 2.0.0
+  hexo-renderer-markdown-it:
+    specifier: ^7.0.0
+    version: 7.0.0
+  hexo-renderer-pug:
+    specifier: ^3.0.0
+    version: 3.0.0
+  hexo-renderer-stylus:
+    specifier: ^2.1.0
+    version: 2.1.0
+  hexo-server:
+    specifier: ^3.0.0
+    version: 3.0.0
+  hexo-theme-butterfly:
+    specifier: ^4.8.1
+    version: 4.8.1
+  hexo-uglify:
+    specifier: ^2.0.0
+    version: 2.0.0
+  hexo-util:
+    specifier: ^3.0.1
+    version: 3.0.1
+  hexo-wordcount:
+    specifier: ^6.0.1
+    version: 6.0.1
+  markdown-it:
+    specifier: ^13.0.1
+    version: 13.0.1
+  markdown-it-abbr:
+    specifier: ^1.0.4
+    version: 1.0.4
+  markdown-it-container:
+    specifier: ^3.0.0
+    version: 3.0.0
+  markdown-it-deflist:
+    specifier: ^2.1.0
+    version: 2.1.0
+  markdown-it-emoji:
+    specifier: ^2.0.2
+    version: 2.0.2
+  markdown-it-footnote:
+    specifier: ^3.0.3
+    version: 3.0.3
+  markdown-it-imsize:
+    specifier: ^2.0.1
+    version: 2.0.1
+  markdown-it-ins:
+    specifier: ^3.0.1
+    version: 3.0.1
+  markdown-it-mark:
+    specifier: ^3.0.1
+    version: 3.0.1
+  markdown-it-regexp:
+    specifier: ^0.4.0
+    version: 0.4.0
+  markdown-it-sub:
+    specifier: ^1.0.0
+    version: 1.0.0
+  markdown-it-sup:
+    specifier: ^1.0.0
+    version: 1.0.0
+  markdown-it-task-checkbox:
+    specifier: ^1.0.6
+    version: 1.0.6
 
-  .:
-    dependencies:
-      '@neilsustc/markdown-it-katex':
-        specifier: ^1.0.0
-        version: 1.0.0(katex@0.16.6)(markdown-it@13.0.1)
-      hexo:
-        specifier: ^6.3.0
-        version: 6.3.0
-      hexo-clean-css:
-        specifier: ^2.0.0
-        version: 2.0.0
-      hexo-filter-date-from-git:
-        specifier: ^0.1.2
-        version: 0.1.2
-      hexo-forme:
-        specifier: workspace:^
-        version: link:lib/hexo-forme
-      hexo-fs:
-        specifier: ^4.1.1
-        version: 4.1.1
-      hexo-generator-archive:
-        specifier: ^2.0.0
-        version: 2.0.0
-      hexo-generator-baidu-sitemap:
-        specifier: ^0.1.9
-        version: 0.1.9
-      hexo-generator-category:
-        specifier: ^2.0.0
-        version: 2.0.0
-      hexo-generator-index:
-        specifier: ^3.0.0
-        version: 3.0.0
-      hexo-generator-search:
-        specifier: ^2.4.3
-        version: 2.4.3
-      hexo-generator-sitemap:
-        specifier: ^3.0.1
-        version: 3.0.1
-      hexo-generator-tag:
-        specifier: ^2.0.0
-        version: 2.0.0
-      hexo-html-minifier:
-        specifier: ^1.0.0
-        version: 1.0.0
-      hexo-offline:
-        specifier: ^2.0.1
-        version: 2.0.1(hexo@6.3.0)
-      hexo-renderer-ejs:
-        specifier: ^2.0.0
-        version: 2.0.0
-      hexo-renderer-markdown-it:
-        specifier: ^7.0.0
-        version: 7.0.0
-      hexo-renderer-pug:
-        specifier: ^3.0.0
-        version: 3.0.0
-      hexo-renderer-stylus:
-        specifier: ^2.1.0
-        version: 2.1.0
-      hexo-server:
-        specifier: ^3.0.0
-        version: 3.0.0
-      hexo-theme-butterfly:
-        specifier: ^4.8.1
-        version: 4.8.1
-      hexo-uglify:
-        specifier: ^2.0.0
-        version: 2.0.0
-      hexo-util:
-        specifier: ^3.0.1
-        version: 3.0.1
-      hexo-wordcount:
-        specifier: ^6.0.1
-        version: 6.0.1
-      markdown-it:
-        specifier: ^13.0.1
-        version: 13.0.1
-      markdown-it-abbr:
-        specifier: ^1.0.4
-        version: 1.0.4
-      markdown-it-container:
-        specifier: ^3.0.0
-        version: 3.0.0
-      markdown-it-deflist:
-        specifier: ^2.1.0
-        version: 2.1.0
-      markdown-it-emoji:
-        specifier: ^2.0.2
-        version: 2.0.2
-      markdown-it-footnote:
-        specifier: ^3.0.3
-        version: 3.0.3
-      markdown-it-imsize:
-        specifier: ^2.0.1
-        version: 2.0.1
-      markdown-it-ins:
-        specifier: ^3.0.1
-        version: 3.0.1
-      markdown-it-mark:
-        specifier: ^3.0.1
-        version: 3.0.1
-      markdown-it-regexp:
-        specifier: ^0.4.0
-        version: 0.4.0
-      markdown-it-sub:
-        specifier: ^1.0.0
-        version: 1.0.0
-      markdown-it-sup:
-        specifier: ^1.0.0
-        version: 1.0.0
-      markdown-it-task-checkbox:
-        specifier: ^1.0.6
-        version: 1.0.6
-    devDependencies:
-      husky:
-        specifier: ^8.0.3
-        version: 8.0.3
-      lint-staged:
-        specifier: ^13.2.1
-        version: 13.2.1
-      minify-xml:
-        specifier: ^3.4.0
-        version: 3.4.0
-      prettier:
-        specifier: ^2.8.8
-        version: 2.8.8
-
-  lib/hexo-forme: {}
+devDependencies:
+  husky:
+    specifier: ^8.0.3
+    version: 8.0.3
+  lint-staged:
+    specifier: ^13.2.1
+    version: 13.2.1
+  minify-xml:
+    specifier: ^3.4.0
+    version: 3.4.0
+  prettier:
+    specifier: ^2.8.8
+    version: 2.8.8
 
 packages:
 
@@ -1801,7 +1794,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001481
-      electron-to-chromium: 1.4.372
+      electron-to-chromium: 1.4.374
       node-releases: 2.0.10
       update-browserslist-db: 1.0.11(browserslist@4.21.5)
     dev: false
@@ -2436,8 +2429,8 @@ packages:
       jake: 10.8.5
     dev: false
 
-  /electron-to-chromium@1.4.372:
-    resolution: {integrity: sha512-MrlFq/j+TYHOjeWsWGYfzevc25HNeJdsF6qaLFrqBTRWZQtWkb1myq/Q2veLWezVaa5OcSZ99CFwTT4aF4Mung==}
+  /electron-to-chromium@1.4.374:
+    resolution: {integrity: sha512-dNP9tQNTrjgVlSXMqGaj0BdrCS+9pcUvy5/emB6x8kh0YwCoDZ0Z4ce1+7aod+KhybHUd5o5LgKrc5al4kVmzQ==}
     dev: false
 
   /emoji-regex@8.0.0:
@@ -3992,7 +3985,7 @@ packages:
       log-update: 4.0.0
       p-map: 4.0.0
       rfdc: 1.3.0
-      rxjs: 7.8.0
+      rxjs: 7.8.1
       through: 2.3.8
       wrap-ansi: 7.0.0
     dev: true
@@ -5145,8 +5138,8 @@ packages:
       fsevents: 2.3.2
     dev: false
 
-  /rxjs@7.8.0:
-    resolution: {integrity: sha512-F2+gxDshqmIub1KdvZkaEfGDwLNpPvk9Fs6LD/MyQxNgMds/WH9OdDDXOmxUZpME+iSK3rQCctkL0DYyytUqMg==}
+  /rxjs@7.8.1:
+    resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
     dependencies:
       tslib: 2.5.0
     dev: true

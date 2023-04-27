@@ -97,14 +97,15 @@ name: Hexo # 名称随意
 
 **注意**：**windows**可能会因为文件名编码问题导致不能用中文（猜的，我也不知道，总之建议 wsl）
 
-### 自定义插件黑科技
+### 自定义插件黑科技(或直接用脚本)
 
 在博客目录下（或者其他地方也行，不过推荐博客目录）创建一个新的`nodejs`项目，至少要包含`package.json`与`index.js`文件。同时项目名称（package.js 中定义的）要为 **hexo** 开头，就像其他插件那样。
 
 博客项目安装子项目，这个网上有很多方案，我选择 pnpm 方案，这里不细说，可以 `search the fucking web` 或者研究下我的项目构成：
 
-- [我的博客](https://github.com/lz37/lz37.github.io)
 - [noveler](https://github.com/lz37/noveler)
+
+> 可以不使用子项目方案，直接在博客下面开一个 script 目录，写 js 文件也一样，代码是相同的
 
 然后就可以在`index.js`里编写插件代码了，API 参考 [Hexo: API](https://hexo.io/zh-cn/api/).
 
