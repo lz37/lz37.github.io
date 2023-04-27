@@ -8,8 +8,7 @@
     "clean": "hexo clean",
     "deploy": "hexo deploy",
     "server": "hexo server",
-    "lint-staged": "lint-staged",
-    "minify-xml": ".scripts/minify-xml"
+    "lint-staged": "lint-staged"
   },
   "hexo": {
     "version": "6.3.0"

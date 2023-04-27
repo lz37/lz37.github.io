@@ -1,14 +1,7 @@
-// function(exports, require, module, __filename, __dirname, hexo)
 const reg = /```mermaid([\s\S]+?)```/g
-/** @type {import("hexo")} */
 hexo.extend.filter.register(
   'before_post_render',
   (data) => {
-    const categoryPerImg = hexo.theme.config.category_per_img
-    if (data.layout === 'post') {
-      data.cover = categoryPerImg[data.categories.data[0].name]
-      data.top_img = categoryPerImg[data.categories.data[0].name]
-    }
     /**@type {boolean} */
     const useMermaid = data.mermaid ?? true
     if (useMermaid) {
