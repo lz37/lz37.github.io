@@ -8,7 +8,8 @@
     "clean": "hexo clean",
     "deploy": "hexo deploy",
     "server": "hexo server",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "minify-xml": "scripts/minify-xml"
   },
   "hexo": {
     "version": "6.3.0"
@@ -17,6 +18,7 @@
   "dependencies": {
     "@neilsustc/markdown-it-katex": "^1.0.0",
     "hexo": "^6.3.0",
+    "hexo-clean-css": "^2.0.0",
     "hexo-filter-date-from-git": "^0.1.2",
     "hexo-forme": "workspace:^",
     "hexo-fs": "^4.1.1",
@@ -27,6 +29,7 @@
     "hexo-generator-search": "^2.4.3",
     "hexo-generator-sitemap": "^3.0.1",
     "hexo-generator-tag": "^2.0.0",
+    "hexo-html-minifier": "^1.0.0",
     "hexo-offline": "^2.0.1",
     "hexo-renderer-ejs": "^2.0.0",
     "hexo-renderer-markdown-it": "^7.0.0",
@@ -34,6 +37,7 @@
     "hexo-renderer-stylus": "^2.1.0",
     "hexo-server": "^3.0.0",
     "hexo-theme-butterfly": "^4.8.1",
+    "hexo-uglify": "^2.0.0",
     "hexo-util": "^3.0.1",
     "hexo-wordcount": "^6.0.1",
     "markdown-it": "^13.0.1",
@@ -53,6 +57,7 @@
   "devDependencies": {
     "husky": "^8.0.3",
     "lint-staged": "^13.2.1",
+    "minify-xml": "^3.4.0",
     "prettier": "^2.8.8"
   }
 }

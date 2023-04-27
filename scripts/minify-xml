@@ -1,0 +1,8 @@
+#!/bin/sh
+for file in `ls public/*.xml`
+do
+    if [ "$file" = "public/search.xml" ];then
+        continue
+    fi
+    minify-xml --in-place $file
+done
