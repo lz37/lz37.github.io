@@ -3,7 +3,7 @@
 # --------------------------------------
 
 nav:
-  logo: /icons/android-chrome-512x512.png
+  logo: /favicon.ico
   display_title: true
   fixed: false # fixed navigation bar
 
