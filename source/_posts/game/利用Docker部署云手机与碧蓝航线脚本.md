@@ -66,6 +66,10 @@ sudo pacman -S scrcpy
 yay -S qtscrcpy guiscrcpy # 选一个安装就行，或者都不安装，就用命令行
 ```
 
+### 内核
+
+其他的发行版可能需要解决内核问题，Manjaro 实测不需要管。
+
 ## 部署云手机
 
 这里要使用一个叫做 Redroid 的镜像，我们使用 docker-compose 基于这个镜像构建容器。
@@ -180,7 +184,7 @@ cd AzurLaneAutoScript
 # 而且本人使用podman并没有成功启动
 podman-compose up
 # 我使用的还是docker
-# 没有自启动需求的可以不加 -d
+# 没有自启动需求的可以不加 -d, 但是记得要自启得在compose文件加restart: always
 docker compose up -d
 ```
 
