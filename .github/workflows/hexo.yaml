@@ -21,6 +21,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
+      - name: test secret
+        env:
+          hello: ${{ secrets.HELLO_WORLD }}
+        run: echo $hello
       - name: Install dependencies
         run: pnpm install
       - name: Clean
