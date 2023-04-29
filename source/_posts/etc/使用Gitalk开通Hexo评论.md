@@ -134,6 +134,7 @@ hexo.extend.filter.register(
     hexo.theme.config.gitalk.client_secret = process.env.gitalk_secret
   },
   0,
+)
 ```
 
 最后到对应的仓库的 `Settings` -> `Secrets and variables` -> `Actions` 点击 `New repository secret` 添加 `GITALK_ID` 和 `GITALK_SECRET` 两个变量，分别填写上面申请的 id 和密钥。
