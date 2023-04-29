@@ -6,6 +6,8 @@ hexo.extend.filter.register(
   async () => {
     if (!isGen) return
     const publicPath = hexo.public_dir
+    // 判断是否存在
+    if (!fs.existsSync(publicPath)) return
     const expectXMLs = ['baidusitemap', 'browserconfig', 'sitemap']
       .map((file) => `${file}.xml`)
       .map((file) => path.join(publicPath, file))
