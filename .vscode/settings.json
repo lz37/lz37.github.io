@@ -21,6 +21,10 @@
     "xprofile",
     "xwayland"
   ],
+  // 后缀名映射
+  "files.associations": {
+    "*.imgbotconfig": "jsonc"
+  },
   "[markdown]": {
     "editor.tabSize": 4,
     // 不允许检测自动检测缩进
