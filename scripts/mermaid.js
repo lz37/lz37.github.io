@@ -3,7 +3,7 @@ hexo.extend.filter.register(
   'before_post_render',
   (data) => {
     /**@type {boolean} */
-    const useMermaid = data.mermaid ?? true
+    const useMermaid = data.mermaid
     if (useMermaid) {
       // 替换
       data.content = data.content.replace(reg, (_, codeBlockContent) => {
@@ -11,6 +11,7 @@ hexo.extend.filter.register(
       ${codeBlockContent}
       {% endmermaid %}`
       })
+      hexo.log.info(`Generated: mermaid of ${data.title}`)
     }
   },
   0,

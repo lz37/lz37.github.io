@@ -12,7 +12,7 @@ hexo.extend.filter.register(
       .map((file) => `${file}.xml`)
       .map((file) => path.join(publicPath, file))
     for (const file of expectXMLs) {
-      hexo.log.info(`Minified ${file}`)
+      hexo.log.info(`Minified: ${file}`)
       const xml = fs.readFileSync(file)
       const minifiedXml = minify(xml)
       fs.writeFileSync(file, minifiedXml)

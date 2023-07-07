@@ -19,7 +19,6 @@ copyright_info:
 katex: false
 highlight_shrink:
 aside:
-mermaid: false
 ---
 
 建议在看此篇文章之前弄懂什么是 CI/CD（持续集成），并拥有一定的 NodeJS 基础知识。

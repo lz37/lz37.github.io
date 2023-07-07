@@ -20,7 +20,6 @@ katex:
 highlight_shrink:
 aside:
 sticky:
-mermaid: false
 ---
 
 ## 问题
