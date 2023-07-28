@@ -215,7 +215,7 @@ footer:
   owner:
     enable: true
     since: 2022
-  custom_text: enjoy it :)
+  custom_text: 苏ICP备20230222124号-1
   copyright: true # Copyright of theme and framework
 
 # aside (側邊欄)
