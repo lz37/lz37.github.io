@@ -36,6 +36,7 @@
       "other": "on",
       "comments": "off",
       "strings": "off"
-    }
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }
