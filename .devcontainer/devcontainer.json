@@ -27,11 +27,6 @@
       "type": "bind"
     },
     {
-      "source": "${localEnv:HOME}/.config/git/config",
-      "target": "/home/vscode/.gitconfig",
-      "type": "bind"
-    },
-    {
       "source": "${localEnv:HOME}/.local/share/pnpm/store/v3",
       "target": "/workspaces/lz37.github.io/.pnpm-store/v3",
       "type": "bind"

@@ -32,7 +32,7 @@ docker 程序正常的用户可以跳过上一步。
 
 总体使用下来，NixOS 不愧于又新又稳，除了 docker 因为其官方的问题存有 Bug 以外，其他方面的完美程度可以说达到了 90%，几乎就是我理想中的发行版。
 
-比如，在 Ubuntu 或者 Manjaro 上，Waydroid 的多窗口模式几乎是依托答辩（以前是这样的，所以我基本就不用多窗口模式了），只要来回切换一次之后，多窗口的标题栏和窗口主题就要分离了，而在 NixOS 上就来回随便切，不怕崩。
+比如，在 Ubuntu 或者 Manjaro 上，Waydroid 的多窗口模式几乎是依托答辩（以前是这样的，所以我基本就不用多窗口模式了），只要来回切换一次之后，多窗口的标题栏和窗口主体就要分离了，而在 NixOS 上就来回随便切，不怕崩。
 
 又比如，Arch 或者说 Manjaro 上的 Jellyfin Media Player 无法正常连接到服务器，只有 flatpak 下的才可以正常使用，而 NixOS 上的 Jellyfin Media Player 就可以流畅使用。
 
@@ -132,6 +132,8 @@ _以上内容复制自[官网](https://marketplace.visualstudio.com/items?itemNa
 
 简单来说就是让容器以 host 网络模式跑起来，这样就可以通过 127.0.0.1 访问到主机了，从而可以连接到主机的代理端口。
 
+Windows 和 MacOS 下的话就不清楚了，毕竟 Windows 和 MacOS 的 docker 跑不了 host 模式
+
 #### 挂载
 
 挂载分为两个格式：
@@ -151,11 +153,6 @@ _以上内容复制自[官网](https://marketplace.visualstudio.com/items?itemNa
       "type": "bind"
     },
     {
-      "source": "${localEnv:HOME}/.config/git/config",
-      "target": "/home/vscode/.gitconfig",
-      "type": "bind"
-    },
-    {
       "source": "${localEnv:HOME}/.local/share/pnpm/store/v3",
       "target": "/workspaces/lz37.github.io/.pnpm-store/v3",
       "type": "bind"
@@ -163,14 +160,70 @@ _以上内容复制自[官网](https://marketplace.visualstudio.com/items?itemNa
     // 字符串格式
     "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
     "source=${localEnv:HOME}/.wakatime.cfg,target=/home/vscode/.wakatime.cfg,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.config/git/config,target=/home/vscode/.gitconfig,type=bind,consistency=cached",
     "source=${localEnv:HOME}/.local/share/pnpm/store/v3,target=/workspaces/lz37.github.io/.pnpm-store/v3,type=bind,consistency=cached"
   ]
 }
 ```
 
-对象格式和字符串格式都是可以的，一般建议需要挂载 `.gitconfig` 和 `.ssh` 注意 `.gitconfig` 里有无引用到外部程序路径，开发容器里可能是没有的。
+对象格式和字符串格式都是可以的，一般建议需要挂载 `.ssh`。
 
 用到什么包管理的话建议把包管理的缓存目录也挂载进去，这样可以加快包的安装速度。
 
-以上就是 vscode `DevContainers` 插件的使用心得，希望对你有所帮助 :kissing_heart:
+#### 运行命令
+
+devcontainer.json：
+
+```json
+{
+  "postCreateCommand": "/workspaces/lz37.github.io/.devcontainer/postCreateCommand"
+}
+```
+
+postCreateCommand：
+
+```bash
+#!/bin/bash
+git config --global user.name "xxx"
+git config --global user.email "xxx@xxx.com"
+```
+
+这也可以进行 git 设置，但多人协作的时候还是不建议这样做，至少也得用 gitignore 忽略掉这个文件。
+
+不过能够运行命令就意味着可以整很多花活，有兴趣的可以自行研究。
+
+#### 全局配置
+
+我用到的全局配置如下
+
+```json
+{
+  "dev": {
+    "containers": {
+      "cacheVolume": true,
+      "copyGitConfig": true, // 默认只会复制 .gitconfig 文件，所以位置不为默认的话需要手动ln一下
+      "defaultExtensions": [
+        // 默认安装的插件，需要填写插件id
+        "streetsidesoftware.code-spell-checker",
+        "naumovs.color-highlight",
+        "GitHub.vscode-github-actions",
+        "GitHub.copilot",
+        "eamodio.gitlens",
+        "oderwat.indent-rainbow",
+        "yzhang.markdown-all-in-one",
+        "shd101wyy.markdown-preview-enhanced",
+        "DavidAnson.vscode-markdownlint",
+        "christian-kohler.path-intellisense",
+        "esbenp.prettier-vscode",
+        "WakaTime.vscode-wakatime",
+        "redhat.vscode-xml",
+        "redhat.vscode-yaml"
+      ],
+      "mountWaylandSocket": false
+    }
+  }
+}
+```
+
+只弄懂了其中的几个选项，这里权当提供参考
+
+以上就是我对 vscode `DevContainers` 插件的使用心得，希望对你有所帮助 :kissing_heart:
