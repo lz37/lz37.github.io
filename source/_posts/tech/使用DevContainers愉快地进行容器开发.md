@@ -118,7 +118,9 @@ _以上内容复制自[官网](https://marketplace.visualstudio.com/items?itemNa
 
 #### 代理
 
-如果要想开发容器的内部使用主机代理的话，可以进行如下配置：
+如果要想开发容器的内部使用主机代理的话，有如下两种方法：
+
+##### 方法一：host
 
 ```json
 {
@@ -133,6 +135,43 @@ _以上内容复制自[官网](https://marketplace.visualstudio.com/items?itemNa
 简单来说就是让容器以 host 网络模式跑起来，这样就可以通过 127.0.0.1 访问到主机了，从而可以连接到主机的代理端口。
 
 Windows 和 MacOS 下的话就不清楚了，毕竟 Windows 和 MacOS 的 docker 跑不了 host 模式
+
+##### 方法二：docker 代理（推荐）
+
+首先编辑 docker 的配置文件，默认配置路径为`~/.docker/config.json`
+
+```json
+{
+  "proxies": {
+    "default": {
+      "httpProxy": "http://172.17.0.1:7890",
+      "httpsProxy": "http://172.17.0.1:7890",
+      "noProxy": "localhost,127.0.0.1/8"
+    }
+  }
+}
+```
+
+注意地址的填写，这里填的是 docker0 网络的网关地址，docker0 网关地址一般是`172.17.0.1`，但预防万一还是最好运行`ifconfig`命令查看一下：
+
+```bash
+❯ ifconfig
+# ...
+docker0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        inet6 fe80::42:c8ff:fe18:486a  prefixlen 64  scopeid 0x20<link>
+        ether 02:42:c8:18:48:6a  txqueuelen 0  (Ethernet)
+        RX packets 7939  bytes 3925026 (3.7 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 8966  bytes 8627297 (8.2 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+# ...
+```
+
+下面的这种方法网络感觉不是很稳，但在多人协同的工程中，彼此的网络配置可以做到互不打扰。
+
+至于网络不稳，报错的话重试几下就好了。= =!
 
 #### 挂载
 

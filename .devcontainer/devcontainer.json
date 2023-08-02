@@ -10,12 +10,12 @@
       "version": "lts"
     }
   },
-  "runArgs": ["--network=host"],
-  "containerEnv": {
-    "HTTP_PROXY": "http://127.0.0.1:7890",
-    "HTTPS_PROXY": "http://127.0.0.1:7890"
-  },
   "mounts": [
+    {
+      "source": "${localEnv:HOME}/.config/git/personal",
+      "target": "/home/vscode/.gitconfig",
+      "type": "bind"
+    },
     {
       "source": "${localEnv:HOME}/.ssh",
       "target": "/home/vscode/.ssh",
