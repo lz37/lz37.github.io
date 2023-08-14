@@ -44,6 +44,8 @@ docker 程序正常的用户可以跳过上一步。
 
 不过好在还有 docker，使用 docker 起一个支持 FHS 的发行版，可以较为轻松地解决这个问题（优不优雅另说:yum:
 
+~~经过一段时间的尝试，发现如果是仅仅为了在 nixos 下的 FHS 环境的话，docker 并不是一个较为完美的解决方案。详情参见 [nixos 的 fhs 环境](/2023/nixos-%E7%9A%84-fhs-%E7%8E%AF%E5%A2%83/)~~
+
 ## Visual Studio Code Dev Containers
 
 The **Dev Containers** extension lets you use a [Docker container](https://www.docker.com/) as a full-featured development environment. Whether you deploy to containers or not, containers make a great development environment because you can:

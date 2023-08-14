@@ -30,13 +30,13 @@
     "hexo-html-minifier": "^1.0.0",
     "hexo-offline": "^2.0.1",
     "hexo-renderer-ejs": "^2.0.0",
-    "hexo-renderer-markdown-it": "^7.0.0",
+    "hexo-renderer-markdown-it": "^7.1.0",
     "hexo-renderer-pug": "^3.0.0",
     "hexo-renderer-stylus": "^2.1.0",
     "hexo-server": "^3.0.0",
-    "hexo-theme-butterfly": "^4.8.1",
+    "hexo-theme-butterfly": "^4.9.0",
     "hexo-uglify": "^2.0.0",
-    "hexo-util": "^3.0.1",
+    "hexo-util": "^3.1.0",
     "hexo-wordcount": "^6.0.1",
     "markdown-it": "^13.0.1",
     "markdown-it-abbr": "^1.0.4",
@@ -54,8 +54,8 @@
   },
   "devDependencies": {
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.2",
-    "minify-xml": "^3.4.0",
+    "lint-staged": "^13.3.0",
+    "minify-xml": "^3.5.0",
     "prettier": "^2.8.8"
   }
 }
