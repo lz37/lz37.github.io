@@ -230,7 +230,7 @@ in
       p10k segment -f 208 -t 'FHS'
     fi
   }
-  # end custo
+  # end custom
 ```
 
 然后在 `POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS` 或者 `POWERLEVEL9K_LEFT_PROMPT_ELEMENTS` 中对应的位置添加 fhs 即可。
