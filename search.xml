@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>NixOS下的 DevBox 使用</title>
+      <link href="/2023/nixos%E4%B8%8B%E7%9A%84-devbox-%E4%BD%BF%E7%94%A8/"/>
+      <url>/2023/nixos%E4%B8%8B%E7%9A%84-devbox-%E4%BD%BF%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[<p>之前在<a href="https://www.zerozawa.top/2023/nixos-%E7%9A%84-fhs-%E7%8E%AF%E5%A2%83/index.html">NixOS 的 FHS 环境</a>中讲过，如何在 NixOS 中实现 FHS 环境，目的是为了使用以前一直用的 nvm、goenv、sdkmannager 等工具，因为这些工具大多都是依附于 POSIX 标准而工作的。</p><p>当时也不是没有想过使用项目级别的 mkshell 方案，但是 nixos 提供的软件包默认是最新的，无法指定详细的版本号。（除非在 flake 中指定 nixpkgs 的 sha256，但这样无疑十分麻烦）</p><p>不过好在有一个工具实现了使用版本号下载 nixpkgs 的功能，并且可以做到类似 nvm 的不同项目间的版本切换，那就是 <a href="https://www.jetpack.io/devbox">devbox</a></p><p>此工具的使用方法十分简单，由于内核使用 nix 包管理器，因此在 nixos 上直接下载就好。</p><h2 id="安装"><a class="header-anchor" href="#安装"></a>安装</h2><p><a href="https://www.jetpack.io/devbox/docs/installing_devbox/">Installing Devbox</a></p><p>NixOS 上建议直接添加到 <code>environment.systemPackages</code> 中，或者使用 <code>home-manager</code> 也可以。</p><h2 id="使用"><a class="header-anchor" href="#使用"></a>使用</h2><p>摸索下来，最常用的功能如下：</p><ul><li><code>devbox init</code>: 为项目初始化 devbox, 运行后项目目录下会出现 <code>devbox.json</code> 文件，可以直接在文件中添加要使用的软件包，也可以像 npm 之类的包管理器一样使用 <code>devbox add</code> 添加软件包。</li><li><code>devbox add</code>: 添加软件包，软件包名可以使用 <code>dev search</code> 进行搜索，后面可以跟有 <code>@xxx</code> 指定版本号，如 <code>devbox add nodePackages.pnpm@8.6.12</code></li><li><code>dev search</code>: 搜索软件包</li><li><code>dev rm</code>: 删除软件包</li><li><code>devbox generate direnv</code>: 自动为 <code>direnv</code> 生成 <code>.envrc</code> 钩子，安装配置好 <code>direnv</code> 之后进入目录自动载入环境。</li><li><code>devbox shell</code>: 手动进入环境终端</li><li><code>devbox run</code>: 手动运行命令（在 <code>devbox.json</code> 中 <code>shell.scripts</code> 字段下手动添加 script，类似 <code>node</code> 的 <code>package.json</code> 中的 <code>scripts</code>）</li></ul><h2 id="CI-CD"><a class="header-anchor" href="#CI-CD"></a>CI/CD</h2><p>github action 也有 devbox 对应的插件，然而 devbox 在 github action 的小云主机上安装太慢（本身安装很快，但安装 node 的时候半个小时都没有完成，估计是远程没有缓存而本地编译了），所以在 cicd 的阶段建议还是使用其他的包管理器。</p><p>不过要注意 devbox 本身不提供 fhs 环境能力，只是一个简化的项目级别的 nixpkgs 下载器和环境配置器而已，像需要 fhs 的工具还是需要另外配置。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> tech </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Nix </tag>
+            
+            <tag> NixOS </tag>
+            
+            <tag> DevBox </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>SmartDNS 配合 Clash 提升上网速度</title>
       <link href="/2023/smartdns-%E9%85%8D%E5%90%88-clash-%E6%8F%90%E5%8D%87%E4%B8%8A%E7%BD%91%E9%80%9F%E5%BA%A6/"/>
       <url>/2023/smartdns-%E9%85%8D%E5%90%88-clash-%E6%8F%90%E5%8D%87%E4%B8%8A%E7%BD%91%E9%80%9F%E5%BA%A6/</url>
@@ -20,9 +49,9 @@
       
         <tags>
             
-            <tag> NixOS </tag>
-            
             <tag> Nix </tag>
+            
+            <tag> NixOS </tag>
             
             <tag> SmartDNS </tag>
             
@@ -51,9 +80,9 @@
       
         <tags>
             
-            <tag> NixOS </tag>
-            
             <tag> Nix </tag>
+            
+            <tag> NixOS </tag>
             
         </tags>
       
