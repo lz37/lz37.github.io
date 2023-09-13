@@ -13,11 +13,11 @@ jobs:
       - name: Install devbox
         uses: jetpack-io/devbox-install-action@v0.6.0
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: devbox run install
       - name: Clean
-        run: pnpm run clean
+        run: devbox run clean
       - name: Build
-        run: pnpm run build
+        run: devbox run build
         env:
           gitalk_id: ${{ secrets.GITALK_ID }}
           gitalk_secret: ${{ secrets.GITALK_SECRET }}
