@@ -52,8 +52,8 @@ aside:
 - [MoeDNS(国内无污染)](https://t.me/s/NyarimeW?before=3980): quic://pdns.itxe.net:853
 - [产品人笔记(国内无污染)](https://apad.pro/dns-doh/): <https://doh.apad.pro/dns-query>
 
-国外以及无污染 dns 最好还是选择 tls 或者 https 连接方式，避免被劫持，就算想要使用 udp,也最好是使用 ipv6 地址，猜测可能污染会少些。
+国外以及无污染 dns 最好还是选择 tls 或者 https 连接方式，避免被劫持，就算想要使用 udp，也最好是使用 ipv6 地址，猜测可能污染会少些。
 
-尽量使用大公司的 dns,大公司的 dns 服务器通常会遍布各个国家和地区，这样在使用代理时也会自动访问就近的 dns 服务器，免得代理自动切换到日本，dns 还是新加坡的，这就尴尬了。
+尽量使用大公司的 dns，大公司的 dns 服务器通常会遍布各个国家和地区，这样在使用代理时也会自动访问就近的 dns 服务器，免得代理自动切换到日本，dns 还是新加坡的，这就尴尬了。
 
-如此多的公共 dns 服务器，想原生充分利用几乎是不可能的，推荐配置 smartdns/mosdns + 梯子 进行分流,smartdns 全走国内,置为国内分流的上游 dns,国外 dns 置为国外分流的上游 dns,软件支持的话建议开启并行查询.
+如此多的公共 dns 服务器，想原生充分利用几乎是不可能的，推荐配置 (smartdns + clash)/mosdns 进行分流, smartdns 全走国内，置为国内分流的上游 dns，国外 dns 置为国外分流的上游 dns，软件支持的话建议开启并行查询.
