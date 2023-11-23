@@ -1,5 +1,5 @@
 ---
-title: TrueNAS SCALE 使用K8S安装portainer管理docker
+title: TrueNAS SCALE 使用 K8S 安装 portainer 管理 docker
 categories: nas
 tags:
   - TrueNAS SCALE
@@ -40,7 +40,7 @@ aside:
 
 然而这个方法也有缺点，那就是吃大量存储的服务还是得运行在 truenas 上，比如数据库等。而且远程文件系统对于有些 docker 应用使用的本地 db 来说不是很友好，会吃掉很多的网络 io，还得是得折衷将部分数据放在其他虚拟机的本地 volume 里。而且脑袋里总萦绕着 “truenas 都已经吃了这么多内存了，那何不把其他虚拟机停掉，服务统一放在 truenas 里呢？” 这种想法，非常想要折腾一番。
 
-好在搜到了[Sagit](https://www.truenasscale.com/)大佬的博客，顺利地在 truenas 上开启了 portainer.
+好在搜到了 [Sagit](https://www.truenasscale.com/) 大佬的博客，顺利地在 truenas 上开启了 portainer.
 
 ## 操作
 
@@ -210,7 +210,7 @@ k3s kubectl get pod -n portainer
 
 点击确认，就可以进入 docker 环境了。
 
-不过实现提到过，truenas 是禁用了 docker 的 bridge 网络的，无法再以经典方式配置 docker 网络，而是只能转向于 macvlan.
+不过之前提到过，truenas 是禁用了 docker 的 bridge 网络的，无法再以经典方式配置 docker 网络，而是只能转向于 macvlan.
 
 回到 truenas 命令行，创建 macvlan.
 
