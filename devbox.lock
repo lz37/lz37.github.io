@@ -1,15 +1,65 @@
 {
   "lockfile_version": "1",
   "packages": {
-    "nodePackages.pnpm@8.6.12": {
-      "last_modified": "2023-09-10T10:53:27Z",
-      "resolved": "github:NixOS/nixpkgs/78058d810644f5ed276804ce7ea9e82d92bee293#nodePackages.pnpm",
-      "version": "8.6.12"
+    "imagemagick@latest": {
+      "last_modified": "2024-02-26T19:46:43Z",
+      "resolved": "github:NixOS/nixpkgs/548a86b335d7ecd8b57ec617781f5e652ab0c38e#imagemagick",
+      "source": "devbox-search",
+      "version": "7.1.1-28",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/zbqsbjh7vnkia3v2q0c0cs96l2qdjxx2-imagemagick-7.1.1-28"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/3r9js4pi6imwcn1mj8c54z5xqd3r0jzr-imagemagick-7.1.1-28"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/bqw3aqg5w1nhzy1mam0xsspc4dw5gr3p-imagemagick-7.1.1-28"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/4hz763c5w2hnzm55ll5vgfgmrr6i9kgg-imagemagick-7.1.1-28"
+        }
+      }
+    },
+    "nodePackages.pnpm@latest": {
+      "last_modified": "2024-02-26T19:46:43Z",
+      "resolved": "github:NixOS/nixpkgs/548a86b335d7ecd8b57ec617781f5e652ab0c38e#nodePackages.pnpm",
+      "source": "devbox-search",
+      "version": "8.15.3",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/5r4f8l7man6wafyzxd39pbndkw7hklh6-pnpm-8.15.3"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/p6qla4nnfhfqj8gm7609bnynx1vfcfpb-pnpm-8.15.3"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/7zxfp8n1987076069vd6rqxvcd3hrv4n-pnpm-8.15.3"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/jxyv7qildiy960h194h4ca3wharbbpks-pnpm-8.15.3"
+        }
+      }
     },
     "nodejs@18.15": {
-      "last_modified": "2023-04-21T20:43:26Z",
-      "resolved": "github:NixOS/nixpkgs/2362848adf8def2866fabbffc50462e929d7fffb#nodejs",
-      "version": "18.15.0"
+      "last_modified": "2023-04-13T03:55:09Z",
+      "resolved": "github:NixOS/nixpkgs/96ba1c52e54e74c3197f4d43026b3f3d92e83ff9#nodejs",
+      "source": "devbox-search",
+      "version": "18.15.0",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/0a9p2rmfhcsw1mz3ys77cnxyfvjlzq6b-nodejs-18.15.0"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/my02hgrhx4hihcyljb508nlfil5n2ipj-nodejs-18.15.0"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/m9sy0b4v9m5g3sgmkd6n3ld6pl8dpx9c-nodejs-18.15.0"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/njh6p007ymbmcgas5l7sqqxfmm394zx1-nodejs-18.15.0"
+        }
+      }
     }
   }
 }
