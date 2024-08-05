@@ -1,12 +1,10 @@
 {
   "packages": [
-    "nodePackages.pnpm@8.6.12",
-    "nodejs@18.15"
+    "nodePackages.pnpm@latest",
+    "nodejs@18.15",
+    "imagemagick@latest"
   ],
   "shell": {
     "init_hook": null
-  },
-  "nixpkgs": {
-    "commit": "f80ac848e3d6f0c12c52758c0f25c10c97ca3b62"
   }
 }

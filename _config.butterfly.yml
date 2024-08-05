@@ -83,6 +83,8 @@ category_per_img:
   algorithm: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_94748376_p0_ヒトこもる_舞獅.jpg
   beautify: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_96145490_p0_ヒトこもる_暁旦.jpg
   game: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_89532340_p0_ヒトこもる_🌒.jpg
+  nas: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_80562260_p0_ヒトこもる_no%20title.jpg
+  languages: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_89703294_p0_ヒトこもる_🩸.jpg
 
 cover:
   # display the cover or not (是否顯示文章封面)

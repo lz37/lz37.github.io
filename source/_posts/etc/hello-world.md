@@ -160,7 +160,7 @@ os.system('gulp build')
 os.system('hexo deploy')
 ```
 
-顺带一提，自动更新船舰时间和更新时间只要安装`hexo-filter-date-from-git`这个包就可以。
+顺带一提，自动更新创建时间和更新时间只要安装`hexo-filter-date-from-git`这个包就可以。
 
 ```python
 os.system('hexo clean')

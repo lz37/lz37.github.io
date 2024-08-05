@@ -10,18 +10,27 @@
     "Fcitx",
     "gitalk",
     "Imgbot",
+    "itxe",
     "jsdelivr",
+    "katex",
     "lintstagedrc",
+    "ndppd",
+    "opendns",
+    "openwrt",
     "pacman",
     "pangu",
+    "pdns",
     "ptsd",
     "Redroid",
     "Scrcpy",
+    "tiar",
+    "twnic",
     "Wemeet",
     "wemeetapp",
     "xorg",
     "xprofile",
-    "xwayland"
+    "xwayland",
+    "zerotier"
   ],
   // 后缀名映射
   "files.associations": {
