@@ -215,7 +215,7 @@ footer:
   owner:
     enable: true
     since: 2022
-  custom_text: 苏ICP备20230222124号-1
+  custom_text: <a href="https://beian.miit.gov.cn/">苏ICP备20230222124号-1</a>
   copyright: true # Copyright of theme and framework
 
 # aside (側邊欄)
