@@ -915,6 +915,12 @@ inject:
   bottom:
     # - <script src="xxxx"></script>
 
+series:
+   enable: true
+   orderBy: 'title' # Order by title or date
+   order: 1 # Sort of order. 1, asc for ascending; -1, desc for descending
+   number: true
+
 # CDN
 # Don't modify the following settings unless you know how they work
 # 非必要請不要修改

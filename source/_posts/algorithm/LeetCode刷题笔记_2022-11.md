@@ -17,7 +17,10 @@ katex:
 highlight_shrink:
 aside:
 sticky:
+series: LeetCode刷题笔记
 ---
+
+{% series %}
 
 ### [345] Reverse Vowels of a String
 

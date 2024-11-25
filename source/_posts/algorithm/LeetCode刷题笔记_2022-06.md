@@ -17,7 +17,10 @@ katex:
 highlight_shrink:
 aside:
 sticky:
+series: LeetCode刷题笔记
 ---
+
+{% series %}
 
 ### [461] 汉明距离
 

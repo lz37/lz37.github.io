@@ -17,7 +17,10 @@ katex:
 highlight_shrink:
 aside:
 sticky:
+series: LeetCode刷题笔记
 ---
+
+{% series %}
 
 蓝桥杯的省赛拿到了一等奖，顺利进入国赛，于是又要刷题了……
 

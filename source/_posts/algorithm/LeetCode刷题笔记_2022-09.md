@@ -17,7 +17,10 @@ katex:
 highlight_shrink:
 aside:
 sticky:
+series: LeetCode刷题笔记
 ---
+
+{% series %}
 
 ### [1475] 商品折扣后的最终价格
 

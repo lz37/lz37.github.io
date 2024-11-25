@@ -7,7 +7,7 @@ settings:
 dependencies:
   '@neilsustc/markdown-it-katex':
     specifier: ^1.0.0
-    version: registry.npmmirror.com/@neilsustc/markdown-it-katex@1.0.0(katex@0.16.8)(markdown-it@13.0.1)
+    version: registry.npmmirror.com/@neilsustc/markdown-it-katex@1.0.0(katex@0.16.9)(markdown-it@13.0.1)
   hexo:
     specifier: ^6.3.0
     version: registry.npmmirror.com/hexo@6.3.0
@@ -63,8 +63,8 @@ dependencies:
     specifier: ^3.0.0
     version: registry.npmmirror.com/hexo-server@3.0.0
   hexo-theme-butterfly:
-    specifier: ^4.9.0
-    version: registry.npmmirror.com/hexo-theme-butterfly@4.9.0
+    specifier: ^4.13.0
+    version: 4.13.0
   hexo-uglify:
     specifier: ^2.0.0
     version: registry.npmmirror.com/hexo-uglify@2.0.0
@@ -130,10 +130,216 @@ devDependencies:
 
 packages:
 
-  registry.npmmirror.com/@adobe/css-tools@4.3.1:
-    resolution: {integrity: sha512-/62yikz7NLScCGAAST5SHdnjaDJQBDq0M2muyRTpf2VQhw6StBg2ALiu73zSJQ4fMVLA+0uBhBHAle7Wg+2kSg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@adobe/css-tools/-/css-tools-4.3.1.tgz}
-    name: '@adobe/css-tools'
-    version: 4.3.1
+  /@adobe/css-tools@4.3.3:
+    resolution: {integrity: sha512-rE0Pygv0sEZ4vBWHlAgJLGDU7Pm8xoO6p3wsEceb7GYAjScrOHpEo8KK/eVkAcnSM+slAEtXjA2JpdjLp4fJQQ==}
+    dev: false
+
+  /balanced-match@1.0.2:
+    resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+    dev: false
+
+  /bindings@1.5.0:
+    resolution: {integrity: sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==}
+    requiresBuild: true
+    dependencies:
+      file-uri-to-path: 1.0.0
+    dev: false
+    optional: true
+
+  /brace-expansion@1.1.11:
+    resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
+    dependencies:
+      balanced-match: 1.0.2
+      concat-map: 0.0.1
+    dev: false
+
+  /commander@8.3.0:
+    resolution: {integrity: sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==}
+    engines: {node: '>= 12'}
+    dev: false
+
+  /concat-map@0.0.1:
+    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    dev: false
+
+  /debug@4.3.4:
+    resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
+    engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+    dependencies:
+      ms: 2.1.2
+    dev: false
+
+  /file-uri-to-path@1.0.0:
+    resolution: {integrity: sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==}
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /fs.realpath@1.0.0:
+    resolution: {integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8=}
+    dev: false
+
+  /fsevents@1.2.13:
+    resolution: {integrity: sha512-oWb1Z6mkHIskLzEJ/XWX0srkpkTQ7vaopMQkyaEIoq0fmtFVxOthb8cCxeT+p3ynTdkk/RZwbgG4brR5BeWECw==}
+    engines: {node: '>= 4.0'}
+    os: [darwin]
+    deprecated: fsevents 1 will break on node v14+ and could be using insecure binaries. Upgrade to fsevents 2.
+    requiresBuild: true
+    dependencies:
+      bindings: 1.5.0
+      nan: 2.18.0
+    dev: false
+    optional: true
+
+  /fsevents@2.3.3:
+    resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /glob@7.2.3:
+    resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    dependencies:
+      fs.realpath: 1.0.0
+      inflight: 1.0.6
+      inherits: 2.0.4
+      minimatch: 3.1.2
+      once: 1.4.0
+      path-is-absolute: 1.0.1
+    dev: false
+
+  /graceful-fs@4.2.11:
+    resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /hexo-renderer-stylus@3.0.1:
+    resolution: {integrity: sha512-cFm8ZwShBBeFcQwOXc8EK7lIZnSYVD6OJykdL4GBw99hxc4eD5Hlsi32nRzE8sgKv00jhX1s9Da3GVVFMPAVQg==}
+    engines: {node: '>=14'}
+    dependencies:
+      nib: 1.2.0(stylus@0.62.0)
+      stylus: 0.62.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /hexo-theme-butterfly@4.13.0:
+    resolution: {integrity: sha512-k4ufTKDrvfer0EI1E6xU5JTgS471KRyXRgRBxoUdqpTVvtY8CUnFrzh0qcxjb5WMPOark8sTCgHn/sEDIaG3Kw==}
+    dependencies:
+      hexo-renderer-pug: registry.npmmirror.com/hexo-renderer-pug@3.0.0
+      hexo-renderer-stylus: 3.0.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /inflight@1.0.6:
+    resolution: {integrity: sha1-Sb1jMdfQLQwJvJEKEHW6gWW1bfk=}
+    dependencies:
+      once: 1.4.0
+      wrappy: 1.0.2
+    dev: false
+
+  /inherits@2.0.4:
+    resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
+    dev: false
+
+  /katex@0.16.9:
+    resolution: {integrity: sha512-fsSYjWS0EEOwvy81j3vRA8TEAhQhKiqO+FQaKWp0m39qwOzHVBgAUBIXWj1pB+O2W3fIpNa6Y9KSKCVbfPhyAQ==}
+    hasBin: true
+    dependencies:
+      commander: 8.3.0
+    dev: false
+
+  /minimatch@3.1.2:
+    resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
+    dependencies:
+      brace-expansion: 1.1.11
+    dev: false
+
+  /moment@2.29.4:
+    resolution: {integrity: sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==}
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /ms@2.1.2:
+    resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
+    dev: false
+
+  /mv@2.1.1:
+    resolution: {integrity: sha1-rmzg1vbV4KT32JN5jQPB6pVZtqI=}
+    engines: {node: '>=0.8.0'}
+    requiresBuild: true
+    dependencies:
+      mkdirp: registry.npmmirror.com/mkdirp@0.5.6
+      ncp: registry.npmmirror.com/ncp@2.0.0
+      rimraf: registry.npmmirror.com/rimraf@2.4.5
+    dev: false
+    optional: true
+
+  /nan@2.18.0:
+    resolution: {integrity: sha512-W7tfG7vMOGtD30sHoZSSc/JVYiyDPEyQVso/Zz+/uQd0B0L46gtC+pHha5FFMRpil6fm/AoEcRWyOVi4+E/f8w==}
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /nib@1.2.0(stylus@0.62.0):
+    resolution: {integrity: sha512-7HgrnMl/3yOmWykueO8/D0q+0iWwe7Z+CK2Eaq/xQV8w1hK80WN1oReRQkfkrztbAAnp/nTHkUSl5EcVkor6JQ==}
+    peerDependencies:
+      stylus: '*'
+    dependencies:
+      stylus: 0.62.0
+    dev: false
+
+  /once@1.4.0:
+    resolution: {integrity: sha1-WDsap3WWHUsROsF9nFC6753Xa9E=}
+    dependencies:
+      wrappy: 1.0.2
+    dev: false
+
+  /path-is-absolute@1.0.1:
+    resolution: {integrity: sha1-F0uSaHNVNP+8es5r9TpanhtcX18=}
+    engines: {node: '>=0.10.0'}
+    dev: false
+
+  /safe-json-stringify@1.2.0:
+    resolution: {integrity: sha512-gH8eh2nZudPQO6TytOvbxnuhYBOvDBBLW52tz5q6X58lJcd/tkmqFR+5Z9adS8aJtURSXWThWy/xJtJwixErvg==}
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /sax@1.3.0:
+    resolution: {integrity: sha512-0s+oAmw9zLl1V1cS9BtZN7JAd0cW5e0QH4W3LWEK6a4LaLEA2OTpGYWDY+6XasBLtz6wkm3u1xRw95mRuJ59WA==}
+    dev: false
+
+  /source-map@0.7.4:
+    resolution: {integrity: sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA==}
+    engines: {node: '>= 8'}
+    dev: false
+
+  /stylus@0.62.0:
+    resolution: {integrity: sha512-v3YCf31atbwJQIMtPNX8hcQ+okD4NQaTuKGUWfII8eaqn+3otrbttGL1zSMZAAtiPsBztQnujVBugg/cXFUpyg==}
+    hasBin: true
+    dependencies:
+      '@adobe/css-tools': 4.3.3
+      debug: 4.3.4
+      glob: 7.2.3
+      sax: 1.3.0
+      source-map: 0.7.4
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /wrappy@1.0.2:
+    resolution: {integrity: sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=}
     dev: false
 
   registry.npmmirror.com/@ampproject/remapping@2.2.1:
@@ -1650,7 +1856,7 @@ packages:
       '@jridgewell/sourcemap-codec': registry.npmmirror.com/@jridgewell/sourcemap-codec@1.4.15
     dev: false
 
-  registry.npmmirror.com/@neilsustc/markdown-it-katex@1.0.0(katex@0.16.8)(markdown-it@13.0.1):
+  registry.npmmirror.com/@neilsustc/markdown-it-katex@1.0.0(katex@0.16.9)(markdown-it@13.0.1):
     resolution: {integrity: sha512-2u21S69739IGrNA/Q2xfcurox5LFXq2sp3CPeqx7yDNjy3/SC8taL6QAIYxupRuEUPNS5+OXq9DmwcdKjs90pg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@neilsustc/markdown-it-katex/-/markdown-it-katex-1.0.0.tgz}
     id: registry.npmmirror.com/@neilsustc/markdown-it-katex/1.0.0
     name: '@neilsustc/markdown-it-katex'
@@ -1659,7 +1865,7 @@ packages:
       katex: '0'
       markdown-it: '>=6'
     dependencies:
-      katex: registry.npmmirror.com/katex@0.16.8
+      katex: 0.16.9
       markdown-it: registry.npmmirror.com/markdown-it@13.0.1
     dev: false
 
@@ -2188,16 +2394,6 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
-  registry.npmmirror.com/bindings@1.5.0:
-    resolution: {integrity: sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/bindings/-/bindings-1.5.0.tgz}
-    name: bindings
-    version: 1.5.0
-    requiresBuild: true
-    dependencies:
-      file-uri-to-path: registry.npmmirror.com/file-uri-to-path@1.0.0
-    dev: false
-    optional: true
-
   registry.npmmirror.com/bluebird@3.7.2:
     resolution: {integrity: sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/bluebird/-/bluebird-3.7.2.tgz}
     name: bluebird
@@ -2476,7 +2672,7 @@ packages:
       readdirp: registry.npmmirror.com/readdirp@2.2.1
       upath: registry.npmmirror.com/upath@1.2.0
     optionalDependencies:
-      fsevents: registry.npmmirror.com/fsevents@1.2.13
+      fsevents: 1.2.13
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -2495,7 +2691,7 @@ packages:
       normalize-path: registry.npmmirror.com/normalize-path@3.0.0
       readdirp: registry.npmmirror.com/readdirp@3.6.0
     optionalDependencies:
-      fsevents: registry.npmmirror.com/fsevents@2.3.3
+      fsevents: 2.3.3
     dev: false
 
   registry.npmmirror.com/class-utils@0.3.6:
@@ -2624,13 +2820,6 @@ packages:
     name: commander
     version: 5.1.0
     engines: {node: '>= 6'}
-    dev: false
-
-  registry.npmmirror.com/commander@8.3.0:
-    resolution: {integrity: sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/commander/-/commander-8.3.0.tgz}
-    name: commander
-    version: 8.3.0
-    engines: {node: '>= 12'}
     dev: false
 
   registry.npmmirror.com/common-tags@1.8.2:
@@ -3355,14 +3544,6 @@ packages:
     version: 2.1.0
     dev: false
 
-  registry.npmmirror.com/file-uri-to-path@1.0.0:
-    resolution: {integrity: sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz}
-    name: file-uri-to-path
-    version: 1.0.0
-    requiresBuild: true
-    dev: false
-    optional: true
-
   registry.npmmirror.com/filelist@1.0.4:
     resolution: {integrity: sha512-w1cEuf3S+DrLCQL7ET6kz+gmlJdbq9J7yXCSjK/OZCPA+qEN1WyF4ZAf0YYJa4/shHJra2t/d/r8SV4Ji+x+8Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/filelist/-/filelist-1.0.4.tgz}
     name: filelist
@@ -3466,30 +3647,6 @@ packages:
     name: fs.realpath
     version: 1.0.0
     dev: false
-
-  registry.npmmirror.com/fsevents@1.2.13:
-    resolution: {integrity: sha512-oWb1Z6mkHIskLzEJ/XWX0srkpkTQ7vaopMQkyaEIoq0fmtFVxOthb8cCxeT+p3ynTdkk/RZwbgG4brR5BeWECw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/fsevents/-/fsevents-1.2.13.tgz}
-    name: fsevents
-    version: 1.2.13
-    engines: {node: '>= 4.0'}
-    os: [darwin]
-    deprecated: The v1 package contains DANGEROUS / INSECURE binaries. Upgrade to safe fsevents v2
-    requiresBuild: true
-    dependencies:
-      bindings: registry.npmmirror.com/bindings@1.5.0
-      nan: registry.npmmirror.com/nan@2.18.0
-    dev: false
-    optional: true
-
-  registry.npmmirror.com/fsevents@2.3.3:
-    resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/fsevents/-/fsevents-2.3.3.tgz}
-    name: fsevents
-    version: 2.3.3
-    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
-    os: [darwin]
-    requiresBuild: true
-    dev: false
-    optional: true
 
   registry.npmmirror.com/function-bind@1.1.1:
     resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/function-bind/-/function-bind-1.1.1.tgz}
@@ -3765,9 +3922,9 @@ packages:
     deprecated: Please see https://github.com/hexojs/hexo-bunyan/issues/17
     hasBin: true
     optionalDependencies:
-      moment: registry.npmmirror.com/moment@2.29.4
-      mv: registry.npmmirror.com/mv@2.1.1
-      safe-json-stringify: registry.npmmirror.com/safe-json-stringify@1.2.0
+      moment: 2.29.4
+      mv: 2.1.1
+      safe-json-stringify: 1.2.0
     dev: false
 
   registry.npmmirror.com/hexo-clean-css@2.0.0:
@@ -4087,18 +4244,6 @@ packages:
       - supports-color
     dev: false
 
-  registry.npmmirror.com/hexo-renderer-stylus@3.0.0:
-    resolution: {integrity: sha512-wgKOcjUzq1i4Y70luoyYDbh91QeQcDzJO+v1598LgY+IdREFAm+vy1MWtl/TZsVXyPaEtsULNi3Vi22hdsPUSA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/hexo-renderer-stylus/-/hexo-renderer-stylus-3.0.0.tgz}
-    name: hexo-renderer-stylus
-    version: 3.0.0
-    engines: {node: '>=14'}
-    dependencies:
-      nib: registry.npmmirror.com/nib@1.2.0(stylus@0.59.0)
-      stylus: registry.npmmirror.com/stylus@0.59.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
   registry.npmmirror.com/hexo-server@3.0.0:
     resolution: {integrity: sha512-u4s0ty9Aew6jV+a9oMrXBwhrRpUQ0U8PWM/88a5aHgDru58VY81mVrxOFxs788NAsWQ8OvsJtF5m7mnXoRnSIA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/hexo-server/-/hexo-server-3.0.0.tgz}
     name: hexo-server
@@ -4113,17 +4258,6 @@ packages:
       open: registry.npmmirror.com/open@8.4.2
       picocolors: registry.npmmirror.com/picocolors@1.0.0
       serve-static: registry.npmmirror.com/serve-static@1.15.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
-  registry.npmmirror.com/hexo-theme-butterfly@4.9.0:
-    resolution: {integrity: sha512-/aWtJJm90s/Z8RnnJm3U1wH05KTNtUz49TS7Wk8ItPRt2L4+tSIh1h7PPslwEJ5YpNfQH9DUZ7eHf4SzBIQj1w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/hexo-theme-butterfly/-/hexo-theme-butterfly-4.9.0.tgz}
-    name: hexo-theme-butterfly
-    version: 4.9.0
-    dependencies:
-      hexo-renderer-pug: registry.npmmirror.com/hexo-renderer-pug@3.0.0
-      hexo-renderer-stylus: registry.npmmirror.com/hexo-renderer-stylus@3.0.0
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -4929,7 +5063,7 @@ packages:
     dependencies:
       universalify: registry.npmmirror.com/universalify@2.0.0
     optionalDependencies:
-      graceful-fs: registry.npmmirror.com/graceful-fs@4.2.11
+      graceful-fs: 4.2.11
     dev: false
 
   registry.npmmirror.com/jsonparse@1.3.1:
@@ -4953,15 +5087,6 @@ packages:
     dependencies:
       is-promise: registry.npmmirror.com/is-promise@2.2.2
       promise: registry.npmmirror.com/promise@7.3.1
-    dev: false
-
-  registry.npmmirror.com/katex@0.16.8:
-    resolution: {integrity: sha512-ftuDnJbcbOckGY11OO+zg3OofESlbR5DRl2cmN8HeWeeFIV7wTXvAOx8kEjZjobhA+9wh2fbKeO6cdcA9Mnovg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/katex/-/katex-0.16.8.tgz}
-    name: katex
-    version: 0.16.8
-    hasBin: true
-    dependencies:
-      commander: registry.npmmirror.com/commander@8.3.0
     dev: false
 
   registry.npmmirror.com/kind-of@3.2.2:
@@ -5633,27 +5758,6 @@ packages:
     version: 2.1.3
     dev: false
 
-  registry.npmmirror.com/mv@2.1.1:
-    resolution: {integrity: sha512-at/ZndSy3xEGJ8i0ygALh8ru9qy7gWW1cmkaqBN29JmMlIvM//MEO9y1sk/avxuwnPcfhkejkLsuPxH81BrkSg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/mv/-/mv-2.1.1.tgz}
-    name: mv
-    version: 2.1.1
-    engines: {node: '>=0.8.0'}
-    requiresBuild: true
-    dependencies:
-      mkdirp: registry.npmmirror.com/mkdirp@0.5.6
-      ncp: registry.npmmirror.com/ncp@2.0.0
-      rimraf: registry.npmmirror.com/rimraf@2.4.5
-    dev: false
-    optional: true
-
-  registry.npmmirror.com/nan@2.18.0:
-    resolution: {integrity: sha512-W7tfG7vMOGtD30sHoZSSc/JVYiyDPEyQVso/Zz+/uQd0B0L46gtC+pHha5FFMRpil6fm/AoEcRWyOVi4+E/f8w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/nan/-/nan-2.18.0.tgz}
-    name: nan
-    version: 2.18.0
-    requiresBuild: true
-    dev: false
-    optional: true
-
   registry.npmmirror.com/nanomatch@1.2.13:
     resolution: {integrity: sha512-fpoe2T0RbHwBTBUOftAfBPaDEi06ufaUai0mE6Yn1kacc3SnTErfb/h+X94VXzI64rKFHYImXSvdwGGCmwOqCA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/nanomatch/-/nanomatch-1.2.13.tgz}
     name: nanomatch
@@ -5700,17 +5804,6 @@ packages:
       stylus: '*'
     dependencies:
       stylus: registry.npmmirror.com/stylus@0.57.0
-    dev: false
-
-  registry.npmmirror.com/nib@1.2.0(stylus@0.59.0):
-    resolution: {integrity: sha512-7HgrnMl/3yOmWykueO8/D0q+0iWwe7Z+CK2Eaq/xQV8w1hK80WN1oReRQkfkrztbAAnp/nTHkUSl5EcVkor6JQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/nib/-/nib-1.2.0.tgz}
-    id: registry.npmmirror.com/nib/1.2.0
-    name: nib
-    version: 1.2.0
-    peerDependencies:
-      stylus: '*'
-    dependencies:
-      stylus: registry.npmmirror.com/stylus@0.59.0
     dev: false
 
   registry.npmmirror.com/no-case@2.3.2:
@@ -6589,7 +6682,7 @@ packages:
     engines: {node: '>=10.0.0'}
     hasBin: true
     optionalDependencies:
-      fsevents: registry.npmmirror.com/fsevents@2.3.3
+      fsevents: 2.3.3
     dev: false
 
   registry.npmmirror.com/safe-array-concat@1.0.1:
@@ -6613,14 +6706,6 @@ packages:
     resolution: {integrity: sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/safe-buffer/-/safe-buffer-5.2.1.tgz}
     name: safe-buffer
     version: 5.2.1
-
-  registry.npmmirror.com/safe-json-stringify@1.2.0:
-    resolution: {integrity: sha512-gH8eh2nZudPQO6TytOvbxnuhYBOvDBBLW52tz5q6X58lJcd/tkmqFR+5Z9adS8aJtURSXWThWy/xJtJwixErvg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/safe-json-stringify/-/safe-json-stringify-1.2.0.tgz}
-    name: safe-json-stringify
-    version: 1.2.0
-    requiresBuild: true
-    dev: false
-    optional: true
 
   registry.npmmirror.com/safe-regex-test@1.0.0:
     resolution: {integrity: sha512-JBUUzyOgEwXQY1NuPtvcj/qcBDbDmEvWufhlnXZIm75DEHp+afM1r1ujJpJsV/gSM4t59tpDyPi1sd6ZaPFfsA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/safe-regex-test/-/safe-regex-test-1.0.0.tgz}
@@ -7155,21 +7240,6 @@ packages:
       debug: registry.npmmirror.com/debug@4.3.4
       glob: registry.npmmirror.com/glob@7.2.3
       safer-buffer: registry.npmmirror.com/safer-buffer@2.1.2
-      sax: registry.npmmirror.com/sax@1.2.4
-      source-map: registry.npmmirror.com/source-map@0.7.4
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
-  registry.npmmirror.com/stylus@0.59.0:
-    resolution: {integrity: sha512-lQ9w/XIOH5ZHVNuNbWW8D822r+/wBSO/d6XvtyHLF7LW4KaCIDeVbvn5DF8fGCJAUCwVhVi/h6J0NUcnylUEjg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/stylus/-/stylus-0.59.0.tgz}
-    name: stylus
-    version: 0.59.0
-    hasBin: true
-    dependencies:
-      '@adobe/css-tools': registry.npmmirror.com/@adobe/css-tools@4.3.1
-      debug: registry.npmmirror.com/debug@4.3.4
-      glob: registry.npmmirror.com/glob@7.2.3
       sax: registry.npmmirror.com/sax@1.2.4
       source-map: registry.npmmirror.com/source-map@0.7.4
     transitivePeerDependencies:
