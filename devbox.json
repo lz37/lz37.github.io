@@ -1,8 +1,8 @@
 {
   "packages": [
     "nodePackages.pnpm@latest",
-    "nodejs@18.15",
-    "imagemagick@latest"
+    "imagemagick@latest",
+    "nodejs@24"
   ],
   "shell": {
     "init_hook": null
