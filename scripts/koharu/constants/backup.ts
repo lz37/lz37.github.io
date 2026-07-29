@@ -72,9 +72,9 @@ export const BACKUP_ITEMS: BackupItem[] = [
     kind: "directory",
   },
   {
-    src: "src/lib/content/git-date-loader.ts",
-    dest: "lib/git-date-loader.ts",
-    label: "git 日期回填加载器",
+    src: "src/lib/content/post-defaults-loader.ts",
+    dest: "lib/post-defaults-loader.ts",
+    label: "文章默认值回填加载器(git 日期 + 分类封面)",
     required: true,
     kind: "file",
   },

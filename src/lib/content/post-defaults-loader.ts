@@ -2,6 +2,7 @@ import { execFileSync } from "node:child_process";
 import path from "node:path";
 import { glob } from "astro/loaders";
 import type { Loader } from "astro/loaders";
+import { categoryCovers } from "@constants/site-config";
 
 /**
  * git-derived publish/update dates for a content file, following renames.
@@ -38,16 +39,45 @@ function readGitDates(filePath: string): { date: string; updated?: string } | un
   return { date: oldest, updated: newest === oldest ? undefined : newest };
 }
 
+// Case-insensitive lookup so stray English categories (`tech`) still hit CJK
+// keys only when duplicated explicitly in site.yaml; same-key case variants match.
+const COVER_BY_CATEGORY: Record<string, string> = Object.fromEntries(
+  Object.entries(categoryCovers).map(([category, cover]) => [category.toLowerCase(), cover]),
+);
+
 /**
- * Wraps Astro's glob loader to resolve post dates from git history in
- * memory — files are never modified:
+ * First category name of a post, unwrapping Hexo's nested form
+ * (`categories: [[NAS, 家用]]` → `"NAS"`).
+ */
+function firstCategory(categories: unknown): string | undefined {
+  if (!Array.isArray(categories) || categories.length === 0) {
+    return undefined;
+  }
+  const first: unknown = categories[0];
+  if (typeof first === "string") {
+    return first;
+  }
+  if (Array.isArray(first) && typeof first[0] === "string") {
+    return first[0];
+  }
+  return undefined;
+}
+
+/**
+ * Wraps Astro's glob loader to resolve per-post defaults at content-load
+ * time — files are never modified, and every downstream consumer (post
+ * cards, OG image fallback, RSS) sees the injected values:
  * - `date`: explicit frontmatter wins; missing values fall back to the
  *   file's oldest commit.
  * - `updated`: the newest commit wins over frontmatter, so a stale
  *   hand-written value can never outlive a real edit; frontmatter is the
  *   fallback when the file has no git history.
+ * - `cover`: explicit frontmatter wins; missing values fall back to the
+ *   fixed cover of the post's first category (site.yaml `categoryCovers`,
+ *   a port of Hexo's category_per_img). Posts outside the map keep
+ *   `undefined` and the card component shuffles `defaultCoverList`.
  */
-export function globWithGitDates(options: Parameters<typeof glob>[0]): Loader {
+export function globWithPostDefaults(options: Parameters<typeof glob>[0]): Loader {
   const base = glob(options);
   return {
     ...base,
@@ -73,6 +103,13 @@ export function globWithGitDates(options: Parameters<typeof glob>[0]): Loader {
               if (dates.updated !== undefined) {
                 data["updated"] = dates.updated;
               }
+            }
+          }
+          if (data["cover"] === undefined) {
+            const category = firstCategory(data["categories"]);
+            const cover = category ? COVER_BY_CATEGORY[category.toLowerCase()] : undefined;
+            if (cover !== undefined) {
+              data["cover"] = cover;
             }
           }
           return parseData(entry);

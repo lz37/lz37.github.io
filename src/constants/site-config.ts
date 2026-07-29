@@ -232,6 +232,9 @@ export const defaultCoverList = yamlConfig?.defaultCoverList?.length
   ? yamlConfig.defaultCoverList
   : BUILT_IN_COVERS;
 
+/** Fixed cover per first post category; posts outside the map shuffle defaultCoverList. */
+export const categoryCovers: Record<string, string> = yamlConfig?.categoryCovers ?? {};
+
 // Analytics config — reuses AnalyticsConfig from config/types.ts
 
 // Christmas config types

@@ -636,6 +636,8 @@ export interface SiteYamlConfig {
   friends?: FriendsConfig;
   announcements?: AnnouncementConfig[];
   defaultCoverList?: string[];
+  /** Fixed cover per first post category, applied when a post has no explicit cover (Hexo category_per_img port). */
+  categoryCovers?: Record<string, string>;
   content?: ContentConfig;
   /** Optional dynamic moments archive backed by koharu-suite. */
   moments?: MomentsConfig;

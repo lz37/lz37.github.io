@@ -1,6 +1,6 @@
 import { defineCollection } from "astro:content";
 import { BLOG_CONTENT_GLOB_PATTERN } from "@lib/content/glob";
-import { globWithGitDates } from "@lib/content/git-date-loader";
+import { globWithPostDefaults } from "@lib/content/post-defaults-loader";
 import { parseDateInSiteTimezone, reinterpretUtcAsTimezone } from "@lib/date";
 import { z } from "astro/zod";
 import type { BlogSchema, BlogSchemaInput } from "types/blog";
@@ -28,7 +28,7 @@ const dateInSiteTimezone = z
   });
 
 const blogCollection = defineCollection({
-  loader: globWithGitDates({ pattern: BLOG_CONTENT_GLOB_PATTERN, base: "./src/content/blog" }),
+  loader: globWithPostDefaults({ pattern: BLOG_CONTENT_GLOB_PATTERN, base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
