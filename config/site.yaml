@@ -13,7 +13,7 @@
 site:
   title: ZeroZawa # 网站名称
   alternate: zerozawa # 网站英文名称 用于页脚、Logo、@ handle 等
-  subtitle: zerozawa's blog - 个人家庭使用 # 网站副标题
+  subtitle: zerozawa's blog - 个人博客 # 网站副标题
   name: zerozawa # 作者名称
   description: 零泽的小站，不定期更新 # 网站描述
   avatar: "https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_90929970_p0_ヒトこもる_無題.jpg" # 网站头像
@@ -427,18 +427,19 @@ navigation:
 # path: # 用于区分不同文章的自定义 js 路径，如果您的文章路径不是 location.pathname，需传此参数
 # lang: # 语言 (默认: 'zh-CN')
 comment:
-  # giscus 配置已就绪，但需先完成两步才能启用：
-  # 1. GitHub 仓库 lz37/lz37.github.io 开启 Discussions（Settings → Features）
-  # 2. 安装 giscus App: https://github.com/apps/giscus
-  # 然后从 https://giscus.app 获取 categoryId 填入，并把 provider 改回 giscus
-  provider: none
+  # giscus 评论系统，配置值来自 https://giscus.app 配置器（2026-07-30）
+  provider: giscus
   giscus:
     repo: lz37/lz37.github.io
     repoId: R_kgDOJa_jfQ
     category: General
-    # categoryId is unavailable until GitHub Discussions is enabled.
+    categoryId: DIC_kwDOJa_jfc4DCQEm
     mapping: pathname
+    reactionsEnabled: "1"
+    emitMetadata: "0"
+    inputPosition: bottom
     lang: zh-CN
+    loading: lazy
 
 # =============================================================================
 # Analytics (Umami)
