@@ -338,10 +338,11 @@ navigation:
   #   nameKey: nav.friends
   #   path: /friends
   #   icon: ri:links-line
-  - name: 关于
-    nameKey: nav.about
-    path: /about
-    icon: fa6-regular:circle-user
+  # 关于页内容未定，暂不上导航；写好 src/pages/about.md 后恢复此项并重建路由
+  # - name: 关于
+  #   nameKey: nav.about
+  #   path: /about
+  #   icon: fa6-regular:circle-user
 
 # =============================================================================
 # Christmas/Seasonal Features
