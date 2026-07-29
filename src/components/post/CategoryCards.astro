@@ -1,9 +1,9 @@
 ---
-import { Badge } from '@components/ui/badge';
-import { Button } from '@components/ui/button';
-import { categoryMap } from '@constants/category';
-import { Routes } from '@constants/router';
-import { siteConfig } from '@constants/site-config';
+import { Badge } from "@components/ui/badge";
+import { Button } from "@components/ui/button";
+import { categoryMap } from "@constants/category";
+import { Routes } from "@constants/router";
+import { siteConfig } from "@constants/site-config";
 import {
   type Category,
   getCategoryByLink,
@@ -11,15 +11,15 @@ import {
   getParentCategory,
   getPostsByCategory,
   translateCategoryName,
-} from '@lib/content';
-import { toPostRefs } from '@lib/content/transforms';
-import { getLqipStyle } from '@lib/lqip';
-import { routeBuilder } from '@lib/route';
-import { cn } from '@lib/utils';
-import { Icon } from 'astro-icon/components';
-import { getLocaleFromUrl, localizedPath, t } from '@/i18n';
-import type { PostRef } from '@/types/blog';
-import FlippedCard from './FlippedCard.astro';
+} from "@lib/content";
+import { toPostRefs } from "@lib/content/transforms";
+import { getLqipStyle } from "@lib/lqip";
+import { routeBuilder } from "@lib/route";
+import { cn } from "@lib/utils";
+import { Icon } from "astro-icon/components";
+import { getLocaleFromUrl, localizedPath, t } from "@/i18n";
+import type { PostRef } from "@/types/blog";
+import FlippedCard from "./FlippedCard.astro";
 
 interface CategoryWithPosts {
   link: string;
@@ -36,7 +36,7 @@ const { categories } = await getCategoryList(locale);
 const categoryPosts: CategoryWithPosts[] = await Promise.all(
   siteConfig.featuredCategories?.map(async (category) => {
     const categoryInfo = getCategoryByLink(categories, category?.link);
-    const posts = await getPostsByCategory(categoryInfo?.name ?? '', locale);
+    const posts = await getPostsByCategory(categoryInfo?.name ?? "", locale);
     return {
       link: category.link,
       label: category?.label,
@@ -54,13 +54,19 @@ const categoryPosts: CategoryWithPosts[] = await Promise.all(
     categoryPosts.map((category) => {
       const parentCategory = category?.parentCategory;
       const parentCategoryLink = parentCategory
-        ? localizedPath(Routes.Categories + '/' + (category?.link.split('/').slice(0, -1).join('/') ?? ''), locale)
-        : '';
+        ? localizedPath(
+            Routes.Categories + "/" + (category?.link.split("/").slice(0, -1).join("/") ?? ""),
+            locale,
+          )
+        : "";
       const categoryInfo = category?.category;
-      const categoryLink = localizedPath(Routes.Categories + '/' + (category?.link ?? ''), locale);
+      const categoryLink = localizedPath(Routes.Categories + "/" + (category?.link ?? ""), locale);
       const childrenLen = categoryInfo?.children?.length ?? 0;
       const posts = category?.posts?.slice(0, 6 - (childrenLen ?? 0));
-      const displayName = translateCategoryName(category?.label ?? categoryInfo?.name ?? '', locale);
+      const displayName = translateCategoryName(
+        category?.label ?? categoryInfo?.name ?? "",
+        locale,
+      );
       return (
         <FlippedCard>
           <div slot="front" class="flex-center relative h-full rounded-md px-2 py-4">
@@ -75,7 +81,10 @@ const categoryPosts: CategoryWithPosts[] = await Promise.all(
             <div class="bg-shoka-card-mask absolute inset-0 -z-10 h-full w-full rounded-md opacity-25" />
             <h2 class="text-2xl text-white">{displayName}</h2>
             {parentCategory?.name ? (
-              <Badge variant="shoka-tag" className="absolute right-3 top-2.5 text-xs text-white opacity-80 shadow-sm">
+              <Badge
+                variant="shoka-tag"
+                className="absolute right-3 top-2.5 text-xs text-white opacity-80 shadow-sm"
+              >
                 {translateCategoryName(parentCategory.name, locale)}
               </Badge>
             ) : null}
@@ -83,12 +92,15 @@ const categoryPosts: CategoryWithPosts[] = await Promise.all(
           <div slot="back" class="bg-card relative h-full flex-col rounded-md px-6 pt-16 pb-4">
             <div
               class={cn(
-                'from-gradient-shoka-button-start to-gradient-shoka-button-end absolute top-4 -left-4 grid h-8 max-w-[calc(100%+2rem)] place-items-center rounded-r-md bg-linear-to-l px-4',
+                "from-gradient-shoka-button-start to-gradient-shoka-button-end absolute top-4 -left-4 grid h-8 max-w-[calc(100%+2rem)] place-items-center rounded-r-md bg-linear-to-l px-4",
                 "after:absolute after:top-full after:-left-4 after:h-0 after:w-0 after:border-t-0 after:border-r-16 after:border-b-16 after:border-l-16 after:border-transparent after:content-['']",
-                'after:border-r-gradient-shoka-button-end',
+                "after:border-r-gradient-shoka-button-end",
               )}
             >
-              <a class="hover:animate-vertical-shake block text-base text-white" href={categoryLink}>
+              <a
+                class="hover:animate-vertical-shake block text-base text-white"
+                href={categoryLink}
+              >
                 {displayName}
               </a>
             </div>
@@ -125,15 +137,15 @@ const categoryPosts: CategoryWithPosts[] = await Promise.all(
               <Fragment>
                 <Icon name="gg:loadbar-doc" class="mr-0.5 text-base" />
                 {categoryInfo?.children?.length
-                  ? `${t(locale, 'category.subCategoryCount', { count: categoryInfo.children.length })}, `
-                  : ''}
-                {t(locale, 'category.postCount', { count: category.posts?.length ?? 0 })}
+                  ? `${t(locale, "category.subCategoryCount", { count: categoryInfo.children.length })}, `
+                  : ""}
+                {t(locale, "category.postCount", { count: category.posts?.length ?? 0 })}
               </Fragment>
             </p>
             <a href={categoryLink} aria-label="more info" class="absolute right-0 bottom-0">
               <Button
                 className={cn(
-                  'bg-gradient-shoka-button rounded-2xl rounded-se-none rounded-es-none transition-all hover:translate-x-1 hover:translate-y-1 hover:scale-105 md:h-7 md:px-2 md:py-1 md:text-xs',
+                  "bg-gradient-shoka-button rounded-2xl rounded-se-none rounded-es-none transition-all hover:translate-x-1 hover:translate-y-1 hover:scale-105 md:h-7 md:px-2 md:py-1 md:text-xs",
                 )}
               >
                 more...

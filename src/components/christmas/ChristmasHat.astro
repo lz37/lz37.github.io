@@ -17,13 +17,13 @@ interface Props {
 
 const {
   className,
-  size = '100%',
+  size = "100%",
   offset = { x: -28, y: -50 },
   rotate = 10,
   colors = {
-    primary: '#FF4E50',
-    secondary: '#C00000',
-    white: '#FFFFFF',
+    primary: "#FF4E50",
+    secondary: "#C00000",
+    white: "#FFFFFF",
   },
 } = Astro.props;
 
@@ -34,36 +34,62 @@ const gradientId1 = `hatGradient1_${uniqueId}`;
 const gradientId2 = `hatGradient2_${uniqueId}`;
 
 const cssVars = {
-  '--hat-primary': colors.primary,
-  '--hat-secondary': colors.secondary,
-  '--hat-white': colors.white,
-  '--hat-white-light': '#E6E6E6',
-  '--hat-rotate': `${rotate}deg`,
+  "--hat-primary": colors.primary,
+  "--hat-secondary": colors.secondary,
+  "--hat-white": colors.white,
+  "--hat-white-light": "#E6E6E6",
+  "--hat-rotate": `${rotate}deg`,
 };
 ---
 
 <div
-  class:list={['christmas-hat-wrapper', className]}
+  class:list={["christmas-hat-wrapper", className]}
   style={{
     ...cssVars,
-    width: typeof size === 'number' ? `${size}px` : size,
-    height: typeof size === 'number' ? `${size}px` : size,
+    width: typeof size === "number" ? `${size}px` : size,
+    height: typeof size === "number" ? `${size}px` : size,
     top: `${offset.y}%`,
     left: `${offset.x}%`,
-    filter: 'drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.1))',
+    filter: "drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.1))",
   }}
 >
-  <svg viewBox="0 0 200 200" class="christmas-hat-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    viewBox="0 0 200 200"
+    class="christmas-hat-svg"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <defs>
-      <linearGradient id={gradientId0} x1="14034" y1="-0.170427" x2="-473.352" y2="13990.6" gradientUnits="userSpaceOnUse">
+      <linearGradient
+        id={gradientId0}
+        x1="14034"
+        y1="-0.170427"
+        x2="-473.352"
+        y2="13990.6"
+        gradientUnits="userSpaceOnUse"
+      >
         <stop stop-color={colors.primary}></stop>
         <stop offset="1" stop-color={colors.secondary}></stop>
       </linearGradient>
-      <linearGradient id={gradientId1} x1="-4576.49" y1="2333.31" x2="-5172.15" y2="1067.09" gradientUnits="userSpaceOnUse">
+      <linearGradient
+        id={gradientId1}
+        x1="-4576.49"
+        y1="2333.31"
+        x2="-5172.15"
+        y2="1067.09"
+        gradientUnits="userSpaceOnUse"
+      >
         <stop stop-color={colors.white}></stop>
         <stop offset="1" stop-color="#E6E6E6"></stop>
       </linearGradient>
-      <linearGradient id={gradientId2} x1="1969" y1="125" x2="1969" y2="4025" gradientUnits="userSpaceOnUse">
+      <linearGradient
+        id={gradientId2}
+        x1="1969"
+        y1="125"
+        x2="1969"
+        y2="4025"
+        gradientUnits="userSpaceOnUse"
+      >
         <stop stop-color={colors.white}></stop>
         <stop offset="1" stop-color="#E6E6E6"></stop>
       </linearGradient>

@@ -1,7 +1,7 @@
 ---
-import { getSortedPosts, normalizeTag } from '@lib/content';
-import { defaultLocale, localeList } from '@/i18n/config';
-import TagPage from '../../tags/[tag].astro';
+import { getSortedPosts, normalizeTag } from "@lib/content";
+import { defaultLocale, localeList } from "@/i18n/config";
+import TagPage from "../../tags/[tag].astro";
 
 export async function getStaticPaths() {
   const nonDefaultLocales = localeList.filter((l) => l !== defaultLocale);
@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 
     for (const tag of tags) {
       paths.push({
-        params: { lang, tag: normalizeTag(tag).replace(/\//g, '-') },
+        params: { lang, tag: normalizeTag(tag).replace(/\//g, "-") },
         props: { tag },
       });
     }
@@ -31,4 +31,5 @@ export async function getStaticPaths() {
 
 const { tag } = Astro.props;
 ---
+
 <TagPage tag={tag} />

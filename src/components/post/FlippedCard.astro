@@ -5,7 +5,7 @@ export interface Props {
    * 翻转方向
    * @default 'horizontal'
    */
-  direction?: 'horizontal' | 'vertical';
+  direction?: "horizontal" | "vertical";
   /**
    * 翻转动画时长(ms)
    * @default 600
@@ -23,10 +23,19 @@ export interface Props {
   disabled?: boolean;
 }
 
-const { className, direction = 'horizontal', duration = 600, delay = 100, disabled = false } = Astro.props;
+const {
+  className,
+  direction = "horizontal",
+  duration = 600,
+  delay = 100,
+  disabled = false,
+} = Astro.props;
 ---
 
-<div class:list={['flip-card h-56', className, { 'flip-card-disabled': disabled }]} data-direction={direction}>
+<div
+  class:list={["flip-card h-56", className, { "flip-card-disabled": disabled }]}
+  data-direction={direction}
+>
   <div class="flip-card-inner">
     <div class="flip-card-front">
       <slot name="front" />
@@ -46,7 +55,7 @@ const { className, direction = 'horizontal', duration = 600, delay = 100, disabl
 
   /* 透明覆盖层，确保 hover 检测区域稳定，不受 3D 变换影响 */
   .flip-card::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     z-index: 10;

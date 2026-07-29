@@ -1,13 +1,13 @@
 ---
-import HomeSider from '@components/layout/HomeSider.astro';
-import Cover from '@components/ui/cover/Cover.astro';
-import { CONTENT_PADDING } from '@constants/layout';
-import { siteConfig } from '@constants/site-config';
-import Layout from '@layouts/Layout.astro';
-import TwoColumnLayout from '@layouts/TwoColumnLayout.astro';
-import { encodeSlug } from '@lib/route';
-import galleryConfig from '../../../config/gallery.yaml';
-import { getLocaleFromUrl, localizedPath } from '@/i18n';
+import HomeSider from "@components/layout/HomeSider.astro";
+import Cover from "@components/ui/cover/Cover.astro";
+import { CONTENT_PADDING } from "@constants/layout";
+import { siteConfig } from "@constants/site-config";
+import Layout from "@layouts/Layout.astro";
+import TwoColumnLayout from "@layouts/TwoColumnLayout.astro";
+import { encodeSlug } from "@lib/route";
+import galleryConfig from "../../../config/gallery.yaml";
+import { getLocaleFromUrl, localizedPath } from "@/i18n";
 
 interface GalleryImage {
   alt: string;
@@ -29,44 +29,52 @@ interface GalleryConfig {
 const { groups } = galleryConfig as unknown as GalleryConfig;
 const locale = getLocaleFromUrl(Astro.url.pathname);
 const pageTitle = `画廊 | ${siteConfig.title}`;
-const pageDescription = '收藏的插画作品。';
+const pageDescription = "收藏的插画作品。";
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
   <TwoColumnLayout>
     <Cover slot="cover" title="画廊" />
     <HomeSider slot="sider" />
-    <section class={`bg-gradient-start shadow-box tablet:shadow-none flex flex-col gap-6 overflow-hidden ${CONTENT_PADDING.standard}`}>
+    <section
+      class={`bg-gradient-start shadow-box tablet:shadow-none flex flex-col gap-6 overflow-hidden ${CONTENT_PADDING.standard}`}
+    >
       <header class="border-border border-b pb-4">
         <h1 class="text-primary text-2xl font-bold md:text-xl">画廊</h1>
         <p class="text-muted-foreground mt-2 text-sm">{pageDescription}</p>
       </header>
       <div class="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {groups.map((group) => {
-          const href = localizedPath(`/gallery/${encodeSlug(group.name)}/`, locale);
+        {
+          groups.map((group) => {
+            const href = localizedPath(`/gallery/${encodeSlug(group.name)}/`, locale);
 
-          return (
-            <a
-              href={href}
-              class="group flex flex-col overflow-hidden rounded-lg border border-border bg-white shadow-card transition-shadow hover:shadow-card-darker dark:bg-transparent"
-            >
-              <div class="aspect-[4/3] w-full overflow-hidden bg-muted">
-                <img
-                  src={group.cover}
-                  alt={group.title}
-                  loading="lazy"
-                  decoding="async"
-                  class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                />
-              </div>
-              <div class="flex flex-col gap-2 p-4">
-                <h2 class="text-primary text-lg font-bold transition-colors group-hover:text-blue">{group.title}</h2>
-                <p class="text-muted-foreground line-clamp-2 text-sm">{group.desc}</p>
-                <span class="mt-auto text-primary text-xs transition-colors group-hover:text-blue">查看作品</span>
-              </div>
-            </a>
-          );
-        })}
+            return (
+              <a
+                href={href}
+                class="group flex flex-col overflow-hidden rounded-lg border border-border bg-white shadow-card transition-shadow hover:shadow-card-darker dark:bg-transparent"
+              >
+                <div class="aspect-[4/3] w-full overflow-hidden bg-muted">
+                  <img
+                    src={group.cover}
+                    alt={group.title}
+                    loading="lazy"
+                    decoding="async"
+                    class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div class="flex flex-col gap-2 p-4">
+                  <h2 class="text-primary text-lg font-bold transition-colors group-hover:text-blue">
+                    {group.title}
+                  </h2>
+                  <p class="text-muted-foreground line-clamp-2 text-sm">{group.desc}</p>
+                  <span class="mt-auto text-primary text-xs transition-colors group-hover:text-blue">
+                    查看作品
+                  </span>
+                </div>
+              </a>
+            );
+          })
+        }
       </div>
     </section>
   </TwoColumnLayout>

@@ -1,6 +1,6 @@
 ---
-import { Icon } from 'astro-icon/components';
-import { formatMomentFileSize, type MomentMediaViewModel } from './types';
+import { Icon } from "astro-icon/components";
+import { formatMomentFileSize, type MomentMediaViewModel } from "./types";
 
 interface Labels {
   processing: string;
@@ -23,25 +23,36 @@ const { media, sourceUrl, labels } = Astro.props;
 const fileSize = formatMomentFileSize(media.fileSize);
 const mediaLabel =
   labels[
-    media.kind === 'image' || media.kind === 'video' || media.kind === 'audio' || media.kind === 'document'
+    media.kind === "image" ||
+    media.kind === "video" ||
+    media.kind === "audio" ||
+    media.kind === "document"
       ? media.kind
-      : 'document'
+      : "document"
   ];
 const displayName = media.fileName || mediaLabel;
 const imageUrl = media.thumbnailUrl || media.originalUrl;
 const fallbackHidden =
-  media.cacheStatus === 'pending' || (media.cacheStatus === 'ready' && Boolean(imageUrl || media.originalUrl));
+  media.cacheStatus === "pending" ||
+  (media.cacheStatus === "ready" && Boolean(imageUrl || media.originalUrl));
 ---
 
-<moments-media class="bg-muted/25 relative block min-w-0 overflow-hidden rounded-lg" data-media-kind={media.kind}>
+<moments-media
+  class="bg-muted/25 relative block min-w-0 overflow-hidden rounded-lg"
+  data-media-kind={media.kind}
+>
   {
-    media.cacheStatus === 'pending' ? (
+    media.cacheStatus === "pending" ? (
       <div class="text-muted-foreground flex items-center gap-2 px-3 py-2.5 text-sm" role="status">
-        <Icon name="ri:loader-4-line" class="motion-safe:animate-spin size-4 shrink-0" aria-hidden="true" />
+        <Icon
+          name="ri:loader-4-line"
+          class="motion-safe:animate-spin size-4 shrink-0"
+          aria-hidden="true"
+        />
         <span class="shrink-0">{labels.processing}</span>
         <span class="truncate text-xs">{displayName}</span>
       </div>
-    ) : media.cacheStatus === 'ready' && media.kind === 'image' && imageUrl ? (
+    ) : media.cacheStatus === "ready" && media.kind === "image" && imageUrl ? (
       <button
         type="button"
         class="group relative block h-full min-h-24 w-full cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-primary"
@@ -65,7 +76,9 @@ const fallbackHidden =
           aria-hidden="true"
         />
       </button>
-    ) : media.cacheStatus === 'ready' && (media.kind === 'video' || media.kind === 'animation') && media.originalUrl ? (
+    ) : media.cacheStatus === "ready" &&
+      (media.kind === "video" || media.kind === "animation") &&
+      media.originalUrl ? (
       <video
         src={media.originalUrl}
         poster={media.thumbnailUrl || undefined}
@@ -77,16 +90,23 @@ const fallbackHidden =
         data-media-visual
         data-media-asset
       />
-    ) : media.cacheStatus === 'ready' && media.kind === 'audio' && media.originalUrl ? (
+    ) : media.cacheStatus === "ready" && media.kind === "audio" && media.originalUrl ? (
       <div class="flex min-h-20 items-center gap-3 p-3" data-media-visual>
         <Icon name="ri:music-2-line" class="text-primary size-7 shrink-0" aria-hidden="true" />
         <div class="min-w-0 grow">
           <p class="truncate text-sm font-medium">{displayName}</p>
           {fileSize && <p class="text-muted-foreground text-xs">{fileSize}</p>}
-          <audio src={media.originalUrl} controls preload="none" class="mt-2 h-10 w-full" aria-label={displayName} data-media-asset />
+          <audio
+            src={media.originalUrl}
+            controls
+            preload="none"
+            class="mt-2 h-10 w-full"
+            aria-label={displayName}
+            data-media-asset
+          />
         </div>
       </div>
-    ) : media.cacheStatus === 'ready' && media.originalUrl ? (
+    ) : media.cacheStatus === "ready" && media.originalUrl ? (
       <a
         href={media.originalUrl}
         target="_blank"
@@ -97,7 +117,9 @@ const fallbackHidden =
         <Icon name="ri:file-line" class="text-primary size-7 shrink-0" aria-hidden="true" />
         <span class="min-w-0 grow">
           <span class="block truncate text-sm font-medium">{displayName}</span>
-          <span class="text-muted-foreground block text-xs">{[media.mimeType, fileSize].filter(Boolean).join(' · ')}</span>
+          <span class="text-muted-foreground block text-xs">
+            {[media.mimeType, fileSize].filter(Boolean).join(" · ")}
+          </span>
         </span>
         <span class="text-xs font-medium">{labels.openDocument}</span>
       </a>
@@ -106,20 +128,27 @@ const fallbackHidden =
 
   <div
     class:list={[
-      'text-muted-foreground flex-wrap items-center gap-x-2 gap-y-1 px-3 py-2.5 text-sm',
-      fallbackHidden ? 'hidden' : 'flex',
+      "text-muted-foreground flex-wrap items-center gap-x-2 gap-y-1 px-3 py-2.5 text-sm",
+      fallbackHidden ? "hidden" : "flex",
     ]}
     data-media-fallback
     role="status"
   >
     <Icon name="ri:file-warning-line" class="size-4 shrink-0" aria-hidden="true" />
     <span class="shrink-0">{labels.unavailable}</span>
-    <span class="min-w-0 truncate text-xs">{displayName}{fileSize ? ` · ${fileSize}` : ''}</span>
-    {sourceUrl && (
-      <a href={sourceUrl} target="_blank" rel="noopener noreferrer" class="text-primary hover:text-blue shrink-0 text-xs underline-offset-4 hover:underline">
-        {labels.viewSource}
-      </a>
-    )}
+    <span class="min-w-0 truncate text-xs">{displayName}{fileSize ? ` · ${fileSize}` : ""}</span>
+    {
+      sourceUrl && (
+        <a
+          href={sourceUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-primary hover:text-blue shrink-0 text-xs underline-offset-4 hover:underline"
+        >
+          {labels.viewSource}
+        </a>
+      )
+    }
   </div>
 </moments-media>
 
@@ -132,16 +161,19 @@ const fallbackHidden =
 <script>
   class MomentsMedia extends HTMLElement {
     connectedCallback() {
-      if (this.dataset.initialized === 'true') return;
-      this.dataset.initialized = 'true';
-      this.querySelectorAll<HTMLElement>('[data-media-asset]').forEach((asset) => {
-        asset.addEventListener('error', () => {
-          (asset.closest<HTMLElement>('[data-media-visual]') ?? asset).classList.add('hidden');
-          this.querySelector<HTMLElement>('[data-media-fallback]')?.classList.replace('hidden', 'flex');
+      if (this.dataset.initialized === "true") return;
+      this.dataset.initialized = "true";
+      this.querySelectorAll<HTMLElement>("[data-media-asset]").forEach((asset) => {
+        asset.addEventListener("error", () => {
+          (asset.closest<HTMLElement>("[data-media-visual]") ?? asset).classList.add("hidden");
+          this.querySelector<HTMLElement>("[data-media-fallback]")?.classList.replace(
+            "hidden",
+            "flex",
+          );
         });
       });
     }
   }
 
-  if (!customElements.get('moments-media')) customElements.define('moments-media', MomentsMedia);
+  if (!customElements.get("moments-media")) customElements.define("moments-media", MomentsMedia);
 </script>

@@ -1,17 +1,17 @@
 ---
-import { SeriesNavigation } from '@components/post/SeriesNavigation';
-import { SeriesPostList } from '@components/post/SeriesPostList';
-import HomeSiderSegmented from '@components/ui/segmented/HomeSiderSegmented';
-import { HomeSiderSegmentType, HomeSiderType } from '@constants/enum';
-import { getPostSlug } from '@lib/content/locale';
-import { getAdjacentSeriesPosts, getSeriesPosts } from '@lib/content/posts';
-import { toPostRef, toPostRefs } from '@lib/content/transforms';
-import { cn } from '@lib/utils';
-import type { BlogPost } from 'types/blog';
-import { getLocaleFromUrl } from '@/i18n';
-import HomeInfo from './HomeInfo.astro';
-import { ScrollProgress } from './ScrollProgress';
-import { TableOfContents } from './TableOfContents/index';
+import { SeriesNavigation } from "@components/post/SeriesNavigation";
+import { SeriesPostList } from "@components/post/SeriesPostList";
+import HomeSiderSegmented from "@components/ui/segmented/HomeSiderSegmented";
+import { HomeSiderSegmentType, HomeSiderType } from "@constants/enum";
+import { getPostSlug } from "@lib/content/locale";
+import { getAdjacentSeriesPosts, getSeriesPosts } from "@lib/content/posts";
+import { toPostRef, toPostRefs } from "@lib/content/transforms";
+import { cn } from "@lib/utils";
+import type { BlogPost } from "types/blog";
+import { getLocaleFromUrl } from "@/i18n";
+import HomeInfo from "./HomeInfo.astro";
+import { ScrollProgress } from "./ScrollProgress";
+import { TableOfContents } from "./TableOfContents/index";
 
 interface Props {
   type?: HomeSiderType;
@@ -22,24 +22,28 @@ interface Props {
 
 const { type = HomeSiderType.HOME, className, isDrawer = false, post } = Astro.props;
 const locale = getLocaleFromUrl(Astro.url.pathname);
-const defaultSegmentType = type === HomeSiderType.POST ? HomeSiderSegmentType.DIRECTORY : HomeSiderSegmentType.INFO;
+const defaultSegmentType =
+  type === HomeSiderType.POST ? HomeSiderSegmentType.DIRECTORY : HomeSiderSegmentType.INFO;
 
 // 获取系列文章（转换为轻量级引用）
-const seriesPosts = post && type === HomeSiderType.POST ? toPostRefs(await getSeriesPosts(post, locale)) : [];
+const seriesPosts =
+  post && type === HomeSiderType.POST ? toPostRefs(await getSeriesPosts(post, locale)) : [];
 
 // 获取上一篇和下一篇（转换为轻量级引用）
 const adjacentPosts =
-  post && type === HomeSiderType.POST ? await getAdjacentSeriesPosts(post, locale) : { prevPost: null, nextPost: null };
+  post && type === HomeSiderType.POST
+    ? await getAdjacentSeriesPosts(post, locale)
+    : { prevPost: null, nextPost: null };
 const prevPost = adjacentPosts.prevPost ? toPostRef(adjacentPosts.prevPost) : null;
 const nextPost = adjacentPosts.nextPost ? toPostRef(adjacentPosts.nextPost) : null;
 ---
 
 <div
   class={cn(
-    'page-home-sider shadow-home-sider sticky top-0 tablet:overscroll-none self-start flex min-w-64 max-w-64 flex-col items-stretch tablet:hidden overflow-auto h-screen px-2 scroll-gutter-stable',
+    "page-home-sider shadow-home-sider sticky top-0 tablet:overscroll-none self-start flex min-w-64 max-w-64 flex-col items-stretch tablet:hidden overflow-auto h-screen px-2 scroll-gutter-stable",
     className,
   )}
-  transition:name={isDrawer ? 'page-home-sider-drawer' : 'page-home-sider'}
+  transition:name={isDrawer ? "page-home-sider-drawer" : "page-home-sider"}
 >
   {
     type === HomeSiderType.POST && (
@@ -59,29 +63,42 @@ const nextPost = adjacentPosts.nextPost ? toPostRef(adjacentPosts.nextPost) : nu
     data-default-type={defaultSegmentType}
   >
     <div slot="info" class="sider-slot" data-slot-type="info">
-      <HomeInfo className={type === HomeSiderType.HOME ? 'pt-18 md:pt-0' : ''} />
+      <HomeInfo className={type === HomeSiderType.HOME ? "pt-18 md:pt-0" : ""} />
     </div>
     <div slot="directory" class="sider-slot overflow-hidden h-full" data-slot-type="directory">
-      {type === HomeSiderType.POST && <TableOfContents client:only="react" enableNumbering={post?.data.tocNumbering ?? true} />}
+      {
+        type === HomeSiderType.POST && (
+          <TableOfContents client:only="react" enableNumbering={post?.data.tocNumbering ?? true} />
+        )
+      }
     </div>
     <div slot="series" class="sider-slot" data-slot-type="series">
-      {type === HomeSiderType.POST && <SeriesPostList client:idle posts={seriesPosts} currentPostSlug={post ? getPostSlug(post) : undefined} locale={locale} />}
+      {
+        type === HomeSiderType.POST && (
+          <SeriesPostList
+            client:idle
+            posts={seriesPosts}
+            currentPostSlug={post ? getPostSlug(post) : undefined}
+            locale={locale}
+          />
+        )
+      }
     </div>
   </sider-content>
 
   <!-- 内联脚本：在 DOM 解析后立即隐藏不需要的内容，避免闪烁 -->
   <script is:inline data-astro-rerun>
     (function () {
-      const container = document.querySelector('sider-content');
+      const container = document.querySelector("sider-content");
       if (!container) return;
 
-      const defaultType = container.getAttribute('data-default-type') || 'info';
-      const slots = container.querySelectorAll('.sider-slot');
+      const defaultType = container.getAttribute("data-default-type") || "info";
+      const slots = container.querySelectorAll(".sider-slot");
 
       slots.forEach((slot) => {
-        const slotType = slot.getAttribute('data-slot-type');
+        const slotType = slot.getAttribute("data-slot-type");
         if (slotType !== defaultType) {
-          slot.classList.add('hidden');
+          slot.classList.add("hidden");
         }
       });
     })();
@@ -89,7 +106,13 @@ const nextPost = adjacentPosts.nextPost ? toPostRef(adjacentPosts.nextPost) : nu
 
   {
     type === HomeSiderType.POST && (
-      <SeriesNavigation client:load prevPost={prevPost} nextPost={nextPost} className="w-full px-2" locale={locale} />
+      <SeriesNavigation
+        client:load
+        prevPost={prevPost}
+        nextPost={nextPost}
+        className="w-full px-2"
+        locale={locale}
+      />
     )
   }
 
@@ -97,8 +120,8 @@ const nextPost = adjacentPosts.nextPost ? toPostRef(adjacentPosts.nextPost) : nu
 </div>
 
 <script>
-  import { HomeSiderType, HomeSiderSegmentType } from '@constants/enum';
-  import { homeSiderSegmentType } from '@store/app';
+  import { HomeSiderType, HomeSiderSegmentType } from "@constants/enum";
+  import { homeSiderSegmentType } from "@store/app";
 
   // 定义SiderContent自定义元素
   class SiderContent extends HTMLElement {
@@ -118,8 +141,8 @@ const nextPost = adjacentPosts.nextPost ? toPostRef(adjacentPosts.nextPost) : nu
       this.seriesContent = this.querySelector('[slot="series"]');
 
       // 从HTML属性中获取当前页面类型和默认分段类型
-      this.pageType = this.getAttribute('data-type');
-      this.defaultType = this.getAttribute('data-default-type');
+      this.pageType = this.getAttribute("data-type");
+      this.defaultType = this.getAttribute("data-default-type");
 
       // 初始化
       this.init();
@@ -127,8 +150,8 @@ const nextPost = adjacentPosts.nextPost ? toPostRef(adjacentPosts.nextPost) : nu
 
     init() {
       // 确保DOM已准备好
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => this.initContent());
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", () => this.initContent());
       } else {
         this.initContent();
       }
@@ -166,36 +189,36 @@ const nextPost = adjacentPosts.nextPost ? toPostRef(adjacentPosts.nextPost) : nu
       if (skipAnimation) {
         // 先隐藏所有
         [this.infoContent, this.directoryContent, this.seriesContent].forEach((content) => {
-          content?.classList.add('hidden');
+          content?.classList.add("hidden");
         });
         // 再显示目标
-        targetContent?.classList.remove('hidden');
+        targetContent?.classList.remove("hidden");
         return;
       }
 
       // 如果已经在显示目标内容，直接返回
-      if (targetContent && !targetContent.classList.contains('hidden')) {
+      if (targetContent && !targetContent.classList.contains("hidden")) {
         return;
       }
 
       // 隐藏其他内容（添加退出动画）
       [this.infoContent, this.directoryContent, this.seriesContent].forEach((content) => {
-        if (content && content !== targetContent && !content.classList.contains('hidden')) {
-          content.classList.add('exiting');
+        if (content && content !== targetContent && !content.classList.contains("hidden")) {
+          content.classList.add("exiting");
           setTimeout(() => {
-            content.classList.add('hidden');
-            content.classList.remove('exiting');
+            content.classList.add("hidden");
+            content.classList.remove("exiting");
           }, 200);
         }
       });
 
       // 显示目标内容（添加进入动画）
       if (targetContent) {
-        targetContent.classList.remove('hidden');
+        targetContent.classList.remove("hidden");
         requestAnimationFrame(() => {
-          targetContent?.classList.add('entering');
+          targetContent?.classList.add("entering");
           setTimeout(() => {
-            targetContent?.classList.remove('entering');
+            targetContent?.classList.remove("entering");
           }, 200);
         });
       }
@@ -203,7 +226,7 @@ const nextPost = adjacentPosts.nextPost ? toPostRef(adjacentPosts.nextPost) : nu
   }
 
   // 注册自定义元素
-  customElements.define('sider-content', SiderContent);
+  customElements.define("sider-content", SiderContent);
 </script>
 
 <style>

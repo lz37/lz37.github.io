@@ -1,6 +1,6 @@
 ---
-import { commentConfig } from '@/constants/site-config';
-import { normalizeUrl } from '@/lib/utils';
+import { commentConfig } from "@/constants/site-config";
+import { normalizeUrl } from "@/lib/utils";
 
 declare global {
   interface Window {
@@ -26,7 +26,7 @@ declare global {
         simple_view: boolean;
       }) => Remark42Instance;
       ready: boolean;
-      changeTheme?: (theme: 'light' | 'dark') => void;
+      changeTheme?: (theme: "light" | "dark") => void;
     };
   }
 
@@ -37,8 +37,8 @@ declare global {
 
 // Get Remark42 configuration from site config
 // Normalize URL to remove trailing slashes (prevents double-slash in script paths)
-const remarkUrl = normalizeUrl(commentConfig.remark42?.host ?? '');
-const remarkSiteId = commentConfig.remark42?.siteId ?? '';
+const remarkUrl = normalizeUrl(commentConfig.remark42?.host ?? "");
+const remarkSiteId = commentConfig.remark42?.siteId ?? "";
 ---
 
 <div id="remark42" class="mx-auto"></div>
@@ -49,10 +49,10 @@ const remarkSiteId = commentConfig.remark42?.siteId ?? '';
   window.remark_config = {
     host: remarkUrl,
     site_id: remarkSiteId,
-    components: ['embed', 'counter'],
+    components: ["embed", "counter"],
     max_shown_comments: 100,
-    theme: localStorage.getItem('theme') || 'light',
-    locale: 'en',
+    theme: localStorage.getItem("theme") || "light",
+    locale: "en",
     show_email_subscription: false,
     simple_view: true,
   };
@@ -66,7 +66,7 @@ const remarkSiteId = commentConfig.remark42?.siteId ?? '';
       }
 
       // Create new instance
-      const node = document.getElementById('remark42');
+      const node = document.getElementById("remark42");
       if (node) {
         remark42Instance = window.REMARK42.createInstance({
           node,
@@ -85,11 +85,11 @@ const remarkSiteId = commentConfig.remark42?.siteId ?? '';
   // Load Remark42 scripts
   (function (components, doc) {
     for (let i = 0; i < components.length; i++) {
-      const script = doc.createElement('script');
-      const extension = 'noModule' in script ? '.mjs' : '.js';
+      const script = doc.createElement("script");
+      const extension = "noModule" in script ? ".mjs" : ".js";
 
-      if ('noModule' in script) {
-        script.type = 'module';
+      if ("noModule" in script) {
+        script.type = "module";
       } else {
         script.async = true;
         script.defer = true;
@@ -98,26 +98,26 @@ const remarkSiteId = commentConfig.remark42?.siteId ?? '';
       script.src = `${window.remark_config.host}/web/${components[i]}${extension}`;
       (doc.head || doc.body).appendChild(script);
     }
-  })(window.remark_config.components || ['embed'], document);
+  })(window.remark_config.components || ["embed"], document);
 
   // Initialize when Remark42 is ready or wait for it to be ready
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("DOMContentLoaded", () => {
     if (window.REMARK42) {
       initRemark42();
     } else {
-      window.addEventListener('REMARK42::ready', () => {
+      window.addEventListener("REMARK42::ready", () => {
         initRemark42();
       });
     }
   });
 
   // Handle Astro page transitions
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener("astro:page-load", () => {
     initRemark42();
   });
 
   // Clean up before page transitions
-  document.addEventListener('astro:before-swap', () => {
+  document.addEventListener("astro:before-swap", () => {
     if (remark42Instance) {
       remark42Instance.destroy();
     }
@@ -143,14 +143,14 @@ const remarkSiteId = commentConfig.remark42?.siteId ?? '';
 
     themeObserver = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+        if (mutation.type === "attributes" && mutation.attributeName === "class") {
           if (themeChangeTimeout) {
             clearTimeout(themeChangeTimeout);
           }
 
           themeChangeTimeout = setTimeout(() => {
-            const isDark = document.documentElement.classList.contains('dark');
-            const newTheme = isDark ? 'dark' : 'light';
+            const isDark = document.documentElement.classList.contains("dark");
+            const newTheme = isDark ? "dark" : "light";
 
             if (window.REMARK42?.changeTheme) {
               window.REMARK42.changeTheme(newTheme);
@@ -162,25 +162,25 @@ const remarkSiteId = commentConfig.remark42?.siteId ?? '';
 
     themeObserver.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ['class'],
+      attributeFilter: ["class"],
     });
   }
 
   // Set up theme synchronization after Remark42 is loaded
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("DOMContentLoaded", () => {
     if (window.REMARK42) {
       setupThemeSync();
     } else {
-      window.addEventListener('REMARK42::ready', () => {
+      window.addEventListener("REMARK42::ready", () => {
         setupThemeSync();
       });
     }
   });
 
   // Re-setup theme sync on page transitions
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener("astro:page-load", () => {
     setupThemeSync();
   });
 
-  document.addEventListener('astro:before-swap', cleanupThemeSync);
+  document.addEventListener("astro:before-swap", cleanupThemeSync);
 </script>

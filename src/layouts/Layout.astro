@@ -1,6 +1,6 @@
 ---
-import type { HomeSiderType } from '@constants/enum';
-import type { BlogPost } from 'types/blog';
+import type { HomeSiderType } from "@constants/enum";
+import type { BlogPost } from "types/blog";
 
 interface Props {
   title: string;
@@ -15,7 +15,7 @@ interface Props {
     title?: string;
     description?: string;
     image?: string;
-    type?: 'website' | 'article';
+    type?: "website" | "article";
     url?: string;
   };
   /** Robots directive for dynamic or otherwise non-indexable pages. */
@@ -26,23 +26,23 @@ interface Props {
   includeLocaleAlternates?: boolean;
 }
 
-import { ClientRouter } from 'astro:transitions';
-import UmamiAnalytics from '@components/analytics/UmamiAnalytics.astro';
-import AnnouncementProvider from '@components/announcement/AnnouncementProvider.astro';
-import GlobalBGMPlayer from '@components/bgm/GlobalBGMPlayer';
-import ChristmasEffects from '@components/christmas/ChristmasEffects.astro';
-import FloatingGroup from '@components/layout/FloatingGroup';
-import Header from '@components/layout/Header.astro';
-import MobileDrawer from '@components/layout/MobileDrawer.astro';
-import SearchDialog from '@components/layout/SearchDialog';
-import SearchPortal from '@components/layout/SearchPortal.astro';
-import CodeBlockFullscreen from '@components/markdown/CodeBlockFullscreen';
-import DiagramFullscreen from '@components/markdown/DiagramFullscreen';
-import ImageLightbox from '@components/markdown/ImageLightbox';
-import SettingsPanel from '@components/settings/SettingsPanel';
-import { Toaster } from '@components/ui/sonner';
-import { bgmConfig, christmasConfig, seoConfig, siteConfig } from '@constants/site-config';
-import { getOgImageUrl } from '@lib/seo/og-image';
+import { ClientRouter } from "astro:transitions";
+import UmamiAnalytics from "@components/analytics/UmamiAnalytics.astro";
+import AnnouncementProvider from "@components/announcement/AnnouncementProvider.astro";
+import GlobalBGMPlayer from "@components/bgm/GlobalBGMPlayer";
+import ChristmasEffects from "@components/christmas/ChristmasEffects.astro";
+import FloatingGroup from "@components/layout/FloatingGroup";
+import Header from "@components/layout/Header.astro";
+import MobileDrawer from "@components/layout/MobileDrawer.astro";
+import SearchDialog from "@components/layout/SearchDialog";
+import SearchPortal from "@components/layout/SearchPortal.astro";
+import CodeBlockFullscreen from "@components/markdown/CodeBlockFullscreen";
+import DiagramFullscreen from "@components/markdown/DiagramFullscreen";
+import ImageLightbox from "@components/markdown/ImageLightbox";
+import SettingsPanel from "@components/settings/SettingsPanel";
+import { Toaster } from "@components/ui/sonner";
+import { bgmConfig, christmasConfig, seoConfig, siteConfig } from "@constants/site-config";
+import { getOgImageUrl } from "@lib/seo/og-image";
 import {
   FONT_PRESETS,
   GENERAL_DEFAULTS,
@@ -51,10 +51,10 @@ import {
   STORAGE_KEYS,
   WENKAI_STYLESHEET_HREF,
   WENKAI_STYLESHEET_ID,
-} from '@store/settings-constants';
-import LoadingIndicator from 'astro-loading-indicator/component';
-import { SEO } from 'astro-seo';
-import { Tooltips } from 'astro-tooltips';
+} from "@store/settings-constants";
+import LoadingIndicator from "astro-loading-indicator/component";
+import { SEO } from "astro-seo";
+import { Tooltips } from "astro-tooltips";
 import {
   defaultLocale,
   getAlternateUrl,
@@ -64,9 +64,9 @@ import {
   localeList,
   localizedPath,
   stripLocaleFromPath,
-} from '@/i18n';
+} from "@/i18n";
 
-import '@styles/index.css';
+import "@styles/index.css";
 
 const {
   title = seoConfig.title,
@@ -88,17 +88,18 @@ const locale = getLocaleFromUrl(Astro.url.pathname);
 const htmlLang = getHtmlLang(locale);
 
 // Detect if current page is a post page for mobile header (locale-prefix safe)
-const isPostPage = stripLocaleFromPath(Astro.url.pathname).startsWith('/post/');
+const isPostPage = stripLocaleFromPath(Astro.url.pathname).startsWith("/post/");
 
 // OGP image: use post cover if available, otherwise use default from config, fallback to avatar
 const defaultOgImage = getOgImageUrl(post?.data.cover, Astro.site);
-const resolveAbsoluteUrl = (value: string | undefined) => (value ? new URL(value, Astro.site).href : undefined);
+const resolveAbsoluteUrl = (value: string | undefined) =>
+  value ? new URL(value, Astro.site).href : undefined;
 const ogImage = resolveAbsoluteUrl(openGraphOverride?.image) ?? defaultOgImage;
 
 // Pre-compute i18n URLs for <head> links
 const rssFeeds = rssFeedsOverride ?? [
   {
-    href: new URL(localizedPath('/rss.xml', locale), Astro.site).href,
+    href: new URL(localizedPath("/rss.xml", locale), Astro.site).href,
     title: siteConfig.title,
   },
 ];
@@ -122,18 +123,42 @@ const keywords = keywordsOverride || siteConfig.keywords || [siteConfig.title];
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    {/* Async load rounded fonts — Japanese pages use Gen Jyuu Gothic P, others use ChillRoundF (fix #113) */}
-    {locale === 'ja' ? (
-      <>
-        <link rel="stylesheet" href="/fonts/GenJyuuGothic-P-Regular/result.css" media="print" onload="this.setAttribute('media','all')" />
-        <link rel="stylesheet" href="/fonts/GenJyuuGothic-P-Bold/result.css" media="print" onload="this.setAttribute('media','all')" />
-      </>
-    ) : (
-      <>
-        <link rel="stylesheet" href="/fonts/ChillRoundFRegular/result.css" media="print" onload="this.setAttribute('media','all')" />
-        <link rel="stylesheet" href="/fonts/ChillRoundFBold/result.css" media="print" onload="this.setAttribute('media','all')" />
-      </>
-    )}
+    {
+      /* Async load rounded fonts — Japanese pages use Gen Jyuu Gothic P, others use ChillRoundF (fix #113) */
+    }
+    {
+      locale === "ja" ? (
+        <>
+          <link
+            rel="stylesheet"
+            href="/fonts/GenJyuuGothic-P-Regular/result.css"
+            media="print"
+            onload="this.setAttribute('media','all')"
+          />
+          <link
+            rel="stylesheet"
+            href="/fonts/GenJyuuGothic-P-Bold/result.css"
+            media="print"
+            onload="this.setAttribute('media','all')"
+          />
+        </>
+      ) : (
+        <>
+          <link
+            rel="stylesheet"
+            href="/fonts/ChillRoundFRegular/result.css"
+            media="print"
+            onload="this.setAttribute('media','all')"
+          />
+          <link
+            rel="stylesheet"
+            href="/fonts/ChillRoundFBold/result.css"
+            media="print"
+            onload="this.setAttribute('media','all')"
+          />
+        </>
+      )
+    }
 
     <ClientRouter />
     <UmamiAnalytics />
@@ -148,8 +173,8 @@ const keywords = keywordsOverride || siteConfig.keywords || [siteConfig.title];
       openGraph={{
         basic: {
           title: openGraphTitle,
-          type: openGraphOverride?.type ?? 'website',
-          image: ogImage || '',
+          type: openGraphOverride?.type ?? "website",
+          image: ogImage || "",
           url: openGraphUrl,
         },
         optional: {
@@ -158,43 +183,51 @@ const keywords = keywordsOverride || siteConfig.keywords || [siteConfig.title];
         },
       }}
       twitter={{
-        card: ogImage ? 'summary_large_image' : 'summary',
+        card: ogImage ? "summary_large_image" : "summary",
         title: openGraphTitle,
         description: openGraphDescription,
         ...(ogImage && { image: ogImage }),
       }}
       extend={{
-        meta: [{ name: 'author', content: siteConfig.author || '' }],
+        meta: [{ name: "author", content: siteConfig.author || "" }],
       }}
     />
     {/* astro-seo 暂不支持管理 keywords */}
-    <meta name="keywords" content={keywords.join(', ')} />
+    <meta name="keywords" content={keywords.join(", ")} />
     {robots && <meta name="robots" content={robots} />}
 
-    {rssFeeds.map((feed) => (
-      <link rel="alternate" type="application/rss+xml" title={feed.title} href={feed.href} />
-    ))}
+    {
+      rssFeeds.map((feed) => (
+        <link rel="alternate" type="application/rss+xml" title={feed.title} href={feed.href} />
+      ))
+    }
     {/* hreflang alternate links for SEO — only output when multiple locales are configured */}
-    {includeLocaleAlternates && isI18nEnabled && hreflangLinks.map(({ lang, href }) => (
-      <link rel="alternate" hreflang={lang} href={href} />
-    ))}
-    {includeLocaleAlternates && isI18nEnabled && <link rel="alternate" hreflang="x-default" href={xDefaultHref} />}
+    {
+      includeLocaleAlternates &&
+        isI18nEnabled &&
+        hreflangLinks.map(({ lang, href }) => <link rel="alternate" hreflang={lang} href={href} />)
+    }
+    {
+      includeLocaleAlternates && isI18nEnabled && (
+        <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
+      )
+    }
 
     <script is:inline>
       // 主题系统 - 立即执行以防止 FOUC（无样式内容闪烁）
       // 优先级：1. 用户手动选择 > 2. 系统偏好
-      (function() {
+      (function () {
         function getTheme() {
           // 用户明确选择了主题
-          if (localStorage.theme === 'dark') return 'dark';
-          if (localStorage.theme === 'light') return 'light';
+          if (localStorage.theme === "dark") return "dark";
+          if (localStorage.theme === "light") return "light";
           // 未设置，跟随系统偏好
-          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
         }
 
         function applyTheme(theme) {
           var root = document.documentElement;
-          root.classList.toggle('dark', theme === 'dark');
+          root.classList.toggle("dark", theme === "dark");
           root.dataset.theme = theme; // For astro-mermaid autoTheme
         }
 
@@ -202,15 +235,15 @@ const keywords = keywordsOverride || siteConfig.keywords || [siteConfig.title];
         applyTheme(getTheme());
 
         // 监听系统主题偏好变化
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function () {
           // 仅当用户未明确选择主题时自动切换
-          if (!('theme' in localStorage)) {
+          if (!("theme" in localStorage)) {
             applyTheme(getTheme());
           }
         });
 
         // View Transition 切换页面后重新应用主题（在 DOM 渲染前）
-        document.addEventListener('astro:after-swap', function() {
+        document.addEventListener("astro:after-swap", function () {
           applyTheme(getTheme());
         });
       })();
@@ -220,19 +253,27 @@ const keywords = keywordsOverride || siteConfig.keywords || [siteConfig.title];
       (function () {
         // 如果构建时配置关闭，则始终不启用
         if (!christmasFeatureEnabled) {
-          document.documentElement.classList.remove('christmas');
+          document.documentElement.classList.remove("christmas");
           return;
         }
         // 否则使用用户偏好
-        var stored = localStorage.getItem('christmas-enabled');
-        var enabled = stored !== 'false'; // 默认启用
-        document.documentElement.classList.toggle('christmas', enabled);
+        var stored = localStorage.getItem("christmas-enabled");
+        var enabled = stored !== "false"; // 默认启用
+        document.documentElement.classList.toggle("christmas", enabled);
       })();
     </script>
 
     <script
       is:inline
-      define:vars={{ STORAGE_KEYS, READER_DEFAULTS, READER_FONT_FAMILY_MAX_LENGTH, GENERAL_DEFAULTS, FONT_PRESETS, WENKAI_STYLESHEET_ID, WENKAI_STYLESHEET_HREF }}
+      define:vars={{
+        STORAGE_KEYS,
+        READER_DEFAULTS,
+        READER_FONT_FAMILY_MAX_LENGTH,
+        GENERAL_DEFAULTS,
+        FONT_PRESETS,
+        WENKAI_STYLESHEET_ID,
+        WENKAI_STYLESHEET_HREF,
+      }}
     >
       // Apply settings immediately to prevent a flash of default reader styles.
       // Defaults and keys are injected from src/store/settings-constants.ts (single source of truth).
@@ -247,18 +288,18 @@ const keywords = keywordsOverride || siteConfig.keywords || [siteConfig.title];
         }
         function readBoolean(key, fallback) {
           var stored = localStorage.getItem(key);
-          return stored === null ? fallback : stored === 'true';
+          return stored === null ? fallback : stored === "true";
         }
         function quoteFontFamily(family) {
           var serialized = '"';
           for (var character of family) {
             var codePoint = character.codePointAt(0);
             if (codePoint === 0) {
-              serialized += '\uFFFD';
+              serialized += "\uFFFD";
             } else if ((codePoint >= 0x01 && codePoint <= 0x1f) || codePoint === 0x7f) {
-              serialized += '\\' + codePoint.toString(16) + ' ';
-            } else if (character === '"' || character === '\\') {
-              serialized += '\\' + character;
+              serialized += "\\" + codePoint.toString(16) + " ";
+            } else if (character === '"' || character === "\\") {
+              serialized += "\\" + character;
             } else {
               serialized += character;
             }
@@ -269,35 +310,48 @@ const keywords = keywordsOverride || siteConfig.keywords || [siteConfig.title];
           var root = document.documentElement;
           var stored = localStorage.getItem(STORAGE_KEYS.fontPreset);
           var preset = FONT_PRESETS.indexOf(stored) !== -1 ? stored : READER_DEFAULTS.fontPreset;
-          root.setAttribute('data-font-preset', preset);
-          var fontFamily = (localStorage.getItem(STORAGE_KEYS.fontFamily) || '')
+          root.setAttribute("data-font-preset", preset);
+          var fontFamily = (localStorage.getItem(STORAGE_KEYS.fontFamily) || "")
             .trim()
             .slice(0, READER_FONT_FAMILY_MAX_LENGTH);
           if (fontFamily) {
-            root.setAttribute('data-reader-font', 'local');
-            root.style.setProperty('--reader-font-family', quoteFontFamily(fontFamily));
+            root.setAttribute("data-reader-font", "local");
+            root.style.setProperty("--reader-font-family", quoteFontFamily(fontFamily));
           } else {
-            root.removeAttribute('data-reader-font');
-            root.style.removeProperty('--reader-font-family');
+            root.removeAttribute("data-reader-font");
+            root.style.removeProperty("--reader-font-family");
           }
           var fontSize = readPositiveNumber(STORAGE_KEYS.fontSize, READER_DEFAULTS.fontSize);
-          root.style.setProperty('--reader-font-size', fontSize + 'px');
-          root.style.setProperty('--reader-line-height', String(readPositiveNumber(STORAGE_KEYS.lineHeight, READER_DEFAULTS.lineHeight)));
+          root.style.setProperty("--reader-font-size", fontSize + "px");
+          root.style.setProperty(
+            "--reader-line-height",
+            String(readPositiveNumber(STORAGE_KEYS.lineHeight, READER_DEFAULTS.lineHeight)),
+          );
           var measure = readOptionalPositiveNumber(STORAGE_KEYS.measure);
           if (measure === null) {
-            root.style.removeProperty('--reader-measure');
+            root.style.removeProperty("--reader-measure");
           } else {
             // Convert ch to px so headings and body text share one absolute content width.
-            root.style.setProperty('--reader-measure', measure * 0.5 * fontSize + 'px');
+            root.style.setProperty("--reader-measure", measure * 0.5 * fontSize + "px");
           }
-          root.classList.toggle('reader-justify', readBoolean(STORAGE_KEYS.justify, READER_DEFAULTS.justify));
-          root.classList.toggle('motion-off', readBoolean(STORAGE_KEYS.masterMotion, GENERAL_DEFAULTS.masterMotion));
-          root.classList.toggle('wave-off', !readBoolean(STORAGE_KEYS.wave, GENERAL_DEFAULTS.wave));
+          root.classList.toggle(
+            "reader-justify",
+            readBoolean(STORAGE_KEYS.justify, READER_DEFAULTS.justify),
+          );
+          root.classList.toggle(
+            "motion-off",
+            readBoolean(STORAGE_KEYS.masterMotion, GENERAL_DEFAULTS.masterMotion),
+          );
+          root.classList.toggle("wave-off", !readBoolean(STORAGE_KEYS.wave, GENERAL_DEFAULTS.wave));
           // Load WenKai only when the matching preset is selected.
-          if (preset === 'wenkai' && !fontFamily && !document.getElementById(WENKAI_STYLESHEET_ID)) {
-            var link = document.createElement('link');
+          if (
+            preset === "wenkai" &&
+            !fontFamily &&
+            !document.getElementById(WENKAI_STYLESHEET_ID)
+          ) {
+            var link = document.createElement("link");
             link.id = WENKAI_STYLESHEET_ID;
-            link.rel = 'stylesheet';
+            link.rel = "stylesheet";
             link.href = WENKAI_STYLESHEET_HREF;
             document.head.appendChild(link);
           }
@@ -307,7 +361,7 @@ const keywords = keywordsOverride || siteConfig.keywords || [siteConfig.title];
         applySettings();
 
         // Reapply before Astro renders the swapped page.
-        document.addEventListener('astro:after-swap', applySettings);
+        document.addEventListener("astro:after-swap", applySettings);
       })();
     </script>
 
@@ -355,25 +409,25 @@ const keywords = keywordsOverride || siteConfig.keywords || [siteConfig.title];
             return;
           }
 
-          const script = document.createElement('script');
-          script.src = 'https://cpwebassets.codepen.io/assets/embed/ei.js';
+          const script = document.createElement("script");
+          script.src = "https://cpwebassets.codepen.io/assets/embed/ei.js";
           script.async = true;
           script.addEventListener(
-            'load',
+            "load",
             () => {
               codepenScriptLoaded = true;
               resolve();
             },
             { once: true },
           );
-          script.addEventListener('error', reject, { once: true });
+          script.addEventListener("error", reject, { once: true });
           document.head.appendChild(script);
         });
       }
 
       async function initializeCodePenEmbeds() {
         // Check if there are any CodePen embeds on the page
-        const codepenElements = document.querySelectorAll('.codepen');
+        const codepenElements = document.querySelectorAll(".codepen");
         if (codepenElements.length === 0) {
           return;
         }
@@ -387,17 +441,17 @@ const keywords = keywordsOverride || siteConfig.keywords || [siteConfig.title];
             window.__CPEmbed();
           }
         } catch (error) {
-          console.error('[CodePen Embed] Failed to load CodePen embed script:', error);
+          console.error("[CodePen Embed] Failed to load CodePen embed script:", error);
         }
       }
 
       // Initialize on initial page load
-      if (document.readyState !== 'loading') {
+      if (document.readyState !== "loading") {
         initializeCodePenEmbeds();
       }
 
       // Re-initialize on Astro page transitions
-      document.addEventListener('astro:page-load', initializeCodePenEmbeds);
+      document.addEventListener("astro:page-load", initializeCodePenEmbeds);
     </script>
   </head>
   <body>
@@ -407,11 +461,17 @@ const keywords = keywordsOverride || siteConfig.keywords || [siteConfig.title];
       <main class="relative flex grow flex-col gap-4">
         {(<slot />)}
       </main>
-      {bgmConfig.enabled && bgmConfig.audio.length > 0 && (
-        <div transition:persist="global-bgm">
-          <GlobalBGMPlayer client:only="react" audioGroups={bgmConfig.audio} metingApi={bgmConfig.metingApi} />
-        </div>
-      )}
+      {
+        bgmConfig.enabled && bgmConfig.audio.length > 0 && (
+          <div transition:persist="global-bgm">
+            <GlobalBGMPlayer
+              client:only="react"
+              audioGroups={bgmConfig.audio}
+              metingApi={bgmConfig.metingApi}
+            />
+          </div>
+        )
+      }
       <FloatingGroup client:only="react" />
       <SettingsPanel client:idle />
       <MobileDrawer type={siderType} post={post} />
@@ -433,10 +493,15 @@ const keywords = keywordsOverride || siteConfig.keywords || [siteConfig.title];
       container-type: scroll-state;
     }
 
-  @container scroll-state(scrollable: bottom) {
+    @container scroll-state(scrollable: bottom) {
       .scroll-feather-mask::after {
-        content: '';
-        background: linear-gradient(to bottom, transparent 0%, var(--gradient-bg-start) var(--mask-end-percent, 50%), var(--gradient-bg-start) var(--mask-start-percent, 100%));
+        content: "";
+        background: linear-gradient(
+          to bottom,
+          transparent 0%,
+          var(--gradient-bg-start) var(--mask-end-percent, 50%),
+          var(--gradient-bg-start) var(--mask-start-percent, 100%)
+        );
         position: absolute;
         top: var(--mask-top, auto);
         left: var(--mask-left, 0);

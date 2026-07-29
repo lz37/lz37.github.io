@@ -1,12 +1,12 @@
 ---
-import EmptySvg from '@components/svg/EmptySvg';
-import { contentConfig, defaultCoverList } from '@constants/site-config';
-import type { Page } from 'astro';
-import { shuffle } from 'es-toolkit';
-import type { BlogPost, PostCardData } from 'types/blog';
-import { getLocaleFromUrl, t } from '@/i18n';
-import Paginator from './Paginator.astro';
-import PostItemCard from './PostItemCard.astro';
+import EmptySvg from "@components/svg/EmptySvg";
+import { contentConfig, defaultCoverList } from "@constants/site-config";
+import type { Page } from "astro";
+import { shuffle } from "es-toolkit";
+import type { BlogPost, PostCardData } from "types/blog";
+import { getLocaleFromUrl, t } from "@/i18n";
+import Paginator from "./Paginator.astro";
+import PostItemCard from "./PostItemCard.astro";
 
 interface Props {
   posts?: PostCardData[];
@@ -17,12 +17,19 @@ interface Props {
   isSimple?: boolean; // 是否隐藏封面
 }
 
-const { posts, page, showPaginator = true, baseUrl, isHomePage = false, isSimple = false } = Astro.props;
+const {
+  posts,
+  page,
+  showPaginator = true,
+  baseUrl,
+  isHomePage = false,
+  isSimple = false,
+} = Astro.props;
 const locale = getLocaleFromUrl(Astro.url.pathname);
 const covers = shuffle(defaultCoverList);
 
-const imagePosition = contentConfig.postCardImagePosition || 'alternating';
-const isUniformPosition = imagePosition !== 'alternating';
+const imagePosition = contentConfig.postCardImagePosition || "alternating";
+const isUniformPosition = imagePosition !== "alternating";
 
 /**
  * Calculate leftClip based on postCardImagePosition config
@@ -31,9 +38,9 @@ const isUniformPosition = imagePosition !== 'alternating';
  */
 function getLeftClip(index: number): boolean {
   switch (imagePosition) {
-    case 'left':
+    case "left":
       return true;
-    case 'right':
+    case "right":
       return false;
     default:
       return index % 2 === 0;
@@ -45,7 +52,7 @@ function getLeftClip(index: number): boolean {
   !posts?.length && (
     <div class="text-foreground/30 flex flex-col items-center gap-2">
       <EmptySvg className="fill-foreground/20" />
-      <span>{t(locale, 'post.noPostsFound')}</span>
+      <span>{t(locale, "post.noPostsFound")}</span>
     </div>
   )
 }

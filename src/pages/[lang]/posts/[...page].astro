@@ -1,9 +1,9 @@
 ---
-import { PAGINATION } from '@constants/layout';
-import { getNonFeaturedPosts } from '@lib/content';
-import type { PaginateFunction } from 'astro';
-import { defaultLocale, localeList } from '@/i18n/config';
-import PostListPage from '../../posts/[...page].astro';
+import { PAGINATION } from "@constants/layout";
+import { getNonFeaturedPosts } from "@lib/content";
+import type { PaginateFunction } from "astro";
+import { defaultLocale, localeList } from "@/i18n/config";
+import PostListPage from "../../posts/[...page].astro";
 
 export async function getStaticPaths({ paginate }: { paginate: PaginateFunction }) {
   const nonDefaultLocales = localeList.filter((l) => l !== defaultLocale);
@@ -19,4 +19,5 @@ export async function getStaticPaths({ paginate }: { paginate: PaginateFunction 
 
 const { page } = Astro.props;
 ---
+
 <PostListPage page={page} />

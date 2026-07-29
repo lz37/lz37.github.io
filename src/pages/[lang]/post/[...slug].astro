@@ -1,7 +1,7 @@
 ---
-import { getPostSlug, getSortedPosts } from '@lib/content';
-import { defaultLocale, localeList } from '@/i18n/config';
-import PostPage from '../../post/[...slug].astro';
+import { getPostSlug, getSortedPosts } from "@lib/content";
+import { defaultLocale, localeList } from "@/i18n/config";
+import PostPage from "../../post/[...slug].astro";
 
 export async function getStaticPaths() {
   const nonDefaultLocales = localeList.filter((l) => l !== defaultLocale);
@@ -23,4 +23,5 @@ export async function getStaticPaths() {
 const { postId } = Astro.props;
 // PostPage derives locale from Astro.url.pathname, which reflects *this* page's URL (e.g. /en/post/…)
 ---
+
 <PostPage postId={postId} />

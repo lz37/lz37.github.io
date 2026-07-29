@@ -1,5 +1,5 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
 
 interface Props {
   nextHref?: string | null;
@@ -14,7 +14,10 @@ const { nextHref, backHref, nextLabel, backLabel, navigationLabel } = Astro.prop
 
 {
   (nextHref || backHref) && (
-    <nav aria-label={navigationLabel} class="mt-1 flex flex-wrap items-center justify-between gap-2">
+    <nav
+      aria-label={navigationLabel}
+      class="mt-1 flex flex-wrap items-center justify-between gap-2"
+    >
       {backHref ? (
         <a
           href={backHref}

@@ -12,11 +12,14 @@ const { html, collapsible = true, emptyLabel, expandLabel, collapseLabel } = Ast
 
 <moments-message-body
   class="block"
-  data-collapsible-requested={collapsible ? 'true' : 'false'}
+  data-collapsible-requested={collapsible ? "true" : "false"}
   data-expand-label={expandLabel}
   data-collapse-label={collapseLabel}
 >
-  <div class="moments-message-content prose prose-sm dark:prose-invert max-w-[72ch] break-words prose-p:my-2" data-message-content>
+  <div
+    class="moments-message-content prose prose-sm dark:prose-invert max-w-[72ch] break-words prose-p:my-2"
+    data-message-content
+  >
     {html ? <div set:html={html} /> : <p class="text-muted-foreground m-0 italic">{emptyLabel}</p>}
   </div>
   <div class="moments-message-fade pointer-events-none" aria-hidden="true"></div>
@@ -35,37 +38,39 @@ const { html, collapsible = true, emptyLabel, expandLabel, collapseLabel } = Ast
 
   class MomentsMessageBody extends HTMLElement {
     connectedCallback() {
-      if (this.dataset.initialized === 'true') return;
-      this.dataset.initialized = 'true';
+      if (this.dataset.initialized === "true") return;
+      this.dataset.initialized = "true";
 
-      if (this.dataset.collapsibleRequested !== 'true') return;
-      const content = this.querySelector<HTMLElement>('[data-message-content]');
-      const toggle = this.querySelector<HTMLButtonElement>('[data-message-toggle]');
+      if (this.dataset.collapsibleRequested !== "true") return;
+      const content = this.querySelector<HTMLElement>("[data-message-content]");
+      const toggle = this.querySelector<HTMLButtonElement>("[data-message-toggle]");
       if (!content || !toggle) return;
 
       const update = () => {
         if (content.scrollHeight <= COLLAPSED_HEIGHT + 8) return;
-        this.dataset.collapsible = 'true';
-        this.dataset.expanded = 'false';
-        toggle.classList.remove('hidden');
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.textContent = this.dataset.expandLabel ?? '';
+        this.dataset.collapsible = "true";
+        this.dataset.expanded = "false";
+        toggle.classList.remove("hidden");
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.textContent = this.dataset.expandLabel ?? "";
       };
 
       requestAnimationFrame(update);
       document.fonts?.ready.then(update).catch(() => undefined);
 
-      toggle.addEventListener('click', () => {
-        const expanded = this.dataset.expanded === 'true';
-        this.dataset.expanded = expanded ? 'false' : 'true';
-        toggle.setAttribute('aria-expanded', String(!expanded));
-        toggle.textContent = expanded ? (this.dataset.expandLabel ?? '') : (this.dataset.collapseLabel ?? '');
+      toggle.addEventListener("click", () => {
+        const expanded = this.dataset.expanded === "true";
+        this.dataset.expanded = expanded ? "false" : "true";
+        toggle.setAttribute("aria-expanded", String(!expanded));
+        toggle.textContent = expanded
+          ? (this.dataset.expandLabel ?? "")
+          : (this.dataset.collapseLabel ?? "");
       });
     }
   }
 
-  if (!customElements.get('moments-message-body')) {
-    customElements.define('moments-message-body', MomentsMessageBody);
+  if (!customElements.get("moments-message-body")) {
+    customElements.define("moments-message-body", MomentsMessageBody);
   }
 </script>
 
@@ -74,7 +79,7 @@ const { html, collapsible = true, emptyLabel, expandLabel, collapseLabel } = Ast
     position: relative;
   }
 
-  moments-message-body[data-collapsible='true'][data-expanded='false'] .moments-message-content {
+  moments-message-body[data-collapsible="true"][data-expanded="false"] .moments-message-content {
     max-height: 24rem;
     overflow: hidden;
   }
@@ -83,7 +88,7 @@ const { html, collapsible = true, emptyLabel, expandLabel, collapseLabel } = Ast
     display: none;
   }
 
-  moments-message-body[data-collapsible='true'][data-expanded='false'] .moments-message-fade {
+  moments-message-body[data-collapsible="true"][data-expanded="false"] .moments-message-fade {
     position: absolute;
     right: 0;
     bottom: 2.75rem;

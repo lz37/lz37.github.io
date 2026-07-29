@@ -21,21 +21,21 @@ const lightCount = 50;
 <script>
   // Tab 可见性检测 - 不可见时暂停动画以节省资源
   const handleVisibility = () => {
-    document.documentElement.classList.toggle('lights-paused', document.hidden);
+    document.documentElement.classList.toggle("lights-paused", document.hidden);
   };
 
   function initLightsVisibility() {
     // 初始化时检查状态
     handleVisibility();
 
-    document.addEventListener('visibilitychange', handleVisibility);
+    document.addEventListener("visibilitychange", handleVisibility);
   }
 
   // 初始化
-  if (document.readyState !== 'loading') {
+  if (document.readyState !== "loading") {
     initLightsVisibility();
   }
-  document.addEventListener('astro:page-load', initLightsVisibility);
+  document.addEventListener("astro:page-load", initLightsVisibility);
 </script>
 
 <style>
@@ -156,7 +156,7 @@ const lightCount = 50;
 
   /* 灯座 */
   .lightrope li::before {
-    content: '';
+    content: "";
     position: absolute;
     top: calc(0px - var(--globe-height) / 6);
     left: 1px;
@@ -168,7 +168,7 @@ const lightCount = 50;
 
   /* 连接电线 */
   .lightrope li::after {
-    content: '';
+    content: "";
     position: absolute;
     top: calc(0px - var(--globe-height) / 2);
     left: calc(var(--globe-width) - 3px);

@@ -1,5 +1,5 @@
 ---
-import Search from 'astro-pagefind/components/Search.astro';
+import Search from "astro-pagefind/components/Search.astro";
 /**
  * SearchPortal Component
  *
@@ -10,7 +10,7 @@ import Search from 'astro-pagefind/components/Search.astro';
  * point to root-level URLs (e.g., /post/xxx) regardless of the current locale.
  * A future iteration could use custom result rendering to prepend locale prefix.
  */
-import { getHtmlLang, getLocaleFromUrl, t } from '@/i18n';
+import { getHtmlLang, getLocaleFromUrl, t } from "@/i18n";
 
 const locale = getLocaleFromUrl(Astro.url.pathname);
 const lang = getHtmlLang(locale);
@@ -23,9 +23,9 @@ const lang = getHtmlLang(locale);
       className="pagefind-search"
       configOptions={{ lang }}
       searchboxOptions={{
-        placeholder: t(locale, 'search.placeholder'),
-        'hide-shortcut': true,
-        'show-keyboard-hints': 'false',
+        placeholder: t(locale, "search.placeholder"),
+        "hide-shortcut": true,
+        "show-keyboard-hints": "false",
       }}
     />
   </div>
@@ -33,9 +33,9 @@ const lang = getHtmlLang(locale);
 
 <script>
   function moveSearchToDialog() {
-    const dialogContainer = document.getElementById('search-dialog-container');
-    const searchPortal = document.getElementById('search-component-portal');
-    const searchComponent = document.getElementById('search-for-dialog');
+    const dialogContainer = document.getElementById("search-dialog-container");
+    const searchPortal = document.getElementById("search-component-portal");
+    const searchComponent = document.getElementById("search-for-dialog");
 
     if (!dialogContainer || !searchPortal || !searchComponent) return;
 
@@ -47,8 +47,8 @@ const lang = getHtmlLang(locale);
   }
 
   function moveSearchBack() {
-    const searchComponent = document.getElementById('search-for-dialog');
-    const searchPortal = document.getElementById('search-component-portal');
+    const searchComponent = document.getElementById("search-for-dialog");
+    const searchPortal = document.getElementById("search-component-portal");
 
     if (!searchComponent || !searchPortal) return;
 
@@ -76,25 +76,25 @@ const lang = getHtmlLang(locale);
     if (initialized) return;
     initialized = true;
 
-    window.addEventListener('search-dialog-open', handleDialogOpen);
-    window.addEventListener('search-dialog-close', handleDialogClose);
+    window.addEventListener("search-dialog-open", handleDialogOpen);
+    window.addEventListener("search-dialog-close", handleDialogClose);
   }
 
   function cleanupSearchPortal() {
     if (!initialized) return;
 
-    window.removeEventListener('search-dialog-open', handleDialogOpen);
-    window.removeEventListener('search-dialog-close', handleDialogClose);
+    window.removeEventListener("search-dialog-open", handleDialogOpen);
+    window.removeEventListener("search-dialog-close", handleDialogClose);
     initialized = false;
   }
 
   // Initialize immediately if DOM is ready
-  if (document.readyState !== 'loading') {
+  if (document.readyState !== "loading") {
     initSearchPortal();
   }
 
-  document.addEventListener('astro:page-load', initSearchPortal);
-  document.addEventListener('astro:before-swap', cleanupSearchPortal);
+  document.addEventListener("astro:page-load", initSearchPortal);
+  document.addEventListener("astro:before-swap", cleanupSearchPortal);
 </script>
 
 <style>
