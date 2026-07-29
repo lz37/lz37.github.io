@@ -16,11 +16,11 @@ site:
   subtitle: zerozawa's blog - 个人博客 # 网站副标题
   name: zerozawa # 作者名称
   description: 零泽的小站，不定期更新 # 网站描述
-  avatar: "https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_90929970_p0_ヒトこもる_無題.jpg" # 网站头像
+  avatar: "https://pixiv.re/90929970.jpg" # 网站头像
   showLogo: true # 是否显示 Logo
   author: zerozawa # 作者名称
   url: https://www.zerozawa.top # 站点 URL 用于 RSS 和 SEO
-  defaultOgImage: "https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_90929970_p0_ヒトこもる_無題.jpg" # 默认 Open Graph 图片
+  defaultOgImage: "https://pixiv.re/90929970.jpg" # 默认 Open Graph 图片
   startYear: 2022 # 建站年份
   timezone: Asia/Shanghai # 时区配置 (IANA 格式)，用于日期显示和处理
   keywords: # SEO 关键词 (全局)
