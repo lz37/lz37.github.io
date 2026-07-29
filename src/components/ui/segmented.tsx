@@ -48,8 +48,8 @@ export const Segmented = <T extends string | number = string | number>({
       >
         {options.map((option) => {
           if (!option) return null;
-          const { label, value, icon } = option;
-          const selected = selectedValue === value;
+          const { label, value: optionValue, icon } = option;
+          const selected = selectedValue === optionValue;
           return (
             <m.button
               type="button"
@@ -59,10 +59,10 @@ export const Segmented = <T extends string | number = string | number>({
                 { "opacity-50": !selected },
                 itemClass,
               )}
-              onClick={() => setSelectedValue(value)}
-              aria-label={label ?? String(value)}
+              onClick={() => setSelectedValue(optionValue)}
+              aria-label={label ?? String(optionValue)}
               aria-pressed={selected}
-              key={value}
+              key={optionValue}
               layout={!shouldReduceMotion}
               transition={
                 shouldReduceMotion

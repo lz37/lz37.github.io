@@ -10,7 +10,7 @@ interface Props {
 const { series } = Astro.props as Props;
 const seriesPosts = (await getCollection('blog'))
   .filter((post) => post.data.series === series)
-  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+  .toSorted((a, b) => a.data.date.getTime() - b.data.date.getTime());
 
 const trimTrailingSlash = (pathname: string) => (pathname === '/' ? pathname : pathname.replace(/\/+$/, ''));
 const currentPath = trimTrailingSlash(Astro.url.pathname);

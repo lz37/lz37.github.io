@@ -69,8 +69,8 @@ export function useExpandedState({
   const [expandedIds, setExpandedIds] = useState<Set<string>>(() => {
     if (defaultExpanded) {
       const allIds = new Set<string>();
-      function collectIds(headings: Heading[]) {
-        headings.forEach((heading) => {
+      function collectIds(headingNodes: Heading[]) {
+        headingNodes.forEach((heading) => {
           if (heading.children.length > 0) {
             allIds.add(heading.id);
           }

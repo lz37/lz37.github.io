@@ -36,12 +36,12 @@ export function VideoPlayer({ element }: VideoPlayerProps) {
     (index: number) => {
       player.play(index);
     },
-    [player.play],
+    [player],
   );
 
   const handleVideoClick = useCallback(() => {
     player.togglePlay();
-  }, [player.togglePlay]);
+  }, [player]);
 
   if (tracks.length === 0) return null;
 

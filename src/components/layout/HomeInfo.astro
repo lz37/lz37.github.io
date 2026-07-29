@@ -2,7 +2,6 @@
 import ChristmasHat from '@components/christmas/ChristmasHat.astro';
 import ButtonLink from '@components/control/ButtonLink.astro';
 import type { HomeSiderType } from '@constants/enum';
-import { RESERVED_ROUTES } from '@constants/router';
 import { christmasConfig, configuredSeriesSlugs, enabledSeriesSlugs, routers, siteConfig } from '@constants/site-config';
 import { getAllTags, getCategoryList, getPostCount, getSortedPosts } from '@lib/content';
 import { getLqipStyle } from '@lib/lqip';
@@ -32,7 +31,7 @@ const uniqueId = `home-info-${Math.random().toString(36).substring(2, 11)}`;
 const { className } = Astro.props;
 
 // Filter navigation items to exclude disabled series
-const filteredRouters = filterNavItems(routers, configuredSeriesSlugs, enabledSeriesSlugs, RESERVED_ROUTES);
+const filteredRouters = filterNavItems(routers, configuredSeriesSlugs, enabledSeriesSlugs);
 const strippedPath = stripLocaleFromPath(Astro.url.pathname);
 ---
 

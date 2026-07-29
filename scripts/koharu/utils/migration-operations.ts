@@ -587,9 +587,12 @@ export function applyContentMigration(plan: ContentMigrationPlan): void {
     if (rollbackErrors.length === 0) throw writeError;
 
     const writeMessage = writeError instanceof Error ? writeError.message : String(writeError);
-    throw new AggregateError(
-      [writeError, ...rollbackErrors],
-      `内容迁移写入失败: ${writeMessage}；回滚失败: ${rollbackErrors.map((error) => error.message).join("; ")}`,
+    throw Object.assign(
+      new AggregateError(
+        [writeError, ...rollbackErrors],
+        `内容迁移写入失败: ${writeMessage}；回滚失败: ${rollbackErrors.map((error) => error.message).join("; ")}`,
+      ),
+      { cause: writeError },
     );
   }
 }

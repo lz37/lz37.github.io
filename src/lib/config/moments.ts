@@ -346,16 +346,17 @@ function insertAfterArchives(
   return [result, false];
 }
 
+const placeholderCount = (nodes: readonly RouterItem[]): number =>
+  nodes.reduce(
+    (count, item) =>
+      count + (item.feature === "moments" ? 1 : 0) + placeholderCount(item.children ?? []),
+    0,
+  );
+
 export function resolveMomentsNavigation(
   items: readonly RouterItem[],
   config: NormalizedMomentsConfig,
 ): RouterItem[] {
-  const placeholderCount = (nodes: readonly RouterItem[]): number =>
-    nodes.reduce(
-      (count, item) =>
-        count + (item.feature === "moments" ? 1 : 0) + placeholderCount(item.children ?? []),
-      0,
-    );
   const count = placeholderCount(items);
   if (count > 1) configError('Navigation may contain at most one "feature: moments" placeholder.');
 

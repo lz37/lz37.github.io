@@ -112,7 +112,7 @@ export function AudioPlayer({ element }: AudioPlayerProps) {
     (index: number) => {
       player.play(index);
     },
-    [player.play],
+    [player],
   );
 
   if (loading) {

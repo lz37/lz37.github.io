@@ -19,12 +19,12 @@ const lightCount = 50;
 </ul>
 
 <script>
-  function initLightsVisibility() {
-    // Tab 可见性检测 - 不可见时暂停动画以节省资源
-    const handleVisibility = () => {
-      document.documentElement.classList.toggle('lights-paused', document.hidden);
-    };
+  // Tab 可见性检测 - 不可见时暂停动画以节省资源
+  const handleVisibility = () => {
+    document.documentElement.classList.toggle('lights-paused', document.hidden);
+  };
 
+  function initLightsVisibility() {
     // 初始化时检查状态
     handleVisibility();
 

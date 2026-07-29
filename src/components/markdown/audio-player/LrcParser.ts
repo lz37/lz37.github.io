@@ -42,5 +42,5 @@ export function parseLrc(lrcText: string): LrcLine[] {
     }
   }
 
-  return lines.sort((a, b) => a.time - b.time);
+  return lines.toSorted((a, b) => a.time - b.time);
 }

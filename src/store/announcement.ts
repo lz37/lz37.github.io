@@ -53,7 +53,7 @@ function isAnnouncementActive(announcement: Announcement): boolean {
 export const activeAnnouncements = computed(readAnnouncementIds, () => {
   return announcements
     .filter(isAnnouncementActive)
-    .sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0));
+    .toSorted((a, b) => (b.priority ?? 0) - (a.priority ?? 0));
 });
 
 /**

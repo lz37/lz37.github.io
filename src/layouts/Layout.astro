@@ -358,11 +358,15 @@ const keywords = keywordsOverride || siteConfig.keywords || [siteConfig.title];
           const script = document.createElement('script');
           script.src = 'https://cpwebassets.codepen.io/assets/embed/ei.js';
           script.async = true;
-          script.onload = () => {
-            codepenScriptLoaded = true;
-            resolve();
-          };
-          script.onerror = reject;
+          script.addEventListener(
+            'load',
+            () => {
+              codepenScriptLoaded = true;
+              resolve();
+            },
+            { once: true },
+          );
+          script.addEventListener('error', reject, { once: true });
           document.head.appendChild(script);
         });
       }

@@ -44,8 +44,8 @@ export function getBackupList(): BackupInfo[] {
   const files = fs
     .readdirSync(BACKUP_DIR)
     .filter((f) => f.endsWith(BACKUP_FILE_EXTENSION))
-    .sort()
-    .reverse();
+    .toSorted()
+    .toReversed();
 
   return files.map((name) => {
     const filePath = path.join(BACKUP_DIR, name);

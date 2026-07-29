@@ -26,7 +26,7 @@ const postsByYear = posts.reduce(
   {} as Record<number, typeof posts>,
 );
 
-const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
+const years = Object.keys(postsByYear).toSorted((a, b) => Number(b) - Number(a));
 ---
 
 <Layout title={`${t(locale, 'archives.title')} | ${siteConfig.title}`} description={t(locale, 'archives.title')}>

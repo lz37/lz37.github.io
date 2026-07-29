@@ -317,8 +317,8 @@ function generateLinkPreviewHTML(ogData: OGData): string {
           subtitle = description ?? domain;
         }
       }
-    } catch (error) {
-      console.warn("[Link Embed] Failed to extract readable text from URL:", url, error);
+    } catch (urlError) {
+      console.warn("[Link Embed] Failed to extract readable text from URL:", url, urlError);
     }
 
     // Sanitize all user-generated content

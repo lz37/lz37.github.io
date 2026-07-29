@@ -97,13 +97,12 @@ export function SnowfallCanvas({
       window.removeEventListener("mousemove", throttledMouseMove);
       document.removeEventListener("mouseleave", handleMouseLeave);
     };
-    // mouseX/mouseY are stable refs from useMotionValue, no need in deps
   }, [
     isMobile,
     shouldReduceMotion,
     throttledMouseMove, // 鼠标离开窗口时缓慢回到中心
-    mouseX.set,
-    mouseY.set,
+    mouseX,
+    mouseY,
   ]);
 
   const finalIntensity = isMobile ? mobileIntensity : intensity;

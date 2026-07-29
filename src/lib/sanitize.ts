@@ -1,12 +1,17 @@
 import sanitizeHtml from "sanitize-html";
 
+const INVALID_XML_CHARACTERS = new RegExp(
+  String.raw`[^\u0009\u000A\u000D\u0020-\u00FF\u0085\u00A0-\uD7FF\uE000-\uFDCF\uFDE0-\uFFFD]`,
+  "gm",
+);
+
 export const getSanitizeHtml = (html: string) => {
   return sanitizeHtml(html, {
     // https://stackoverflow.com/questions/12229572/php-generated-xml-shows-invalid-char-value-27-message
     textFilter: (text) =>
       text.replace(
         // biome-ignore lint/suspicious/noControlCharactersInRegex: Intentional - filtering invalid XML characters
-        /[^\x09\x0A\x0D\x20-\xFF\x85\xA0-\uD7FF\uE000-\uFDCF\uFDE0-\uFFFD]/gm,
+        INVALID_XML_CHARACTERS,
         "",
       ),
     allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
@@ -21,10 +26,10 @@ export function stripHtmlToText(html: string, maxLength: number = 150): string {
   const text = sanitizeHtml(html, {
     allowedTags: [],
     allowedAttributes: {},
-    textFilter: (text) =>
-      text.replace(
+    textFilter: (filteredText) =>
+      filteredText.replace(
         // biome-ignore lint/suspicious/noControlCharactersInRegex: Intentional - filtering invalid XML characters
-        /[^\x09\x0A\x0D\x20-\xFF\x85\xA0-\uD7FF\uE000-\uFDCF\uFDE0-\uFFFD]/gm,
+        INVALID_XML_CHARACTERS,
         "",
       ),
   });

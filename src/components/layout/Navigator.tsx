@@ -6,7 +6,6 @@
  */
 
 import ThemeToggle from "@components/theme/ThemeToggle";
-import { RESERVED_ROUTES } from "@constants/router";
 import { configuredSeriesSlugs, enabledSeriesSlugs, routers } from "@constants/site-config";
 import { useIsTablet } from "@hooks/useMediaQuery";
 import { useScrollTrigger } from "@hooks/useScrollTrigger";
@@ -24,12 +23,7 @@ interface NavigatorProps {
 }
 
 // Pre-filter navigation items at module load (config is static)
-const filteredRouters = filterNavItems(
-  routers,
-  configuredSeriesSlugs,
-  enabledSeriesSlugs,
-  RESERVED_ROUTES,
-);
+const filteredRouters = filterNavItems(routers, configuredSeriesSlugs, enabledSeriesSlugs);
 
 // Icon component for navigation items - uses @iconify/react for dynamic icons
 function NavIcon({ name }: { name: string }) {

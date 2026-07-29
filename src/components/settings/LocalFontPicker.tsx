@@ -59,7 +59,7 @@ function getUniqueFamilies(fonts: LocalFontData[], locale: string): string[] {
     const family = font.family.trim();
     if (family && !family.startsWith(".")) families.add(family);
   }
-  return [...families].sort(
+  return [...families].toSorted(
     new Intl.Collator(locale, { numeric: true, sensitivity: "base" }).compare,
   );
 }

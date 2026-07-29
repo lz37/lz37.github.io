@@ -50,20 +50,18 @@ export function normalizeNavSlug(path: string): string | null {
  * @param items - Navigation items to filter
  * @param configuredSlugs - Set of all configured series slugs (lowercase)
  * @param enabledSlugs - Set of enabled series slugs (lowercase)
- * @param reservedSlugs - Set of reserved static route slugs (lowercase)
  * @returns Filtered navigation items
  */
 export function filterNavItems(
   items: Router[],
   configuredSlugs: Set<string>,
   enabledSlugs: Set<string>,
-  reservedSlugs: Set<string>,
 ): Router[] {
   return items
     .map((item) => {
       // Recursively filter children first
       const children = item.children
-        ? filterNavItems(item.children, configuredSlugs, enabledSlugs, reservedSlugs)
+        ? filterNavItems(item.children, configuredSlugs, enabledSlugs)
         : undefined;
       const slug = item.path ? normalizeNavSlug(item.path) : null;
 

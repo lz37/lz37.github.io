@@ -277,8 +277,8 @@ export async function appendFriend(data: FriendData): Promise<void> {
  */
 export function isValidUrl(url: string): boolean {
   try {
-    new URL(url);
-    return true;
+    const parsedUrl = new URL(url);
+    return Boolean(parsedUrl);
   } catch {
     return false;
   }
