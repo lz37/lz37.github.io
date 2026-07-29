@@ -227,7 +227,14 @@ export const seoConfig = {
   url: siteConfig.site,
 };
 
-const BUILT_IN_COVERS = Array.from({ length: 21 }, (_, i) => `/img/cover/${i + 1}.webp`);
+const BUILT_IN_COVERS = [
+  "https://pixiv.re/94573417.jpg", // ヒトこもる_祭花
+  "https://pixiv.re/97608845.png", // ヒトこもる_落花
+  "https://pixiv.re/94748376.jpg", // ヒトこもる_舞獅
+  "https://pixiv.re/96145490.jpg", // ヒトこもる_暁旦
+  "https://pixiv.re/89532340.jpg", // ヒトこもる_🌒
+  "https://pixiv.re/80562260-1.jpg", // ヒトこもる_no title
+];
 export const defaultCoverList = yamlConfig?.defaultCoverList?.length
   ? yamlConfig.defaultCoverList
   : BUILT_IN_COVERS;
@@ -235,8 +242,8 @@ export const defaultCoverList = yamlConfig?.defaultCoverList?.length
 /** Fixed cover per first post category; posts outside the map shuffle defaultCoverList. */
 export const categoryCovers: Record<string, string> = yamlConfig?.categoryCovers ?? {};
 
-/** Site-wide banner; undefined falls back to the built-in local pair in Cover.astro. */
-export const siteHeader: string | undefined = yamlConfig?.siteHeader;
+/** Site-wide banner; defaults to 祭花 (the old Hexo default_top_img) via pixiv.re. */
+export const siteHeader: string = yamlConfig?.siteHeader ?? "https://pixiv.re/94573417.jpg";
 
 // Analytics config — reuses AnalyticsConfig from config/types.ts
 

@@ -26,27 +26,17 @@ const { date, updated, title: dataTitle, draft } = data?.data ?? {};
 const readState = data ? getPostReadingTime(data) : null;
 const isDraft = import.meta.env.DEV && draft === true;
 
-// 获取横幅图片的 LQIP 样式(仅内置本地横幅有 LQIP 条目)
-const BANNER_DEFAULT = "/img/site_header_1920.webp";
-const bannerLqipStyle =
-  compact || siteHeader !== undefined ? undefined : getLqipStyle(BANNER_DEFAULT);
-
 // pixiv.re 只代理原图;远程横幅经 images.weserv.nl 缩放到与内置横幅相同的 800/1920 两档
-const isRemoteBanner = siteHeader?.startsWith("http") ?? false;
+const isRemoteBanner = siteHeader.startsWith("http");
 const weservUrl = (url: string, w: number) =>
   `https://images.weserv.nl/?url=${encodeURIComponent(url)}&w=${w}&output=webp`;
-const bannerSrc =
-  siteHeader === undefined
-    ? BANNER_DEFAULT
-    : isRemoteBanner
-      ? weservUrl(siteHeader, 1920)
-      : siteHeader;
-const bannerSrcset =
-  siteHeader === undefined
-    ? "/img/site_header_800.webp 800w,/img/site_header_1920.webp 1200w"
-    : isRemoteBanner
-      ? [800, 1920].map((w) => `${weservUrl(siteHeader, w)} ${w}w`).join(",")
-      : undefined;
+const bannerSrc = isRemoteBanner ? weservUrl(siteHeader, 1920) : siteHeader;
+const bannerSrcset = isRemoteBanner
+  ? [800, 1920].map((w) => `${weservUrl(siteHeader, w)} ${w}w`).join(",")
+  : undefined;
+
+// 横幅 LQIP 仅本地图片可能有条目,远程直接跳过
+const bannerLqipStyle = compact || isRemoteBanner ? undefined : getLqipStyle(siteHeader);
 
 const locale = getLocaleFromUrl(Astro.url.pathname);
 
