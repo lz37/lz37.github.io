@@ -1,0 +1,1 @@
+import{t as e}from"./atom.DwFXeciQ.js";var t=e(!1);function n(){t.set(!t.get())}function r(){t.set(!1)}export{r as n,n as r,t};

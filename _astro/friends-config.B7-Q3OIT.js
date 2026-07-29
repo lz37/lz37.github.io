@@ -1,0 +1,1 @@
+import{t as e}from"./site.BIhxYst1.js";var t=e.friends?.data??[],n=e.friends?.intro??{title:`Friends`,subtitle:``,applyTitle:`Apply for friend link`,applyDesc:`Leave a comment with the following format`};export{n,t};

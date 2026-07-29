@@ -1,0 +1,1 @@
+import{Y as e}from"./scrape-motion-values.Dcz0i0ck.js";var t={current:null},n={current:!1};function r(){if(n.current=!0,e)if(window.matchMedia){let e=window.matchMedia(`(prefers-reduced-motion)`),n=()=>t.current=e.matches;e.addListener(n),n()}else t.current=!1}export{n,t as r,r as t};

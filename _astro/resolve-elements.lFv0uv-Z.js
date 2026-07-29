@@ -1,0 +1,1 @@
+function e(e){let t;return()=>(t===void 0&&(t=e()),t)}var t=e(()=>window.ScrollTimeline!==void 0);function n(e,t,n){if(e instanceof Element)return[e];if(typeof e==`string`){let r=document;t&&(r=t.current);let i=n?.[e]??r.querySelectorAll(e);return i?Array.from(i):[]}return Array.from(e)}export{t as n,e as r,n as t};

@@ -1,0 +1,1 @@
+import{t as e}from"./site.BIhxYst1.js";var t=e.categoryMap||{},n={zh:{categories:{},series:{},featuredCategories:{}}};n.zh;var r=n;function i(e,t){return r[e]?.categories?.[t]}function a(e,n){let r=t[e];return!r||!n?e:i(n,r)??e}export{a as t};
