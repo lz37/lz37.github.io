@@ -1,4 +1,0 @@
----
-title: link
-type: 'link'
----

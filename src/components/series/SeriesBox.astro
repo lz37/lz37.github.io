@@ -1,0 +1,62 @@
+---
+import { getCollection } from "astro:content";
+import { getPostSlug } from "@lib/content";
+import { encodeSlug } from "@lib/route";
+
+interface Props {
+  series: string;
+}
+
+const { series } = Astro.props as Props;
+const seriesPosts = (await getCollection("blog"))
+  .filter((post) => post.data.series === series)
+  .toSorted((a, b) => a.data.date.getTime() - b.data.date.getTime());
+
+const trimTrailingSlash = (pathname: string) =>
+  pathname === "/" ? pathname : pathname.replace(/\/+$/, "");
+const currentPath = trimTrailingSlash(Astro.url.pathname);
+---
+
+{
+  seriesPosts.length > 0 && (
+    <aside class="my-8 overflow-hidden rounded-lg border border-border bg-gradient-start p-4 shadow-box">
+      <h2 class="mb-3 border-border border-b pb-2 text-primary text-lg font-bold">{series}</h2>
+      <nav aria-label={`${series} series posts`}>
+        <ol class="flex flex-col gap-1">
+          {seriesPosts.map((post, index) => {
+            const href = `/post/${encodeSlug(getPostSlug(post))}/`;
+            const isCurrent = currentPath === trimTrailingSlash(href);
+
+            return (
+              <li>
+                <a
+                  href={href}
+                  aria-current={isCurrent ? "page" : undefined}
+                  class:list={[
+                    "group flex items-start gap-3 rounded-md px-3 py-2 text-sm transition-colors duration-200",
+                    isCurrent
+                      ? "bg-accent text-primary font-semibold"
+                      : "text-muted-foreground hover:bg-accent hover:text-primary",
+                  ]}
+                >
+                  <span
+                    aria-hidden="true"
+                    class:list={[
+                      "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs transition-colors",
+                      isCurrent
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-muted text-muted-foreground group-hover:bg-primary/15",
+                    ]}
+                  >
+                    {index + 1}
+                  </span>
+                  <span class="min-w-0 flex-1">{post.data.title}</span>
+                </a>
+              </li>
+            );
+          })}
+        </ol>
+      </nav>
+    </aside>
+  )
+}

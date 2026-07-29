@@ -1,0 +1,40 @@
+name: Astro
+
+on:
+  push:
+    branches: [master]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # devenv 在 nix --impure 下靠它定位项目根(本地由 direnv 提供)
+      DEVENV_ROOT: ${{ github.workspace }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # git-date fallback loader and baked frontmatter dates need full history
+          fetch-depth: 0
+      - uses: cachix/install-nix-action@v31
+        with:
+          # flake nixConfig 对非 trusted user 不生效,这里显式写一遍
+          extra_nix_config: |
+            extra-trusted-public-keys = devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
+            extra-substituters = https://devenv.cachix.org
+      - uses: nix-community/cache-nix-action@v6
+        with:
+          primary-key: nix-${{ runner.os }}-${{ hashFiles('flake.lock') }}
+          restore-prefixes-first-match: nix-${{ runner.os }}-
+      - name: Install dependencies
+        run: nix develop --impure --command pnpm install --frozen-lockfile
+      - name: Build
+        run: nix develop --impure --command pnpm build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: main

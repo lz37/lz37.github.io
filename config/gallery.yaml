@@ -1,0 +1,36 @@
+# Gallery groups — one entry per artist/album.
+# ヒトこもる group uses pixiv.re proxy URLs (https://pixiv.re/<ID>[-N].<ext>;
+# mirrors: pixiv.nl; reverse-proxy form: i.pixiv.re) — no local copy needed.
+# (The Archieve group was removed: the artist deleted their pixiv account.)
+groups:
+  - name: ヒトこもる
+    title: ヒトこもる
+    desc: ヒトこもる太太的作品
+    cover: https://pixiv.re/94573417.jpg
+    images:
+      - alt: 祭花
+        src: https://pixiv.re/94573417.jpg
+      - alt: 無題
+        src: https://pixiv.re/90929970.jpg
+      - alt: メイドさん
+        src: https://pixiv.re/82882659-1.jpg
+      - alt: no title
+        src: https://pixiv.re/83115950-1.jpg
+      - alt: no title
+        src: https://pixiv.re/84764299.jpg
+      - alt: no title
+        src: https://pixiv.re/88427122-3.jpg
+      - alt: 舞獅
+        src: https://pixiv.re/94748376.jpg
+      - alt: 暁旦
+        src: https://pixiv.re/96145490.jpg
+      - alt: 🌒
+        src: https://pixiv.re/89532340.jpg
+      - alt: 落花
+        src: https://pixiv.re/97608845.png
+      - alt: 🍊
+        src: https://pixiv.re/99057205-2.png
+      - alt: no title
+        src: https://pixiv.re/80562260-1.jpg
+      - alt: 🩸
+        src: https://pixiv.re/89703294.jpg
