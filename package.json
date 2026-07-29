@@ -113,6 +113,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@astrojs/language-server": "^2.16.13",
     "@huggingface/transformers": "^3.8.1",
     "@iconify/react": "^5.2.1",
     "@inkjs/ui": "^2.0.0",
@@ -144,18 +145,10 @@
     "strip-markdown": "^6.0.0",
     "transliteration": "^2.6.1",
     "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
     "vite": "^8.1.5",
     "vite-plugin-svgr": "^5.2.0",
     "yaml": "^2.8.2"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "oxfmt",
-      "oxlint --fix"
-    ],
-    "*.json": [
-      "oxfmt"
-    ]
   },
   "engines": {
     "node": ">=22.20.0"
