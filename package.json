@@ -149,9 +149,12 @@
     "yaml": "^2.8.2"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,json}": [
+    "*.{js,jsx,ts,tsx}": [
       "oxfmt",
       "oxlint --fix"
+    ],
+    "*.json": [
+      "oxfmt"
     ]
   },
   "engines": {

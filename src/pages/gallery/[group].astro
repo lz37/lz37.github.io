@@ -1,0 +1,89 @@
+---
+import HomeSider from '@components/layout/HomeSider.astro';
+import Cover from '@components/ui/cover/Cover.astro';
+import { CONTENT_PADDING } from '@constants/layout';
+import { siteConfig } from '@constants/site-config';
+import Layout from '@layouts/Layout.astro';
+import TwoColumnLayout from '@layouts/TwoColumnLayout.astro';
+import type { GetStaticPaths } from 'astro';
+import galleryConfig from '../../../config/gallery.yaml';
+import { getLocaleFromUrl, localizedPath } from '@/i18n';
+
+interface GalleryImage {
+  alt: string;
+  src: string;
+}
+
+interface GalleryGroup {
+  name: string;
+  title: string;
+  desc: string;
+  cover: string;
+  images: GalleryImage[];
+}
+
+interface GalleryConfig {
+  groups: GalleryGroup[];
+}
+
+const galleryGroups = (galleryConfig as unknown as GalleryConfig).groups;
+
+export const getStaticPaths: GetStaticPaths = () =>
+  (galleryConfig as unknown as GalleryConfig).groups.map((group) => ({
+    // Keep the source name as the route param; Astro encodes it for the generated URL.
+    params: { group: group.name },
+    props: { group },
+  }));
+
+// Reference the import at module scope too so it is never tree-shaken
+// out of the prerender chunk.
+void galleryGroups;
+
+interface Props {
+  group: GalleryGroup;
+}
+
+const { group } = Astro.props as Props;
+const locale = getLocaleFromUrl(Astro.url.pathname);
+const pageTitle = `${group.title} | ${siteConfig.title}`;
+---
+
+<Layout
+  title={pageTitle}
+  description={group.desc}
+  openGraph={{ title: pageTitle, description: group.desc, image: group.cover, type: 'website' }}
+>
+  <TwoColumnLayout>
+    <Cover slot="cover" title={group.title} />
+    <HomeSider slot="sider" />
+    <section class={`bg-gradient-start shadow-box tablet:shadow-none flex flex-col gap-6 overflow-hidden ${CONTENT_PADDING.standard}`}>
+      <header class="border-border border-b pb-4">
+        <nav class="text-muted-foreground mb-2 flex items-center gap-2 text-sm">
+          <a href={localizedPath('/gallery/', locale)} class="dashed-border border-b transition-colors hover:border-blue hover:text-blue">画廊</a>
+          <span aria-hidden="true">/</span>
+          <span class="text-primary truncate">{group.title}</span>
+        </nav>
+        <h1 class="text-primary text-2xl font-bold md:text-xl">{group.title}</h1>
+        <p class="text-muted-foreground mt-2 text-sm">{group.desc}</p>
+      </header>
+      <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {group.images.map((image) => (
+          <a
+            href={image.src}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group block overflow-hidden rounded-lg border border-border bg-white shadow-card transition-shadow hover:shadow-card-darker dark:bg-transparent"
+          >
+            <img
+              src={image.src}
+              alt={image.alt}
+              loading="lazy"
+              decoding="async"
+              class="aspect-[4/3] h-auto w-full object-cover transition duration-500 group-hover:scale-105"
+            />
+          </a>
+        ))}
+      </div>
+    </section>
+  </TwoColumnLayout>
+</Layout>

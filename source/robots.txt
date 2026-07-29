@@ -1,4 +1,0 @@
-User-agent: *
-Disallow:
-Sitemap: https://www.zerozawa.top/sitemap.xml
-Sitemap: https://www.zerozawa.top/baidusitemap.xml
