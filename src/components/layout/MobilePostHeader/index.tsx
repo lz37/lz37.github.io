@@ -46,12 +46,15 @@ function Logo({
   return (
     <a href="/" className="flex items-center gap-1">
       {logoElement === "svg" && logoSrc ? (
-        <img
-          src={logoSrc}
-          alt={siteConfig?.alternate ?? siteConfig?.name}
-          className="h-8"
-          height={32}
-        />
+        <>
+          <img
+            src={logoSrc}
+            alt={siteConfig?.alternate ?? siteConfig?.name}
+            className="h-8 dark:invert"
+            height={32}
+          />
+          <span className="logo-text">{logoText}</span>
+        </>
       ) : (
         <span className="logo-text">{logoText}</span>
       )}

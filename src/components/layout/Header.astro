@@ -38,7 +38,10 @@ const locale = getLocaleFromUrl(Astro.url.pathname);
     >
       {
         showLogo ? (
-          <img src={logoImg.src} class="h-8 w-auto" alt={alternate || title} />
+          <>
+            <img src={logoImg.src} class="h-8 w-auto dark:invert" alt={alternate || title} />
+            <span class="logo-text">{alternate || title}</span>
+          </>
         ) : (
           <p class="logo-text">{alternate || title}</p>
         )
