@@ -636,6 +636,8 @@ export interface SiteYamlConfig {
   friends?: FriendsConfig;
   announcements?: AnnouncementConfig[];
   defaultCoverList?: string[];
+  /** Site-wide top banner image; remote URLs are resized via images.weserv.nl. Defaults to the built-in local pair. */
+  siteHeader?: string;
   /** Fixed cover per first post category, applied when a post has no explicit cover (Hexo category_per_img port). */
   categoryCovers?: Record<string, string>;
   content?: ContentConfig;

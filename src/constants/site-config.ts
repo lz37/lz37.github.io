@@ -235,6 +235,9 @@ export const defaultCoverList = yamlConfig?.defaultCoverList?.length
 /** Fixed cover per first post category; posts outside the map shuffle defaultCoverList. */
 export const categoryCovers: Record<string, string> = yamlConfig?.categoryCovers ?? {};
 
+/** Site-wide banner; undefined falls back to the built-in local pair in Cover.astro. */
+export const siteHeader: string | undefined = yamlConfig?.siteHeader;
+
 // Analytics config — reuses AnalyticsConfig from config/types.ts
 
 // Christmas config types
