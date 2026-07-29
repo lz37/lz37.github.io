@@ -1,7 +1,7 @@
 ---
 title: 利用 Docker 部署云手机和碧蓝航线脚本
-date: '2023-04-26 20:18:38'
-updated: '2023-04-28 11:00:04'
+date: "2023-04-26 20:18:38"
+updated: "2023-04-28 11:00:04"
 description: 利用 Docker 部署云手机运行碧蓝航线和部署 Alas 自动刷图脚本的心得
 tags:
   - Docker
@@ -135,7 +135,7 @@ services:
       - ro.ndk_translation.version=0.2.2
       - ro.secure=0 # 允许 ADB Root 调试
     container_name: redroid
-    image: 'redroid/redroid:11.0.0-latest' # 对X86的镜像来说上面的参数多了，但是加了也没事
+    image: "redroid/redroid:11.0.0-latest" # 对X86的镜像来说上面的参数多了，但是加了也没事
     # image: 'redroid:11.0.0-nb' 有转译需求的话使用这个
     network_mode: bridge
 ```

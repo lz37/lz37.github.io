@@ -10,17 +10,19 @@ description: "我喜欢的音乐"
 
 ```markdown
 {% media audio %}
+
 - title: 我的歌单
   list:
-    - https://music.163.com/#/playlist?id=你的歌单ID
-{% endmedia %}
+  - https://music.163.com/#/playlist?id=你的歌单ID
+    {% endmedia %}
 ```
 
 {% media audio %}
+
 - title: 诗岸歌单 山山～全是山山～
   list:
-    - https://music.163.com/#/playlist?id=8676645748
+  - https://music.163.com/#/playlist?id=8676645748
 - title: 超かぐや姫！
   list:
-    - https://music.163.com/#/album?id=358640968
-{% endmedia %}
+  - https://music.163.com/#/album?id=358640968
+    {% endmedia %}

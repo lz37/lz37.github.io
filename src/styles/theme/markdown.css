@@ -403,7 +403,12 @@
     border: 0;
     border-radius: 0 0 0.75rem 0.75rem;
     padding-bottom: 0.5rem;
-    background: linear-gradient(to bottom, transparent, hsl(var(--card) / 0.9) 60%, hsl(var(--card)));
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      hsl(var(--card) / 0.9) 60%,
+      hsl(var(--card))
+    );
     color: hsl(var(--muted-foreground));
   }
 
@@ -781,8 +786,8 @@
 html[data-font-preset="system"]:not(:lang(ja)) .prose,
 html[data-font-preset="system"]:not(:lang(ja)) .prose :is(h1, h2, h3, h4, h5, h6) {
   font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC",
-    sans-serif;
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "Noto Sans SC", sans-serif;
 }
 
 html[data-font-preset="serif"] .prose,
@@ -798,13 +803,21 @@ html[data-font-preset="wenkai"] .prose :is(h1, h2, h3, h4, h5, h6) {
 html[data-reader-font="local"]:not(:lang(ja)) .prose,
 html[data-reader-font="local"]:not(:lang(ja)) .prose :is(h1, h2, h3, h4, h5, h6) {
   font-family:
-    var(--reader-font-family), "寒蝉全圆体", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei",
+    var(--reader-font-family),
+    "寒蝉全圆体",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "PingFang SC",
+    "Microsoft YaHei",
     sans-serif;
 }
 
 html[data-reader-font="local"]:lang(ja) .prose,
 html[data-reader-font="local"]:lang(ja) .prose :is(h1, h2, h3, h4, h5, h6) {
-  font-family: var(--reader-font-family), "Gen Jyuu Gothic P", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  font-family:
+    var(--reader-font-family), "Gen Jyuu Gothic P", "Hiragino Kaku Gothic ProN", "Yu Gothic",
+    sans-serif;
 }
 
 /* Reader text justification */

@@ -1,7 +1,7 @@
 ---
 title: TrueNAS SCALE 使用 K8S 安装 portainer 管理 docker
-date: '2023-11-22 13:29:10'
-updated: '2023-11-23 14:43:51'
+date: "2023-11-22 13:29:10"
+updated: "2023-11-23 14:43:51"
 description: TrueNAS SCALE 如何直接使用 docker，使用 K8S 安装 portainer 管理 docker
 tags:
   - TrueNAS SCALE
@@ -18,7 +18,15 @@ link: "2023/TrueNAS_SCALE使用K8S安装portainer管理docker"
 - [TrueNAS SCALE 如何直接使用 docker，使用 K8S 安装 portainer 管理 docker](https://www.truenasscale.com/2022/01/25/510.html)
 
 <div style="position: relative; width: 100%;padding-top: calc(100% * 720 / 1280);border: 2px black solid;">
-    <iframe src="//player.bilibili.com/player.html?aid=634328482&bvid=BV1pb4y1b7Sc&cid=446853142&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; top: 0;"></iframe>
+  <iframe
+    src="//player.bilibili.com/player.html?aid=634328482&bvid=BV1pb4y1b7Sc&cid=446853142&p=1"
+    scrolling="no"
+    border="0"
+    frameborder="no"
+    framespacing="0"
+    allowfullscreen="true"
+    style="position: absolute; width: 100%; height: 100%; top: 0;"
+  ></iframe>
 </div>
 
 本文章基本算是搬运。
@@ -56,7 +64,7 @@ metadata:
   labels:
     app.kubernetes.io/name: portainer
     app.kubernetes.io/instance: portainer
-    app.kubernetes.io/version: 'ce-latest-ee-2.10.0'
+    app.kubernetes.io/version: "ce-latest-ee-2.10.0"
 
 ---
 # Source: portainer/templates/rbac.yaml
@@ -67,7 +75,7 @@ metadata:
   labels:
     app.kubernetes.io/name: portainer
     app.kubernetes.io/instance: portainer
-    app.kubernetes.io/version: 'ce-latest-ee-2.10.0'
+    app.kubernetes.io/version: "ce-latest-ee-2.10.0"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -87,7 +95,7 @@ metadata:
     io.portainer.kubernetes.application.stack: portainer
     app.kubernetes.io/name: portainer
     app.kubernetes.io/instance: portainer
-    app.kubernetes.io/version: 'ce-latest-ee-2.10.0'
+    app.kubernetes.io/version: "ce-latest-ee-2.10.0"
 spec:
   type: NodePort
   ports:
@@ -121,11 +129,11 @@ metadata:
     io.portainer.kubernetes.application.stack: portainer
     app.kubernetes.io/name: portainer
     app.kubernetes.io/instance: portainer
-    app.kubernetes.io/version: 'ce-latest-ee-2.10.0'
+    app.kubernetes.io/version: "ce-latest-ee-2.10.0"
 spec:
   replicas: 1
   strategy:
-    type: 'Recreate'
+    type: "Recreate"
   selector:
     matchLabels:
       app.kubernetes.io/name: portainer
@@ -140,10 +148,10 @@ spec:
       serviceAccountName: portainer-sa-clusteradmin
       containers:
         - name: portainer
-          image: 'portainer/portainer-ce:latest'
+          image: "portainer/portainer-ce:latest"
           imagePullPolicy: Always
           args:
-            - '--tunnel-port=30776'
+            - "--tunnel-port=30776"
           volumeMounts:
             - name: data
               mountPath: /data

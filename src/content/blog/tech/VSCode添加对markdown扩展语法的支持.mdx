@@ -1,7 +1,7 @@
 ---
 title: VSCode添加对markdown扩展语法的支持
-date: '2023-04-25 15:44:18'
-updated: '2023-07-07 11:01:36'
+date: "2023-04-25 15:44:18"
+updated: "2023-07-07 11:01:36"
 description: Markdown Preview Enhanced 插件的冷知识，以及其替代方法
 tags:
   - VSCode
@@ -42,13 +42,13 @@ F1 输入`Markdown Preview Enhanced: Extend Parser`调出插件的`parse.js`文�
 module.exports = {
   onWillTransformMarkdown: function (markdown) {
     return new Promise((resolve, reject) => {
-      markdown = markdown.replace(/\{%\s*mermaid\s*%\}\n/g, (whole, content) => `\`\`\`mermaid\n`)
-      markdown = markdown.replace(/\{%\s*endmermaid\s*%\}\n/g, (whole, content) => `\`\`\`\n`)
-      return resolve(markdown)
-    })
+      markdown = markdown.replace(/\{%\s*mermaid\s*%\}\n/g, (whole, content) => `\`\`\`mermaid\n`);
+      markdown = markdown.replace(/\{%\s*endmermaid\s*%\}\n/g, (whole, content) => `\`\`\`\n`);
+      return resolve(markdown);
+    });
   },
   // ...
-}
+};
 ```
 
 这下，在 vscode 中的$\{\%\ mermaid\ \%\}$与$\{\%\ endmermaid\ \%\}$两个标签包裹中的内容即可被成功渲染
@@ -64,18 +64,18 @@ module.exports = {
 ````javascript
 /** @type {import("hexo")} */
 hexo.extend.filter.register(
-  'before_post_render',
+  "before_post_render",
   (data) => {
-    const reg = /```mermaid([\s\S]+?)```/g
+    const reg = /```mermaid([\s\S]+?)```/g;
     // 替换
     data.content = data.content.replace(reg, (_, codeBlockContent) => {
       return `{% mermaid %}
       ${codeBlockContent}
-      {% endmermaid %}`
-    })
+      {% endmermaid %}`;
+    });
   },
   0, // 表示第一个执行
-)
+);
 ````
 
 mermaid 代码块会按正则被替换为标签形式
