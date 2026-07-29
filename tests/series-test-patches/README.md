@@ -35,6 +35,7 @@ git apply tests/series-test-patches/01-add-reading-series.patch
 ### 验证步骤
 
 1. 启动开发服务器
+
    ```bash
    pnpm dev
    ```
@@ -77,6 +78,7 @@ git apply tests/series-test-patches/02-disable-weekly.patch
 ### 验证步骤
 
 1. 启动开发服务器
+
    ```bash
    pnpm dev
    ```
@@ -117,6 +119,7 @@ git apply tests/series-test-patches/03-test-reserved-slug-error.patch
 ### 验证步骤
 
 1. 尝试构建
+
    ```bash
    pnpm build
    ```
@@ -157,6 +160,7 @@ git apply tests/series-test-patches/04-test-highlight-off.patch
 ### 验证步骤
 
 1. 启动开发服务器
+
    ```bash
    pnpm dev
    ```
@@ -201,12 +205,12 @@ rm -rf src/content/blog/reading
 
 ## 快速参考
 
-| Patch | 测试场景 | 预期结果 |
-|-------|---------|---------|
-| `01-add-reading-series.patch` | 添加第二个系列 | 正常工作，两个系列并存 |
-| `02-disable-weekly.patch` | 禁用系列 | 系列页面 404，首页无高亮 |
-| `03-test-reserved-slug-error.patch` | 保留路由冲突 | 构建失败，报错提示 |
-| `04-test-highlight-off.patch` | 关闭首页高亮 | 系列正常但首页无高亮卡片 |
+| Patch                               | 测试场景       | 预期结果                 |
+| ----------------------------------- | -------------- | ------------------------ |
+| `01-add-reading-series.patch`       | 添加第二个系列 | 正常工作，两个系列并存   |
+| `02-disable-weekly.patch`           | 禁用系列       | 系列页面 404，首页无高亮 |
+| `03-test-reserved-slug-error.patch` | 保留路由冲突   | 构建失败，报错提示       |
+| `04-test-highlight-off.patch`       | 关闭首页高亮   | 系列正常但首页无高亮卡片 |
 
 ---
 

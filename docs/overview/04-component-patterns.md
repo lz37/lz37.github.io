@@ -29,15 +29,15 @@
 
 ### 实际对比
 
-| 场景 | 组件类型 | 示例 |
-|------|---------|------|
-| 页面布局 | Astro | `Layout.astro` |
-| 文章列表（静态） | Astro | `PostList.astro` |
-| 导航菜单 | Astro + React | `Navigator.astro` + `DropdownNav.tsx` |
-| 主题切换 | Astro（内联脚本） | `ThemeToggle.astro` |
-| 搜索对话框 | React | `SearchDialog.tsx` |
-| 侧边栏目录 | React | `TableOfContents.tsx` |
-| 分页器 | Astro | `Paginator.astro` |
+| 场景             | 组件类型          | 示例                                  |
+| ---------------- | ----------------- | ------------------------------------- |
+| 页面布局         | Astro             | `Layout.astro`                        |
+| 文章列表（静态） | Astro             | `PostList.astro`                      |
+| 导航菜单         | Astro + React     | `Navigator.astro` + `DropdownNav.tsx` |
+| 主题切换         | Astro（内联脚本） | `ThemeToggle.astro`                   |
+| 搜索对话框       | React             | `SearchDialog.tsx`                    |
+| 侧边栏目录       | React             | `TableOfContents.tsx`                 |
+| 分页器           | Astro             | `Paginator.astro`                     |
 
 ---
 
@@ -138,7 +138,7 @@ const SeriesNavigation = ({ post }: SeriesNavigationProps) => {
 
 ```typescript
 // src/store/ui.ts
-import { atom } from 'nanostores';
+import { atom } from "nanostores";
 
 export const drawerOpen = atom<boolean>(false);
 
@@ -149,17 +149,13 @@ export function toggleDrawer(): void {
 
 ```tsx
 // React 组件中使用
-import { useStore } from '@nanostores/react';
-import { drawerOpen, toggleDrawer } from '@store/ui';
+import { useStore } from "@nanostores/react";
+import { drawerOpen, toggleDrawer } from "@store/ui";
 
 const MenuIcon = () => {
   const isOpen = useStore(drawerOpen);
 
-  return (
-    <button onClick={toggleDrawer}>
-      {isOpen ? 'Close' : 'Open'}
-    </button>
-  );
+  return <button onClick={toggleDrawer}>{isOpen ? "Close" : "Open"}</button>;
 };
 ```
 
@@ -216,32 +212,27 @@ const MenuIcon = () => {
 
 ```tsx
 // src/components/common/ErrorBoundary.tsx
-'use client';
+"use client";
 
-import { ErrorBoundary as ErrorBoundaryLib } from 'react-error-boundary';
-import { Button } from '../ui/button';
+import { ErrorBoundary as ErrorBoundaryLib } from "react-error-boundary";
+import { Button } from "../ui/button";
 
 const FallbackComponent = () => {
   return (
     <div className="flex-center-y w-full gap-2 py-6">
-      Oops, Something wrong! Please contact to{' '}
+      Oops, Something wrong! Please contact to{" "}
       <a href="mailto:i@cosine.ren" className="text-blue-500">
         i@cosine.ren
       </a>
       or
-      <Button onClick={() => window.location.reload()}>
-        Reload Page
-      </Button>
+      <Button onClick={() => window.location.reload()}>Reload Page</Button>
     </div>
   );
 };
 
 export const ErrorBoundary: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <ErrorBoundaryLib
-      FallbackComponent={FallbackComponent}
-      onError={(e) => console.error(e)}
-    >
+    <ErrorBoundaryLib FallbackComponent={FallbackComponent} onError={(e) => console.error(e)}>
       {children}
     </ErrorBoundaryLib>
   );
@@ -266,8 +257,8 @@ class FloatingErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     // 开发环境打印错误
-    if (process.env.NODE_ENV !== 'production') {
-      console.error('FloatingErrorBoundary caught:', error, errorInfo);
+    if (process.env.NODE_ENV !== "production") {
+      console.error("FloatingErrorBoundary caught:", error, errorInfo);
     }
     // 生产环境可发送到 Sentry
     this.props.onError?.(error, errorInfo);
@@ -295,8 +286,7 @@ export function withFloatingErrorBoundary<P extends object>(
     </FloatingErrorBoundary>
   );
 
-  WrappedComponent.displayName =
-    `withFloatingErrorBoundary(${componentName || Component.name})`;
+  WrappedComponent.displayName = `withFloatingErrorBoundary(${componentName || Component.name})`;
 
   return WrappedComponent;
 }
@@ -307,7 +297,7 @@ export function withFloatingErrorBoundary<P extends object>(
 ```tsx
 // src/components/layout/DropdownNav.tsx
 
-import { withFloatingErrorBoundary } from '@components/common/FloatingErrorBoundary';
+import { withFloatingErrorBoundary } from "@components/common/FloatingErrorBoundary";
 
 const DropdownNavComponent = ({ item }: DropdownNavProps) => {
   // 组件实现...
@@ -317,10 +307,7 @@ const DropdownNavComponent = ({ item }: DropdownNavProps) => {
 const DropdownNav = memo(DropdownNavComponent);
 
 // 2. 错误隔离：HOC 包装
-const DropdownNavWithErrorBoundary = withFloatingErrorBoundary(
-  DropdownNav,
-  'DropdownNav'
-);
+const DropdownNavWithErrorBoundary = withFloatingErrorBoundary(DropdownNav, "DropdownNav");
 
 export default DropdownNavWithErrorBoundary;
 ```
@@ -393,13 +380,13 @@ const showSidebar = post.data.catalog;
 ```tsx
 // src/components/layout/DropdownNav.tsx
 
-import { memo } from 'react';
-import Popover from '@components/ui/popover';
-import { type Router } from '@constants/router';
-import { useToggle } from '@hooks/useToggle';
-import { Icon } from '@iconify/react';
-import { cn } from '@lib/utils';
-import { withFloatingErrorBoundary } from '@components/common/FloatingErrorBoundary';
+import { memo } from "react";
+import Popover from "@components/ui/popover";
+import { type Router } from "@constants/router";
+import { useToggle } from "@hooks/useToggle";
+import { Icon } from "@iconify/react";
+import { cn } from "@lib/utils";
+import { withFloatingErrorBoundary } from "@components/common/FloatingErrorBoundary";
 
 interface DropdownNavProps {
   item: Router;
@@ -425,16 +412,13 @@ const DropdownNavComponent = ({ item, className }: DropdownNavProps) => {
             <a
               key={child.path}
               href={child.path}
-              className={cn(
-                'hover:bg-gradient-shoka-button px-4 py-2 transition-colors',
-                {
-                  // 4. 动态圆角
-                  'rounded-ss-2xl': index === 0,
-                  'rounded-ee-2xl': index === children.length - 1,
-                  // 5. 当前路由高亮
-                  'bg-gradient-shoka-button': window.location.pathname === child.path,
-                },
-              )}
+              className={cn("hover:bg-gradient-shoka-button px-4 py-2 transition-colors", {
+                // 4. 动态圆角
+                "rounded-ss-2xl": index === 0,
+                "rounded-ee-2xl": index === children.length - 1,
+                // 5. 当前路由高亮
+                "bg-gradient-shoka-button": window.location.pathname === child.path,
+              })}
             >
               {child.icon && <Icon icon={child.icon} />}
               {child.name}
@@ -445,7 +429,7 @@ const DropdownNavComponent = ({ item, className }: DropdownNavProps) => {
     >
       {/* 6. 触发按钮 */}
       <button
-        className={cn('inline-flex items-center px-4 py-2', className)}
+        className={cn("inline-flex items-center px-4 py-2", className)}
         aria-expanded={isOpen}
         aria-haspopup="true"
         aria-label={`${name}菜单`}
@@ -455,8 +439,8 @@ const DropdownNavComponent = ({ item, className }: DropdownNavProps) => {
         {/* 7. 箭头旋转动画 */}
         <Icon
           icon="ri:arrow-drop-down-fill"
-          className={cn('transition-transform', {
-            'rotate-180': isOpen,
+          className={cn("transition-transform", {
+            "rotate-180": isOpen,
           })}
         />
       </button>
@@ -468,10 +452,7 @@ const DropdownNavComponent = ({ item, className }: DropdownNavProps) => {
 const DropdownNav = memo(DropdownNavComponent);
 
 // 9. 错误隔离：HOC
-const DropdownNavWithErrorBoundary = withFloatingErrorBoundary(
-  DropdownNav,
-  'DropdownNav'
-);
+const DropdownNavWithErrorBoundary = withFloatingErrorBoundary(DropdownNav, "DropdownNav");
 
 export default DropdownNavWithErrorBoundary;
 ```
@@ -545,12 +526,12 @@ src/components/
 
 ## 相关文件
 
-| 文件 | 说明 |
-|------|------|
-| `src/components/common/ErrorBoundary.tsx` | 通用错误边界 |
+| 文件                                              | 说明             |
+| ------------------------------------------------- | ---------------- |
+| `src/components/common/ErrorBoundary.tsx`         | 通用错误边界     |
 | `src/components/common/FloatingErrorBoundary.tsx` | 浮动 UI 错误边界 |
-| `src/components/layout/Header.astro` | 页头组件 |
-| `src/components/layout/DropdownNav.tsx` | 下拉导航 |
-| `src/components/layout/Navigator.astro` | 导航容器 |
-| `src/store/ui.ts` | UI 状态管理 |
-| `src/hooks/useToggle.ts` | 开关状态 Hook |
+| `src/components/layout/Header.astro`              | 页头组件         |
+| `src/components/layout/DropdownNav.tsx`           | 下拉导航         |
+| `src/components/layout/Navigator.astro`           | 导航容器         |
+| `src/store/ui.ts`                                 | UI 状态管理      |
+| `src/hooks/useToggle.ts`                          | 开关状态 Hook    |

@@ -159,19 +159,19 @@ const { page } = Astro.props;
 
 ```typescript
 interface Page<T> {
-  data: T[];           // 当前页的数据
-  start: number;       // 起始索引
-  end: number;         // 结束索引
-  size: number;        // 每页大小
-  total: number;       // 总条目数
+  data: T[]; // 当前页的数据
+  start: number; // 起始索引
+  end: number; // 结束索引
+  size: number; // 每页大小
+  total: number; // 总条目数
   currentPage: number; // 当前页码
-  lastPage: number;    // 最后一页
+  lastPage: number; // 最后一页
   url: {
-    current: string;   // 当前页 URL
-    prev?: string;     // 上一页 URL
-    next?: string;     // 下一页 URL
-    first: string;     // 第一页 URL
-    last: string;      // 最后一页 URL
+    current: string; // 当前页 URL
+    prev?: string; // 上一页 URL
+    next?: string; // 下一页 URL
+    first: string; // 第一页 URL
+    last: string; // 最后一页 URL
   };
 }
 ```
@@ -252,22 +252,22 @@ RSS 使用 TypeScript 端点（`.ts` 文件）生成 XML：
 ```typescript
 // src/pages/rss.xml.ts
 
-import rss from '@astrojs/rss';
-import { siteConfig } from '@constants/site-config';
-import { getSortedPosts } from '@lib/content';
-import { getSanitizeHtml } from '@lib/sanitize';
-import type { APIContext } from 'astro';
-import sanitizeHtml from 'sanitize-html';
+import rss from "@astrojs/rss";
+import { siteConfig } from "@constants/site-config";
+import { getSortedPosts } from "@lib/content";
+import { getSanitizeHtml } from "@lib/sanitize";
+import type { APIContext } from "astro";
+import sanitizeHtml from "sanitize-html";
 
 // 生成纯文本摘要
 const generateTextSummary = (html?: string, length: number = 150): string => {
-  const text = sanitizeHtml(html ?? '', {
-    allowedTags: [],  // 移除所有 HTML 标签
+  const text = sanitizeHtml(html ?? "", {
+    allowedTags: [], // 移除所有 HTML 标签
     allowedAttributes: {},
   });
 
   if (text.length <= length) return text;
-  return text.substring(0, length).replace(/\s+\S*$/, '');  // 不截断词语
+  return text.substring(0, length).replace(/\s+\S*$/, ""); // 不截断词语
 };
 
 // GET 端点 - 返回 RSS XML
@@ -276,15 +276,15 @@ export async function GET(context: APIContext) {
   const { site } = context;
 
   if (!site) {
-    throw new Error('Missing site metadata');
+    throw new Error("Missing site metadata");
   }
 
   return rss({
     title: siteConfig.title,
-    description: siteConfig.subtitle || 'No description',
+    description: siteConfig.subtitle || "No description",
     site,
     trailingSlash: false,
-    stylesheet: '/rss/cos-feed.xsl',  // RSS 样式表
+    stylesheet: "/rss/cos-feed.xsl", // RSS 样式表
 
     // 只包含最新 20 篇文章
     items: posts
@@ -293,7 +293,7 @@ export async function GET(context: APIContext) {
         pubDate: post.data.date,
         description: post.data?.description ?? generateTextSummary(post.rendered?.html),
         link: `/post/${getPostSlug(post)}`,
-        content: getSanitizeHtml(post.rendered?.html ?? ''),
+        content: getSanitizeHtml(post.rendered?.html ?? ""),
       }))
       .slice(0, 20),
   });
@@ -490,7 +490,7 @@ const jsonLd = {
 ```javascript
 // astro.config.mjs
 export default defineConfig({
-  trailingSlash: 'ignore', // /about 和 /about/ 都有效
+  trailingSlash: "ignore", // /about 和 /about/ 都有效
   // 'always' - 强制末尾有斜杠
   // 'never' - 强制末尾无斜杠
   // 'ignore' - 两者都接受

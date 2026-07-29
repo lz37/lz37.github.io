@@ -265,7 +265,7 @@ pnpm koharu generate all          # すべて生成
 
 ```yaml
 i18n:
-  defaultLocale: zh        # デフォルトロケール（URL プレフィックスなし）
+  defaultLocale: zh # デフォルトロケール（URL プレフィックスなし）
   locales:
     - code: zh
       label: 中文
@@ -348,11 +348,11 @@ comment:
 > [Zhilu のブログ](https://github.com/L33Z22L11/blog-v3)にならって、このテーマを使用しているブログのショーケースを設けました。\
 > QQ グループ 598022684 でのディスカッションや、[フロントエンドチャンネル](https://t.me/cosine_front_end)のコメント欄でのチャットにぜひご参加ください。
 
-| ブログ                                         | 作者       | リポジトリ                                                      | 備考                                   |
-| ---------------------------------------------- | ---------- | --------------------------------------------------------------- | -------------------------------------- |
-| **[Cosine のブログ](http://blog.cosine.ren/)** | **cosine** | [cosZone/astro-koharu](https://github.com/cosZone/astro-koharu) | このテーマ                              |
-| [XueHua のブログ](https://xhblog.top/)         | XueHua-s   | [XueHua-s/astro-snow](https://github.com/XueHua-s/astro-snow)   | 機能を簡素化、スタートページを追加      |
-| [Ksable's 小屋](https://blog.ksable.top/)      | Ksable     | [God-2077/astro-blog](https://github.com/God-2077/astro-blog)  | 一部機能を変更 / 追加                  |
+| ブログ                                         | 作者       | リポジトリ                                                      | 備考                               |
+| ---------------------------------------------- | ---------- | --------------------------------------------------------------- | ---------------------------------- |
+| **[Cosine のブログ](http://blog.cosine.ren/)** | **cosine** | [cosZone/astro-koharu](https://github.com/cosZone/astro-koharu) | このテーマ                         |
+| [XueHua のブログ](https://xhblog.top/)         | XueHua-s   | [XueHua-s/astro-snow](https://github.com/XueHua-s/astro-snow)   | 機能を簡素化、スタートページを追加 |
+| [Ksable's 小屋](https://blog.ksable.top/)      | Ksable     | [God-2077/astro-blog](https://github.com/God-2077/astro-blog)   | 一部機能を変更 / 追加              |
 
 ## 謝辞
 

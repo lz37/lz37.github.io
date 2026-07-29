@@ -101,16 +101,16 @@ const posts = await getSortedPosts();
 
 ```javascript
 // astro.config.mjs
-import react from '@astrojs/react';
-import { siteConfig } from './src/constants/site-config';
-import icon from 'astro-icon';
-import { defineConfig } from 'astro/config';
-import svgr from 'vite-plugin-svgr';
-import umami from '@yeskunall/astro-umami';
-import tailwindcss from '@tailwindcss/vite';
-import rehypeSlug from 'rehype-slug';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import pagefind from 'astro-pagefind';
+import react from "@astrojs/react";
+import { siteConfig } from "./src/constants/site-config";
+import icon from "astro-icon";
+import { defineConfig } from "astro/config";
+import svgr from "vite-plugin-svgr";
+import umami from "@yeskunall/astro-umami";
+import tailwindcss from "@tailwindcss/vite";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import pagefind from "astro-pagefind";
 
 export default defineConfig({
   // 1. 站点 URL（用于生成绝对路径）
@@ -124,17 +124,17 @@ export default defineConfig({
       [
         rehypeAutolinkHeadings, // 为标题添加锚点链接
         {
-          behavior: 'append', // 在标题后追加链接
+          behavior: "append", // 在标题后追加链接
           properties: {
-            className: ['anchor-link'],
+            className: ["anchor-link"],
           },
         },
       ],
     ],
     shikiConfig: {
       themes: {
-        light: 'github-light', // 浅色代码主题
-        dark: 'github-dark', // 深色代码主题
+        light: "github-light", // 浅色代码主题
+        dark: "github-dark", // 深色代码主题
       },
     },
   },
@@ -145,17 +145,17 @@ export default defineConfig({
     icon({
       // 图标系统
       include: {
-        gg: ['*'], // gg 图标集
-        'fa6-regular': ['*'],
-        'fa6-solid': ['*'],
-        ri: ['*'], // Remix Icon
+        gg: ["*"], // gg 图标集
+        "fa6-regular": ["*"],
+        "fa6-solid": ["*"],
+        ri: ["*"], // Remix Icon
       },
     }),
     umami({
       // 访问统计
-      id: '14de13b0-3220-4beb-8f0b-e08b17724991',
-      endpointUrl: 'https://stats.cosine.ren',
-      hostUrl: 'https://stats.cosine.ren',
+      id: "14de13b0-3220-4beb-8f0b-e08b17724991",
+      endpointUrl: "https://stats.cosine.ren",
+      hostUrl: "https://stats.cosine.ren",
     }),
     pagefind(), // 静态搜索
   ],
@@ -174,7 +174,7 @@ export default defineConfig({
   },
 
   // 6. URL 末尾斜杠处理
-  trailingSlash: 'ignore', // /about 和 /about/ 都有效
+  trailingSlash: "ignore", // /about 和 /about/ 都有效
 });
 ```
 
@@ -238,10 +238,10 @@ TypeScript 配置文件：
 
 ```typescript
 // 不使用别名
-import { cn } from '../../../lib/utils';
+import { cn } from "../../../lib/utils";
 
 // 使用别名（推荐）
-import { cn } from '@lib/utils';
+import { cn } from "@lib/utils";
 ```
 
 编译时，TypeScript 将 `@lib/utils` 解析为 `src/lib/utils`。
@@ -462,10 +462,10 @@ View Transitions API
 
 ```javascript
 // Layout.astro
-document.addEventListener('astro:page-load', () => {
+document.addEventListener("astro:page-load", () => {
   // 每次页面加载（包括过渡后）检查主题
-  if (localStorage.theme === 'dark') {
-    document.documentElement.classList.add('dark');
+  if (localStorage.theme === "dark") {
+    document.documentElement.classList.add("dark");
   }
 });
 ```

@@ -58,15 +58,16 @@ markdown: {
 
 ```typescript
 const blogCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/blog' }),
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/blog" }),
   schema: z.object({
-    title: z.string(),                       // 文章标题
-    description: z.string().optional(),      // 描述
-    link: z.string().optional(),             // 自定义链接
-    date: z.date(),                          // 发布日期
-    cover: z.string().optional(),            // 封面图片
-    tags: z.array(z.string()).optional(),    // 标签
-    categories: z.array(z.string())          // 分类（支持嵌套）
+    title: z.string(), // 文章标题
+    description: z.string().optional(), // 描述
+    link: z.string().optional(), // 自定义链接
+    date: z.date(), // 发布日期
+    cover: z.string().optional(), // 封面图片
+    tags: z.array(z.string()).optional(), // 标签
+    categories: z
+      .array(z.string()) // 分类（支持嵌套）
       .or(z.array(z.array(z.string())))
       .optional(),
     // Hexo 兼容性字段
@@ -108,7 +109,7 @@ Shiki 在构建时进行语法高亮，生成的 HTML 包含内联样式，无�
 
 ```javascript
 plugins: [
-  require('@tailwindcss/typography'),
+  require("@tailwindcss/typography"),
   // ... other plugins
 ];
 ```
@@ -172,7 +173,7 @@ h6 {
 
 /* 锚点图标 */
 .prose a.anchor-link > span::before {
-  content: '';
+  content: "";
   width: 1em;
   height: 1em;
   position: absolute;
@@ -183,7 +184,7 @@ h6 {
 
   /* 使用 SVG mask 显示 # 图标 */
   background-color: currentColor;
-  mask-image: url('data:image/svg+xml,...');
+  mask-image: url("data:image/svg+xml,...");
   /* ... */
 }
 
@@ -217,7 +218,7 @@ h6 {
 
 /* 目录项 hover 效果 */
 .toc-item::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   width: 0;
@@ -240,8 +241,8 @@ h6 {
 
 ```typescript
 interface ContentConfig {
-  addBlankTarget: boolean;   // 为外部链接添加 target="_blank"
-  smoothScroll: boolean;      // 启用平滑滚动
+  addBlankTarget: boolean; // 为外部链接添加 target="_blank"
+  smoothScroll: boolean; // 启用平滑滚动
 }
 ```
 
@@ -261,11 +262,11 @@ export const defaultContentConfig: ContentConfig = {
 ```javascript
 // 为所有外部链接添加 target="_blank"
 if (config.addBlankTarget) {
-  const links = contentContainer.querySelectorAll('a[href]');
+  const links = contentContainer.querySelectorAll("a[href]");
   links.forEach((link) => {
-    const href = link.getAttribute('href') || '';
-    if (href.startsWith('http') || href.startsWith('//')) {
-      link.setAttribute('target', '_blank');
+    const href = link.getAttribute("href") || "";
+    if (href.startsWith("http") || href.startsWith("//")) {
+      link.setAttribute("target", "_blank");
     }
   });
 }
@@ -277,18 +278,18 @@ if (config.addBlankTarget) {
 if (config.smoothScroll) {
   const anchorLinks = contentContainer.querySelectorAll('a.anchor-link[href^="#"]');
   anchorLinks.forEach((link) => {
-    link.addEventListener('click', (e) => {
+    link.addEventListener("click", (e) => {
       e.preventDefault();
-      const targetId = link.getAttribute('href')?.substring(1);
+      const targetId = link.getAttribute("href")?.substring(1);
       const targetElement = document.getElementById(targetId);
 
       if (targetElement) {
         targetElement.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
+          behavior: "smooth",
+          block: "start",
         });
         // 更新 URL hash
-        history.pushState(null, '', `#${targetId}`);
+        history.pushState(null, "", `#${targetId}`);
       }
     });
   });
@@ -305,11 +306,11 @@ if (config.smoothScroll) {
 
 ```javascript
 // Astro 页面切换时重新运行
-document.addEventListener('astro:page-load', enhanceContent);
+document.addEventListener("astro:page-load", enhanceContent);
 
 // 初次加载时运行
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', enhanceContent);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", enhanceContent);
 } else {
   enhanceContent();
 }
@@ -340,18 +341,21 @@ const activeId = useActiveHeading({ offsetTop: 120 });
 3. **手风琴式展开**（`TableOfContents/index.tsx:40-98`）
 
 ```typescript
-const handleHeadingClick = useCallback((id: string) => {
-  // 滚动到目标标题
-  element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+const handleHeadingClick = useCallback(
+  (id: string) => {
+    // 滚动到目标标题
+    element.scrollIntoView({ behavior: "smooth", block: "start" });
 
-  // 手风琴逻辑：
-  // 1. 关闭同级其他标题
-  // 2. 打开父级标题链
-  // 3. 如果有子标题则展开
-  setExpandedIds((prev) => {
-    // ... 复杂的状态管理逻辑
-  });
-}, [headings, setExpandedIds]);
+    // 手风琴逻辑：
+    // 1. 关闭同级其他标题
+    // 2. 打开父级标题链
+    // 3. 如果有子标题则展开
+    setExpandedIds((prev) => {
+      // ... 复杂的状态管理逻辑
+    });
+  },
+  [headings, setExpandedIds],
+);
 ```
 
 **用户体验：**
@@ -392,7 +396,7 @@ const handleHeadingClick = useCallback((id: string) => {
 用法示例：
 
 ```typescript
-import readingTime from 'reading-time';
+import readingTime from "reading-time";
 const stats = readingTime(post.body);
 console.log(stats.text); // "5 min read"
 ```
@@ -410,13 +414,13 @@ console.log(stats.text); // "5 min read"
 
 ```javascript
 const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'BlogPosting',
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
   headline: title,
   description: description || post.body?.slice(0, 100),
   keywords: categories?.length ? tags.concat(categories[0]) : tags,
-  author: { '@type': 'Person', name: siteConfig.author },
-  datePublished: parseDate(date, 'YYYY-MM-DD'),
+  author: { "@type": "Person", name: siteConfig.author },
+  datePublished: parseDate(date, "YYYY-MM-DD"),
 };
 ```
 

@@ -39,14 +39,10 @@ astro-koharu 使用 **Motion**（Framer Motion 的继任者）作为动画库，
 Motion 是 Framer Motion 的继任者，提供声明式动画 API：
 
 ```tsx
-import { motion } from 'motion/react';
+import { motion } from "motion/react";
 
 // 基础动画
-<motion.div
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  exit={{ opacity: 0 }}
-/>
+<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />;
 
 // 使用 variants
 const variants = {
@@ -54,25 +50,21 @@ const variants = {
   visible: { opacity: 1, y: 0 },
 };
 
-<motion.div
-  variants={variants}
-  initial="hidden"
-  animate="visible"
-/>
+<motion.div variants={variants} initial="hidden" animate="visible" />;
 ```
 
 ### 核心概念
 
-| 概念 | 说明 |
-|------|------|
-| `motion.div` | 可动画的 DOM 元素 |
-| `initial` | 初始状态 |
-| `animate` | 目标状态 |
-| `exit` | 退出状态（需要 AnimatePresence） |
-| `transition` | 过渡配置 |
-| `variants` | 命名状态集合 |
-| `whileHover` | 悬停状态 |
-| `whileTap` | 点击状态 |
+| 概念         | 说明                             |
+| ------------ | -------------------------------- |
+| `motion.div` | 可动画的 DOM 元素                |
+| `initial`    | 初始状态                         |
+| `animate`    | 目标状态                         |
+| `exit`       | 退出状态（需要 AnimatePresence） |
+| `transition` | 过渡配置                         |
+| `variants`   | 命名状态集合                     |
+| `whileHover` | 悬停状态                         |
+| `whileTap`   | 点击状态                         |
 
 ---
 
@@ -84,83 +76,83 @@ const variants = {
 export const animation = {
   // 持续时间（毫秒）
   duration: {
-    fast: 150,      // 快速反馈
-    tween: 200,     // 过渡
-    normal: 250,    // 标准动画
-    ui: 300,        // UI 交互
-    slow: 350,      // 慢速动画
-    slower: 500,    // 更慢
-    flipCard: 600,  // 卡片翻转
+    fast: 150, // 快速反馈
+    tween: 200, // 过渡
+    normal: 250, // 标准动画
+    ui: 300, // UI 交互
+    slow: 350, // 慢速动画
+    slower: 500, // 更慢
+    flipCard: 600, // 卡片翻转
   },
 
   // CSS 缓动函数
   easing: {
-    linear: 'linear',
-    easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
-    easeOut: 'cubic-bezier(0, 0, 0.2, 1)',
-    easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
-    spring: 'cubic-bezier(0.34, 1.56, 0.64, 1)',  // 弹性效果
+    linear: "linear",
+    easeIn: "cubic-bezier(0.4, 0, 1, 1)",
+    easeOut: "cubic-bezier(0, 0, 0.2, 1)",
+    easeInOut: "cubic-bezier(0.4, 0, 0.2, 1)",
+    spring: "cubic-bezier(0.34, 1.56, 0.64, 1)", // 弹性效果
   },
 
   // Motion Spring 配置
   spring: {
     // 默认 Spring（平衡）
     default: {
-      type: 'spring',
+      type: "spring",
       stiffness: 300,
       damping: 30,
     },
 
     // 柔和 Spring（平滑）
     gentle: {
-      type: 'spring',
+      type: "spring",
       stiffness: 200,
       damping: 25,
     },
 
     // 弹性 Spring（有弹跳）
     wobbly: {
-      type: 'spring',
+      type: "spring",
       stiffness: 400,
       damping: 20,
     },
 
     // 刚性 Spring（快速响应）
     stiff: {
-      type: 'spring',
+      type: "spring",
       stiffness: 500,
       damping: 35,
     },
 
     // 慢速 Spring（放松）
     slow: {
-      type: 'spring',
+      type: "spring",
       stiffness: 150,
       damping: 20,
     },
 
     // 微动画预设
     microDamping: {
-      type: 'spring',
+      type: "spring",
       stiffness: 200,
       damping: 13,
     },
 
     microRebound: {
-      type: 'spring',
+      type: "spring",
       stiffness: 200,
       damping: 9,
     },
 
     // 组件专用
     menu: {
-      type: 'spring',
+      type: "spring",
       stiffness: 300,
       damping: 25,
     },
 
     popoverContent: {
-      type: 'spring',
+      type: "spring",
       stiffness: 300,
       damping: 20,
     },
@@ -168,9 +160,9 @@ export const animation = {
 
   // CSS transition 字符串
   transition: {
-    fast: 'all 150ms cubic-bezier(0.4, 0, 0.2, 1)',
-    normal: 'all 250ms cubic-bezier(0.4, 0, 0.2, 1)',
-    slow: 'all 350ms cubic-bezier(0.4, 0, 0.2, 1)',
+    fast: "all 150ms cubic-bezier(0.4, 0, 0.2, 1)",
+    normal: "all 250ms cubic-bezier(0.4, 0, 0.2, 1)",
+    slow: "all 350ms cubic-bezier(0.4, 0, 0.2, 1)",
   },
 };
 ```
@@ -250,13 +242,13 @@ const lineVariants: Variants = {
 const controls = useAnimation();
 
 useEffect(() => {
-  controls.start(isOpen ? 'opened' : 'closed');
+  controls.start(isOpen ? "opened" : "closed");
 }, [isOpen, controls]);
 
 // SVG 中使用
 <motion.g variants={lineVariants} animate={controls} custom={1}>
   <line x1="3" y1="6" x2="21" y2="6" />
-</motion.g>
+</motion.g>;
 ```
 
 **动画效果**：
@@ -304,18 +296,18 @@ scale: 1 → 0.85
 ```tsx
 // 使用 CSS 3D 变换
 const flipCardStyle = {
-  perspective: '1000px',
+  perspective: "1000px",
 };
 
 const cardFrontStyle = {
-  backfaceVisibility: 'hidden',
-  transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0)',
+  backfaceVisibility: "hidden",
+  transform: isFlipped ? "rotateY(180deg)" : "rotateY(0)",
   transition: `transform ${animation.duration.flipCard}ms ${animation.easing.easeInOut}`,
 };
 
 const cardBackStyle = {
-  backfaceVisibility: 'hidden',
-  transform: isFlipped ? 'rotateY(0)' : 'rotateY(-180deg)',
+  backfaceVisibility: "hidden",
+  transform: isFlipped ? "rotateY(0)" : "rotateY(-180deg)",
   transition: `transform ${animation.duration.flipCard}ms ${animation.easing.easeInOut}`,
 };
 ```
@@ -327,7 +319,7 @@ const cardBackStyle = {
 <motion.button
   whileHover={{ scale: 1.05 }}
   whileTap={{ scale: 0.95 }}
-  transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+  transition={{ type: "spring", stiffness: 400, damping: 17 }}
 >
   Click me
 </motion.button>
@@ -342,7 +334,7 @@ const cardBackStyle = {
 `AnimatePresence` 允许组件在从 React 树中移除时执行退出动画：
 
 ```tsx
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, motion } from "motion/react";
 
 function Modal({ isOpen }) {
   return (
@@ -351,7 +343,7 @@ function Modal({ isOpen }) {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}  // 退出时执行
+          exit={{ opacity: 0 }} // 退出时执行
         >
           Modal content
         </motion.div>
@@ -394,7 +386,7 @@ const containerVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,  // 子元素依次出现
+      staggerChildren: 0.1, // 子元素依次出现
     },
   },
 };
@@ -414,11 +406,7 @@ const itemVariants: Variants = {
 ### 使用 Variants
 
 ```tsx
-<motion.ul
-  variants={containerVariants}
-  initial="hidden"
-  animate="visible"
->
+<motion.ul variants={containerVariants} initial="hidden" animate="visible">
   {items.map((item) => (
     <motion.li key={item.id} variants={itemVariants}>
       {item.name}
@@ -453,20 +441,20 @@ const lineVariants: Variants = {
 ### 手动控制动画
 
 ```tsx
-import { useAnimation } from 'motion/react';
+import { useAnimation } from "motion/react";
 
 function Component() {
   const controls = useAnimation();
 
   // 响应状态变化
   useEffect(() => {
-    controls.start(isOpen ? 'opened' : 'closed');
+    controls.start(isOpen ? "opened" : "closed");
   }, [isOpen, controls]);
 
   // 手动触发
   const handleClick = async () => {
-    await controls.start('hover');
-    await controls.start('normal');
+    await controls.start("hover");
+    await controls.start("normal");
   };
 
   return (
@@ -486,7 +474,9 @@ function Component() {
 ```css
 /* 简单的状态过渡 */
 .button {
-  transition: transform 0.2s ease-out, background-color 0.2s ease-out;
+  transition:
+    transform 0.2s ease-out,
+    background-color 0.2s ease-out;
 }
 
 .button:hover {
@@ -496,6 +486,7 @@ function Component() {
 ```
 
 适用场景：
+
 - 简单的 hover 效果
 - 颜色/透明度过渡
 - 不需要 JavaScript 控制
@@ -513,6 +504,7 @@ function Component() {
 ```
 
 适用场景：
+
 - 需要退出动画
 - 复杂的序列/交错动画
 - 需要 JavaScript 控制
@@ -521,14 +513,14 @@ function Component() {
 
 ### 项目中的选择
 
-| 场景 | 选择 | 原因 |
-|------|------|------|
-| 按钮 hover | CSS | 简单过渡 |
-| 菜单图标 | Motion | 复杂的路径变换 |
-| Popover | Motion | 需要 exit 动画 |
-| 链接悬停 | CSS | 简单高亮 |
-| 卡片翻转 | CSS | 3D 变换 |
-| 列表过渡 | Motion | stagger 效果 |
+| 场景       | 选择   | 原因           |
+| ---------- | ------ | -------------- |
+| 按钮 hover | CSS    | 简单过渡       |
+| 菜单图标   | Motion | 复杂的路径变换 |
+| Popover    | Motion | 需要 exit 动画 |
+| 链接悬停   | CSS    | 简单高亮       |
+| 卡片翻转   | CSS    | 3D 变换        |
+| 列表过渡   | Motion | stagger 效果   |
 
 ---
 
@@ -537,7 +529,7 @@ function Component() {
 ### prefers-reduced-motion
 
 ```tsx
-import { useReducedMotion } from 'motion/react';
+import { useReducedMotion } from "motion/react";
 
 function Component() {
   const shouldReduceMotion = useReducedMotion();
@@ -583,10 +575,10 @@ function Component() {
 
 ## 相关文件
 
-| 文件 | 说明 |
-|------|------|
-| `src/constants/design-tokens.ts` | 动画设计令牌 |
-| `src/constants/anim/spring.ts` | Spring 预设 |
-| `src/components/ui/MenuIcon.tsx` | 菜单图标动画 |
-| `src/components/ui/popover.tsx` | 弹出框动画 |
-| `src/components/post/FlippedCard.astro` | 翻转卡片 |
+| 文件                                    | 说明         |
+| --------------------------------------- | ------------ |
+| `src/constants/design-tokens.ts`        | 动画设计令牌 |
+| `src/constants/anim/spring.ts`          | Spring 预设  |
+| `src/components/ui/MenuIcon.tsx`        | 菜单图标动画 |
+| `src/components/ui/popover.tsx`         | 弹出框动画   |
+| `src/components/post/FlippedCard.astro` | 翻转卡片     |

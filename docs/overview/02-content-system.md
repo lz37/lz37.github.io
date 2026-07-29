@@ -44,33 +44,33 @@ src/
 ### 配置文件 `src/content.config.ts`
 
 ```typescript
-import { defineCollection } from 'astro:content';
-import { glob } from 'astro/loaders';
-import { z } from 'astro/zod';
-import type { BlogSchema, BlogSchemaInput } from 'types/blog';
+import { defineCollection } from "astro:content";
+import { glob } from "astro/loaders";
+import { z } from "astro/zod";
+import type { BlogSchema, BlogSchemaInput } from "types/blog";
 
 const blogCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/blog' }),
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/blog" }),
   schema: z.object({
     // 必填字段
-    title: z.string(),              // 文章标题
-    date: z.date(),                 // 发布日期
+    title: z.string(), // 文章标题
+    date: z.date(), // 发布日期
 
     // 可选字段
-    description: z.string().optional(),  // 文章描述/摘要
-    link: z.string().optional(),         // 自定义 URL 标识符
-    cover: z.string().optional(),        // 封面图片路径
+    description: z.string().optional(), // 文章描述/摘要
+    link: z.string().optional(), // 自定义 URL 标识符
+    cover: z.string().optional(), // 封面图片路径
     tags: z.array(z.string()).optional(), // 标签数组
 
     // Hexo 兼容字段
-    subtitle: z.string().optional(),     // 副标题（旧 Hexo）
-    catalog: z.boolean().optional(),     // 是否显示目录
-    sticky: z.boolean().optional(),      // 是否置顶
+    subtitle: z.string().optional(), // 副标题（旧 Hexo）
+    catalog: z.boolean().optional(), // 是否显示目录
+    sticky: z.boolean().optional(), // 是否置顶
 
     // 分类字段（支持两种格式）
     categories: z
-      .array(z.string())                    // 格式1: ['工具']
-      .or(z.array(z.array(z.string())))     // 格式2: [['笔记', '前端', 'React']]
+      .array(z.string()) // 格式1: ['工具']
+      .or(z.array(z.array(z.string()))) // 格式2: [['笔记', '前端', 'React']]
       .optional(),
   }) satisfies z.ZodType<BlogSchema, BlogSchemaInput>,
 });
@@ -122,7 +122,7 @@ const firstCategory = categories[0];
 if (Array.isArray(firstCategory)) {
   // 格式 2：多层分类 ['笔记', '前端', 'React']
   return firstCategory.includes(categoryName);
-} else if (typeof firstCategory === 'string') {
+} else if (typeof firstCategory === "string") {
   // 格式 1：单层分类 '工具'
   return firstCategory === categoryName;
 }
@@ -149,9 +149,9 @@ category_map:
 ```typescript
 // src/constants/category.ts
 export const categoryMap: Record<string, string> = {
-  '随笔': 'life',
-  '笔记': 'note',
-  '前端': 'front-end',
+  随笔: "life",
+  笔记: "note",
+  前端: "front-end",
   // ...
 };
 ```
@@ -163,8 +163,8 @@ export const categoryMap: Record<string, string> = {
 ```typescript
 // src/lib/content/types.ts
 type Category = {
-  name: string;           // 分类名（中文）
-  children?: Category[];  // 子分类
+  name: string; // 分类名（中文）
+  children?: Category[]; // 子分类
 };
 ```
 
@@ -190,9 +190,9 @@ type Category = {
 ```typescript
 // src/lib/content/categories.ts
 export async function getCategoryList(): Promise<CategoryListResult> {
-  const allBlogPosts = await getCollection('blog');
-  const countMap: { [key: string]: number } = {};  // 分类文章计数
-  const resCategories: Category[] = [];            // 分类树
+  const allBlogPosts = await getCollection("blog");
+  const countMap: { [key: string]: number } = {}; // 分类文章计数
+  const resCategories: Category[] = []; // 分类树
 
   for (const post of allBlogPosts) {
     const { catalog, categories } = post.data;
@@ -214,7 +214,7 @@ export async function getCategoryList(): Promise<CategoryListResult> {
           addCategoryRecursively(resCategories, parentNames, name);
         }
       }
-    } else if (typeof firstCategory === 'string') {
+    } else if (typeof firstCategory === "string") {
       // 单层分类：'工具'
       countMap[firstCategory] = (countMap[firstCategory] || 0) + 1;
       addCategoryRecursively(resCategories, [], firstCategory);
@@ -257,7 +257,7 @@ export async function getCategoryList(): Promise<CategoryListResult> {
 export function addCategoryRecursively(
   rootCategories: Category[],
   parentNames: string[],
-  name: string
+  name: string,
 ) {
   if (parentNames.length === 0) {
     // 根分类：直接添加
@@ -311,20 +311,20 @@ export function addCategoryRecursively(
 ```typescript
 // src/lib/content/categories.ts
 export function buildCategoryPath(categoryNames: string | string[]): string {
-  if (!categoryNames) return '';
+  if (!categoryNames) return "";
 
   const names = Array.isArray(categoryNames) ? categoryNames : [categoryNames];
-  if (names.length === 0) return '';
+  if (names.length === 0) return "";
 
   const slugs = names.map((name) => categoryMap[name]);
-  return '/categories/' + slugs.join('/');
+  return "/categories/" + slugs.join("/");
 }
 
 // 示例
-buildCategoryPath(['笔记', '前端', 'React'])
+buildCategoryPath(["笔记", "前端", "React"]);
 // → '/categories/note/front-end/react'
 
-buildCategoryPath('工具')
+buildCategoryPath("工具");
 // → '/categories/tools'
 ```
 
@@ -334,11 +334,8 @@ buildCategoryPath('工具')
 
 ```typescript
 // src/lib/content/categories.ts
-export function getCategoryByLink(
-  categories: Category[],
-  link?: string
-): Category | null {
-  const name = getCategoryNameByLink(link ?? '');
+export function getCategoryByLink(categories: Category[], link?: string): Category | null {
+  const name = getCategoryNameByLink(link ?? "");
   if (!name || !categories?.length) return null;
 
   for (const category of categories) {
@@ -362,8 +359,8 @@ export function getCategoryByLink(
 
 ```typescript
 // src/lib/content/posts.ts
-export async function getSortedPosts(): Promise<CollectionEntry<'blog'>[]> {
-  const posts = await getCollection('blog');
+export async function getSortedPosts(): Promise<CollectionEntry<"blog">[]> {
+  const posts = await getCollection("blog");
 
   // 按日期降序排列（最新在前）
   return posts.sort((a, b) => {
@@ -377,13 +374,13 @@ export async function getSortedPosts(): Promise<CollectionEntry<'blog'>[]> {
 ```typescript
 // src/lib/content/posts.ts
 export async function getPostsBySticky(): Promise<{
-  stickyPosts: CollectionEntry<'blog'>[];
-  nonStickyPosts: CollectionEntry<'blog'>[];
+  stickyPosts: CollectionEntry<"blog">[];
+  nonStickyPosts: CollectionEntry<"blog">[];
 }> {
   const posts = await getSortedPosts();
 
-  const stickyPosts: CollectionEntry<'blog'>[] = [];
-  const nonStickyPosts: CollectionEntry<'blog'>[] = [];
+  const stickyPosts: CollectionEntry<"blog">[] = [];
+  const nonStickyPosts: CollectionEntry<"blog">[] = [];
 
   for (const post of posts) {
     if (post.data?.sticky) {
@@ -413,7 +410,7 @@ export async function getPostsByCategory(categoryName: string): Promise<BlogPost
     // 处理两种分类格式
     if (Array.isArray(firstCategory)) {
       return firstCategory.includes(categoryName);
-    } else if (typeof firstCategory === 'string') {
+    } else if (typeof firstCategory === "string") {
       return firstCategory === categoryName;
     }
     return false;
@@ -437,7 +434,7 @@ export async function getSeriesPosts(post: BlogPost): Promise<BlogPost[]> {
 // 获取文章的最深层分类
 export function getPostLastCategory(post: BlogPost): { link: string; name: string } {
   const { categories } = post.data;
-  if (!categories?.length) return { link: '', name: '' };
+  if (!categories?.length) return { link: "", name: "" };
 
   const firstCategory = categories[0];
 
@@ -447,14 +444,14 @@ export function getPostLastCategory(post: BlogPost): { link: string; name: strin
       link: buildCategoryPath(firstCategory),
       name: firstCategory[firstCategory.length - 1],
     };
-  } else if (typeof firstCategory === 'string') {
+  } else if (typeof firstCategory === "string") {
     return {
       link: buildCategoryPath(firstCategory),
       name: firstCategory,
     };
   }
 
-  return { link: '', name: '' };
+  return { link: "", name: "" };
 }
 ```
 
@@ -475,9 +472,7 @@ export async function getAdjacentSeriesPosts(currentPost: BlogPost): Promise<{
   }
 
   const currentSlug = getPostSlug(currentPost);
-  const currentIndex = seriesPosts.findIndex(
-    (post) => getPostSlug(post) === currentSlug
-  );
+  const currentIndex = seriesPosts.findIndex((post) => getPostSlug(post) === currentSlug);
 
   if (currentIndex === -1) {
     return { prevPost: null, nextPost: null };
@@ -487,9 +482,7 @@ export async function getAdjacentSeriesPosts(currentPost: BlogPost): Promise<{
   // prevPost 是更新的文章（索引 - 1）
   // nextPost 是更旧的文章（索引 + 1）
   const prevPost = currentIndex > 0 ? seriesPosts[currentIndex - 1] : null;
-  const nextPost = currentIndex < seriesPosts.length - 1
-    ? seriesPosts[currentIndex + 1]
-    : null;
+  const nextPost = currentIndex < seriesPosts.length - 1 ? seriesPosts[currentIndex + 1] : null;
 
   return { prevPost, nextPost };
 }
@@ -528,9 +521,7 @@ export async function getNonWeeklyPosts(): Promise<BlogPost[]> {
   }
 
   const allPosts = await getSortedPosts();
-  return allPosts.filter(
-    (post) => !isPostInCategory(post, featuredSeries.categoryName)
-  );
+  return allPosts.filter((post) => !isPostInCategory(post, featuredSeries.categoryName));
 }
 ```
 
@@ -646,13 +637,13 @@ date: 2024-02-20
 
 ## 相关文件
 
-| 文件                            | 说明                |
-| ------------------------------- | ------------------- |
+| 文件                            | 说明                  |
+| ------------------------------- | --------------------- |
 | `src/content.config.ts`         | Loader 与 Schema 定义 |
-| `src/content/blog/`             | 博客文章目录        |
-| `src/lib/content/posts.ts`      | 文章查询函数        |
-| `src/lib/content/categories.ts` | 分类处理函数        |
-| `src/lib/content/tags.ts`       | 标签处理函数        |
-| `src/lib/content/types.ts`      | 类型定义            |
-| `src/constants/category.ts`     | 分类映射表          |
-| `_config.yml`                   | Hexo 分类映射源文件 |
+| `src/content/blog/`             | 博客文章目录          |
+| `src/lib/content/posts.ts`      | 文章查询函数          |
+| `src/lib/content/categories.ts` | 分类处理函数          |
+| `src/lib/content/tags.ts`       | 标签处理函数          |
+| `src/lib/content/types.ts`      | 类型定义              |
+| `src/constants/category.ts`     | 分类映射表            |
+| `_config.yml`                   | Hexo 分类映射源文件   |

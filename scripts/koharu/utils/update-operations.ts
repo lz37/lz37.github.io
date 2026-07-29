@@ -67,7 +67,7 @@ function git(args: string): string {
     }).trim();
   } catch (error) {
     if (error instanceof Error && "stderr" in error) {
-      throw new Error((error as { stderr: string }).stderr || error.message);
+      throw new Error((error as { stderr: string }).stderr || error.message, { cause: error });
     }
     throw error;
   }

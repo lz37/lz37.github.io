@@ -90,12 +90,12 @@ astro-koharu 实现了完整的深色/浅色主题切换功能，包括：
 
 ### 为什么使用 `is:inline`？
 
-| 特性 | 普通脚本 | `is:inline` 脚本 |
-|------|---------|-----------------|
-| 执行时机 | 延迟执行 | 立即执行 |
-| 打包处理 | 会被打包 | 保持原样 |
-| 阻塞渲染 | 否 | 是（短暂） |
-| 适用场景 | 功能脚本 | 关键初始化 |
+| 特性     | 普通脚本 | `is:inline` 脚本 |
+| -------- | -------- | ---------------- |
+| 执行时机 | 延迟执行 | 立即执行         |
+| 打包处理 | 会被打包 | 保持原样         |
+| 阻塞渲染 | 否       | 是（短暂）       |
+| 适用场景 | 功能脚本 | 关键初始化       |
 
 ---
 
@@ -211,9 +211,9 @@ astro-koharu 实现了完整的深色/浅色主题切换功能，包括：
 #### 1. 防止重复绑定
 
 ```javascript
-if (toggleBtn.dataset.listenerAttached === 'true') return;
+if (toggleBtn.dataset.listenerAttached === "true") return;
 // ...
-toggleBtn.dataset.listenerAttached = 'true';
+toggleBtn.dataset.listenerAttached = "true";
 ```
 
 Astro 页面过渡时会重新执行脚本，需要防止事件重复绑定。
@@ -226,8 +226,8 @@ const transition = document.startViewTransition(() => {
 });
 
 transition.ready.then(() => {
-  rootElement.style.setProperty('--x', `${x}px`);
-  rootElement.style.setProperty('--y', `${y}px`);
+  rootElement.style.setProperty("--x", `${x}px`);
+  rootElement.style.setProperty("--y", `${y}px`);
 });
 ```
 
@@ -236,7 +236,7 @@ View Transitions API 允许在 DOM 变化时创建平滑过渡动画。
 #### 3. Astro 页面过渡兼容
 
 ```javascript
-document.addEventListener('astro:page-load', setupThemeToggle);
+document.addEventListener("astro:page-load", setupThemeToggle);
 ```
 
 每次 Astro 页面过渡完成后，重新初始化组件。
@@ -264,7 +264,7 @@ document.addEventListener('astro:page-load', setupThemeToggle);
 
 /* 太阳光线（8条） */
 .toggle input + div:after {
-  content: '';
+  content: "";
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -273,15 +273,15 @@ document.addEventListener('astro:page-load', setupThemeToggle);
   left: 50%;
   /* 使用多重 box-shadow 创建光线 */
   box-shadow:
-    0 -23px 0 var(--theme-toggle-color),     /* 上 */
-    0 23px 0 var(--theme-toggle-color),      /* 下 */
-    23px 0 0 var(--theme-toggle-color),      /* 右 */
-    -23px 0 0 var(--theme-toggle-color),     /* 左 */
-    15px 15px 0 var(--theme-toggle-color),   /* 右下 */
-    -15px 15px 0 var(--theme-toggle-color),  /* 左下 */
-    15px -15px 0 var(--theme-toggle-color),  /* 右上 */
-    -15px -15px 0 var(--theme-toggle-color); /* 左上 */
-  transform: scale(0);  /* 初始隐藏 */
+    0 -23px 0 var(--theme-toggle-color),
+    /* 上 */ 0 23px 0 var(--theme-toggle-color),
+    /* 下 */ 23px 0 0 var(--theme-toggle-color),
+    /* 右 */ -23px 0 0 var(--theme-toggle-color),
+    /* 左 */ 15px 15px 0 var(--theme-toggle-color),
+    /* 右下 */ -15px 15px 0 var(--theme-toggle-color),
+    /* 左下 */ 15px -15px 0 var(--theme-toggle-color),
+    /* 右上 */ -15px -15px 0 var(--theme-toggle-color); /* 左上 */
+  transform: scale(0); /* 初始隐藏 */
   transition: all 0.3s ease;
 }
 
@@ -394,6 +394,7 @@ document.addEventListener('astro:page-load', setupThemeToggle);
 ### 问题
 
 Astro 的 View Transitions 不会触发完整页面刷新，导致：
+
 - 主题状态可能不同步
 - 事件监听器可能丢失
 
@@ -431,20 +432,20 @@ Astro 的 View Transitions 不会触发完整页面刷新，导致：
 // 键: 'theme'
 // 值: 'dark' | 'light' | undefined
 
-localStorage.setItem('theme', 'dark');   // 深色模式
-localStorage.setItem('theme', 'light');  // 浅色模式
-localStorage.removeItem('theme');         // 跟随系统
+localStorage.setItem("theme", "dark"); // 深色模式
+localStorage.setItem("theme", "light"); // 浅色模式
+localStorage.removeItem("theme"); // 跟随系统
 ```
 
 ### 优先级
 
 ```javascript
 // 检查顺序
-if (localStorage.theme === 'dark') {
+if (localStorage.theme === "dark") {
   // 1. 用户明确选择深色
-} else if (localStorage.theme === 'light') {
+} else if (localStorage.theme === "light") {
   // 2. 用户明确选择浅色
-} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+} else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
   // 3. 系统偏好深色
 } else {
   // 4. 默认浅色
@@ -509,11 +510,7 @@ if (localStorage.theme === 'dark') {
 ### ARIA 属性
 
 ```html
-<div
-  role="button"
-  tabindex="0"
-  aria-label="toggle theme"
->
+<div role="button" tabindex="0" aria-label="toggle theme">
   <label aria-label="toggle theme">
     <input type="checkbox" />
   </label>
@@ -524,8 +521,8 @@ if (localStorage.theme === 'dark') {
 
 ```javascript
 // 支持 Enter 和 Space 键切换
-toggleBtn.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' || e.key === ' ') {
+toggleBtn.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") {
     e.preventDefault();
     checkbox.click();
   }
@@ -548,9 +545,9 @@ toggleBtn.addEventListener('keydown', (e) => {
 
 ## 相关文件
 
-| 文件 | 说明 |
-|------|------|
-| `src/components/theme/ThemeToggle.astro` | 主题切换组件 |
-| `src/layouts/Layout.astro` | 主题初始化脚本 |
-| `src/styles/theme/index.css` | 主题 CSS 变量 |
-| `src/styles/theme/theme-transition.css` | 主题过渡动画 |
+| 文件                                     | 说明           |
+| ---------------------------------------- | -------------- |
+| `src/components/theme/ThemeToggle.astro` | 主题切换组件   |
+| `src/layouts/Layout.astro`               | 主题初始化脚本 |
+| `src/styles/theme/index.css`             | 主题 CSS 变量  |
+| `src/styles/theme/theme-transition.css`  | 主题过渡动画   |

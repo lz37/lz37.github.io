@@ -266,7 +266,7 @@ Configure supported languages in the `i18n` section of `config/site.yaml`:
 
 ```yaml
 i18n:
-  defaultLocale: zh        # Default locale (no URL prefix)
+  defaultLocale: zh # Default locale (no URL prefix)
   locales:
     - code: zh
       label: 中文
@@ -353,7 +353,7 @@ comment:
 | -------------------------------------------- | ---------- | --------------------------------------------------------------- | --------------------------------------- |
 | **[Cosine's Blog](http://blog.cosine.ren/)** | **cosine** | [cosZone/astro-koharu](https://github.com/cosZone/astro-koharu) | This theme                              |
 | [XueHua's Blog](https://xhblog.top/)         | XueHua-s   | [XueHua-s/astro-snow](https://github.com/XueHua-s/astro-snow)   | Simplified features, added a start page |
-| [Ksable's Blog](https://blog.ksable.top/)    | Ksable     | [God-2077/astro-blog](https://github.com/God-2077/astro-blog) | Modified / added some features          |
+| [Ksable's Blog](https://blog.ksable.top/)    | Ksable     | [God-2077/astro-blog](https://github.com/God-2077/astro-blog)   | Modified / added some features          |
 
 ## Acknowledgements
 

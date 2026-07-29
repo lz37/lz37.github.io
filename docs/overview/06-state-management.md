@@ -4,13 +4,13 @@
 
 astro-koharu 使用 **Nanostores** 进行全局状态管理，而非更流行的 Redux 或 Zustand。原因如下：
 
-| 特性 | Nanostores | Redux | Zustand |
-|------|-----------|-------|---------|
-| 体积 | ~1KB | ~7KB | ~3KB |
-| 框架无关 | 是 | 否 | 否 |
-| Astro 支持 | 原生 | 需要适配 | 需要适配 |
-| 学习曲线 | 极低 | 高 | 中 |
-| 样板代码 | 几乎没有 | 大量 | 少量 |
+| 特性       | Nanostores | Redux    | Zustand  |
+| ---------- | ---------- | -------- | -------- |
+| 体积       | ~1KB       | ~7KB     | ~3KB     |
+| 框架无关   | 是         | 否       | 否       |
+| Astro 支持 | 原生       | 需要适配 | 需要适配 |
+| 学习曲线   | 极低       | 高       | 中       |
+| 样板代码   | 几乎没有   | 大量     | 少量     |
 
 ### 核心优势
 
@@ -29,20 +29,20 @@ astro-koharu 使用 **Nanostores** 进行全局状态管理，而非更流行的
 Atom 是最基础的状态单元，存储单个值：
 
 ```typescript
-import { atom } from 'nanostores';
+import { atom } from "nanostores";
 
 // 创建一个 atom
 const count = atom<number>(0);
 
 // 读取值
-console.log(count.get());  // 0
+console.log(count.get()); // 0
 
 // 设置值
 count.set(1);
 
 // 订阅变化
 const unsubscribe = count.subscribe((value) => {
-  console.log('新值:', value);
+  console.log("新值:", value);
 });
 
 // 取消订阅
@@ -52,8 +52,8 @@ unsubscribe();
 ### 在 React 中使用
 
 ```tsx
-import { useStore } from '@nanostores/react';
-import { count } from './store';
+import { useStore } from "@nanostores/react";
+import { count } from "./store";
 
 function Counter() {
   // useStore 会在 atom 变化时触发重渲染
@@ -126,7 +126,7 @@ src/store/
  * 替代了之前的 CustomEvent 模式，提供更好的类型安全和响应性。
  */
 
-import { atom } from 'nanostores';
+import { atom } from "nanostores";
 
 /**
  * 移动端抽屉状态
@@ -198,12 +198,12 @@ export function toggleSearch(): void {
 
 ### 状态说明
 
-| 状态 | 类型 | 用途 |
-|------|------|------|
-| `drawerOpen` | `boolean` | 移动端侧边栏抽屉 |
-| `mobileMenuOpen` | `boolean` | 移动端导航菜单 |
-| `modalOpen` | `boolean` | 通用模态框 |
-| `searchOpen` | `boolean` | 搜索对话框 |
+| 状态             | 类型      | 用途             |
+| ---------------- | --------- | ---------------- |
+| `drawerOpen`     | `boolean` | 移动端侧边栏抽屉 |
+| `mobileMenuOpen` | `boolean` | 移动端导航菜单   |
+| `modalOpen`      | `boolean` | 通用模态框       |
+| `searchOpen`     | `boolean` | 搜索对话框       |
 
 ---
 
@@ -212,16 +212,14 @@ export function toggleSearch(): void {
 ### `src/store/app.ts`
 
 ```typescript
-import { HomeSiderSegmentType, HomeSiderType } from '@constants/enum';
-import { atom } from 'nanostores';
+import { HomeSiderSegmentType, HomeSiderType } from "@constants/enum";
+import { atom } from "nanostores";
 
 /**
  * 侧边栏分段类型
  * 控制侧边栏显示的内容类型（信息/目录/系列）
  */
-export const homeSiderSegmentType = atom<HomeSiderSegmentType>(
-  HomeSiderSegmentType.INFO
-);
+export const homeSiderSegmentType = atom<HomeSiderSegmentType>(HomeSiderSegmentType.INFO);
 
 /**
  * 侧边栏类型
@@ -236,15 +234,15 @@ export const homeSiderType = atom<HomeSiderType>(HomeSiderType.HOME);
 // src/constants/enum.ts
 
 export enum HomeSiderSegmentType {
-  INFO = 'INFO',           // 信息面板
-  DIRECTORY = 'DIRECTORY', // 目录导航
-  SERIES = 'SERIES',       // 系列文章
+  INFO = "INFO", // 信息面板
+  DIRECTORY = "DIRECTORY", // 目录导航
+  SERIES = "SERIES", // 系列文章
 }
 
 export enum HomeSiderType {
-  HOME = 'HOME',  // 首页模式
-  POST = 'POST',  // 文章页模式
-  NONE = 'NONE',  // 无侧边栏
+  HOME = "HOME", // 首页模式
+  POST = "POST", // 文章页模式
+  NONE = "NONE", // 无侧边栏
 }
 ```
 
@@ -256,12 +254,12 @@ export enum HomeSiderType {
 
 ```tsx
 // src/components/ui/MenuIcon.tsx
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { motion, useAnimation } from 'motion/react';
-import { useStore } from '@nanostores/react';
-import { drawerOpen, toggleDrawer } from '@store/ui';
+import { useEffect } from "react";
+import { motion, useAnimation } from "motion/react";
+import { useStore } from "@nanostores/react";
+import { drawerOpen, toggleDrawer } from "@store/ui";
 
 const MenuIcon = ({ className, id }: MenuIconProps) => {
   // 1. 订阅状态
@@ -270,7 +268,7 @@ const MenuIcon = ({ className, id }: MenuIconProps) => {
 
   // 2. 状态变化时触发动画
   useEffect(() => {
-    controls.start(isOpen ? 'opened' : 'closed');
+    controls.start(isOpen ? "opened" : "closed");
   }, [isOpen, controls]);
 
   // 3. 点击时切换状态
@@ -281,7 +279,7 @@ const MenuIcon = ({ className, id }: MenuIconProps) => {
   return (
     <button
       onClick={handleToggle}
-      aria-label={isOpen ? '关闭菜单' : '打开菜单'}
+      aria-label={isOpen ? "关闭菜单" : "打开菜单"}
       aria-expanded={isOpen}
     >
       <svg>
@@ -433,8 +431,8 @@ drawerOpen.set(!drawerOpen.get());
 export const homeSiderType = atom<HomeSiderType>(HomeSiderType.HOME);
 
 // 类型检查
-homeSiderType.set(HomeSiderType.POST);  // ✅
-homeSiderType.set('invalid');           // ❌ 类型错误
+homeSiderType.set(HomeSiderType.POST); // ✅
+homeSiderType.set("invalid"); // ❌ 类型错误
 ```
 
 ### 4. 组件解耦
@@ -461,16 +459,17 @@ const MenuIcon = () => {
 
 ```javascript
 // 发送事件
-window.dispatchEvent(new CustomEvent('drawer-toggle', { detail: true }));
+window.dispatchEvent(new CustomEvent("drawer-toggle", { detail: true }));
 
 // 监听事件
-window.addEventListener('drawer-toggle', (e) => {
+window.addEventListener("drawer-toggle", (e) => {
   const isOpen = e.detail;
   // 更新 UI
 });
 ```
 
 **问题**：
+
 - 无类型安全
 - 难以追踪状态
 - 容易产生内存泄漏
@@ -488,6 +487,7 @@ const unsubscribe = drawerOpen.subscribe((isOpen) => {
 ```
 
 **优势**：
+
 - 完整类型推导
 - 状态可追踪
 - 自动清理订阅
@@ -507,10 +507,10 @@ const unsubscribe = drawerOpen.subscribe((isOpen) => {
 
 ## 相关文件
 
-| 文件 | 说明 |
-|------|------|
-| `src/store/app.ts` | 应用状态 |
-| `src/store/ui.ts` | UI 状态 |
-| `src/constants/enum.ts` | 状态枚举 |
-| `src/components/ui/MenuIcon.tsx` | 使用状态的组件示例 |
-| `src/components/layout/MobileDrawer.astro` | Astro 中使用状态 |
+| 文件                                       | 说明               |
+| ------------------------------------------ | ------------------ |
+| `src/store/app.ts`                         | 应用状态           |
+| `src/store/ui.ts`                          | UI 状态            |
+| `src/constants/enum.ts`                    | 状态枚举           |
+| `src/components/ui/MenuIcon.tsx`           | 使用状态的组件示例 |
+| `src/components/layout/MobileDrawer.astro` | Astro 中使用状态   |

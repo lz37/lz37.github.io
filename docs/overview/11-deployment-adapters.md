@@ -5,9 +5,9 @@ astro-koharu 提供两条明确分离的部署路径：默认的 **static nginx*
 
 ## 模式对照
 
-| 模式 | 适用场景 | 运行时 | suite 要求 | 端口 |
-|---|---|---|---|---:|
-| Static（默认） | 普通博客，碎碎念关闭 | nginx，仅托管 `dist/` | 无 | 容器 80 |
+| 模式            | 适用场景                | 运行时                | suite 要求              |      端口 |
+| --------------- | ----------------------- | --------------------- | ----------------------- | --------: |
+| Static（默认）  | 普通博客，碎碎念关闭    | nginx，仅托管 `dist/` | 无                      |   容器 80 |
 | Dynamic（可选） | `moments.enabled: true` | Astro Node standalone | 公开 `KOHARU_SUITE_URL` | 容器 4321 |
 
 两种模式共用同一个 Dockerfile。默认和历史 `production` target 都指向 nginx；只有显式选择

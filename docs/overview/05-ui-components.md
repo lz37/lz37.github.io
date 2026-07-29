@@ -42,8 +42,8 @@ astro-koharu 的 UI 组件库遵循 **shadcn/ui** 的设计理念：
 
 ```typescript
 // src/lib/utils.ts
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -89,36 +89,36 @@ cn('text-red-500', 'text-blue-500')  // → 'text-blue-500'
 
 ```tsx
 // src/components/ui/button.tsx
-import { cva, type VariantProps } from 'class-variance-authority';
+import { cva, type VariantProps } from "class-variance-authority";
 
 // 定义变体
 const buttonVariants = cva(
   // 基础样式（所有变体共享）
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       // 外观变体
       variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-primary/90',
-        destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-        outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
-        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        ghost: 'hover:bg-accent hover:text-accent-foreground',
-        link: 'text-primary underline-offset-4 hover:underline',
-        'gradient-shoka': 'bg-gradient-shoka-button text-primary-foreground',
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline",
+        "gradient-shoka": "bg-gradient-shoka-button text-primary-foreground",
       },
       // 尺寸变体
       size: {
-        default: 'h-10 px-4 py-2',
-        sm: 'h-9 rounded-md px-3',
-        lg: 'h-11 rounded-md px-8',
-        icon: 'h-10 w-10',
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",
+        lg: "h-11 rounded-md px-8",
+        icon: "h-10 w-10",
       },
     },
     // 默认变体
     defaultVariants: {
-      variant: 'default',
-      size: 'default',
+      variant: "default",
+      size: "default",
     },
   },
 );
@@ -127,12 +127,11 @@ const buttonVariants = cva(
 ### 组件实现
 
 ```tsx
-import * as React from 'react';
-import { Slot } from '@radix-ui/react-slot';
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
   /**
    * 使用 asChild 时，Button 的样式会应用到子元素上
    * 常用于包装 Link 组件
@@ -143,18 +142,14 @@ export interface ButtonProps
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     // asChild 为 true 时，使用 Slot 渲染子元素
-    const Comp = asChild ? Slot : 'button';
+    const Comp = asChild ? Slot : "button";
 
     return (
-      <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
-        {...props}
-      />
+      <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
     );
   },
 );
-Button.displayName = 'Button';
+Button.displayName = "Button";
 
 export { Button, buttonVariants };
 ```
@@ -212,13 +207,13 @@ import {
   useInteractions,
   useRole,
   type Placement,
-} from '@floating-ui/react';
-import { useControlledState } from '@hooks/useControlledState';
-import { useFloatingUI } from '@hooks/useFloatingUI';
-import { AnimatePresence, motion, type MotionProps } from 'motion/react';
-import React, { cloneElement } from 'react';
-import { animation } from '@constants/design-tokens';
-import { withFloatingErrorBoundary } from '@components/common/FloatingErrorBoundary';
+} from "@floating-ui/react";
+import { useControlledState } from "@hooks/useControlledState";
+import { useFloatingUI } from "@hooks/useFloatingUI";
+import { AnimatePresence, motion, type MotionProps } from "motion/react";
+import React, { cloneElement } from "react";
+import { animation } from "@constants/design-tokens";
+import { withFloatingErrorBoundary } from "@components/common/FloatingErrorBoundary";
 
 type PopoverProps = {
   /** 受控模式：是否打开 */
@@ -238,7 +233,7 @@ type PopoverProps = {
   /** 自定义动画 */
   motionProps?: MotionProps;
   /** 触发方式 */
-  trigger?: 'click' | 'hover';
+  trigger?: "click" | "hover";
 };
 
 function Popover({
@@ -250,7 +245,7 @@ function Popover({
   className,
   offset: offsetNum = 10,
   motionProps,
-  trigger = 'click',
+  trigger = "click",
 }: React.PropsWithChildren<PopoverProps>) {
   // 1. 状态管理（支持受控/非受控）
   const [isOpen, setIsOpen] = useControlledState({
@@ -270,27 +265,24 @@ function Popover({
 
   // 3. 交互处理
   const hover = useHover(context, {
-    enabled: trigger === 'hover',
+    enabled: trigger === "hover",
     delay: { open: 0, close: animation.duration.fast },
   });
   const click = useClick(context, {
-    enabled: trigger === 'click',
+    enabled: trigger === "click",
   });
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
     hover,
     click,
-    useDismiss(context),  // 点击外部关闭
-    useRole(context),     // ARIA 角色
+    useDismiss(context), // 点击外部关闭
+    useRole(context), // ARIA 角色
   ]);
 
   return (
     <>
       {/* 4. 触发元素 */}
-      {cloneElement(
-        children,
-        getReferenceProps({ ref: refs.setReference, ...children.props })
-      )}
+      {cloneElement(children, getReferenceProps({ ref: refs.setReference, ...children.props }))}
 
       {/* 5. 弹出内容（带动画） */}
       <AnimatePresence>
@@ -299,8 +291,8 @@ function Popover({
             <FloatingFocusManager context={context} modal={false}>
               <motion.div
                 className={cn(
-                  'z-10 rounded-ss-2xl rounded-ee-2xl bg-black/30 backdrop-blur-sm',
-                  className
+                  "z-10 rounded-ss-2xl rounded-ee-2xl bg-black/30 backdrop-blur-sm",
+                  className,
                 )}
                 initial={{ opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1, originY: 0 }}
@@ -321,7 +313,7 @@ function Popover({
 }
 
 // 6. 错误边界包装 + memo 优化
-const PopoverWithErrorBoundary = withFloatingErrorBoundary(Popover, 'Popover');
+const PopoverWithErrorBoundary = withFloatingErrorBoundary(Popover, "Popover");
 export default React.memo(PopoverWithErrorBoundary);
 ```
 
@@ -413,91 +405,64 @@ Card 采用组合组件模式，将复杂组件拆分为多个子组件：
 
 ```tsx
 // src/components/ui/card.tsx
-import * as React from 'react';
-import { cn } from '@lib/utils';
+import * as React from "react";
+import { cn } from "@lib/utils";
 
 // 主容器
-const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn(
-        'bg-card text-card-foreground rounded-lg border shadow-xs',
-        className
-      )}
-      {...props}
-    />
-  ),
-);
-Card.displayName = 'Card';
+const Card = React.forwardRef<HTMLDivElement, CardProps>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("bg-card text-card-foreground rounded-lg border shadow-xs", className)}
+    {...props}
+  />
+));
+Card.displayName = "Card";
 
 // 头部区域
 const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
   ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn('flex flex-col space-y-1.5 p-6', className)}
-      {...props}
-    />
+    <div ref={ref} className={cn("flex flex-col space-y-1.5 p-6", className)} {...props} />
   ),
 );
-CardHeader.displayName = 'CardHeader';
+CardHeader.displayName = "CardHeader";
 
 // 标题
 const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
   ({ className, ...props }, ref) => (
     <h3
       ref={ref}
-      className={cn(
-        'text-2xl leading-none font-semibold tracking-tight',
-        className
-      )}
+      className={cn("text-2xl leading-none font-semibold tracking-tight", className)}
       {...props}
     />
   ),
 );
-CardTitle.displayName = 'CardTitle';
+CardTitle.displayName = "CardTitle";
 
 // 描述
 const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionProps>(
   ({ className, ...props }, ref) => (
-    <p
-      ref={ref}
-      className={cn('text-muted-foreground text-sm', className)}
-      {...props}
-    />
+    <p ref={ref} className={cn("text-muted-foreground text-sm", className)} {...props} />
   ),
 );
-CardDescription.displayName = 'CardDescription';
+CardDescription.displayName = "CardDescription";
 
 // 内容区域
 const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('p-6 pt-0', className)} {...props} />
+    <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
   ),
 );
-CardContent.displayName = 'CardContent';
+CardContent.displayName = "CardContent";
 
 // 底部区域
 const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
   ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn('flex items-center p-6 pt-0', className)}
-      {...props}
-    />
+    <div ref={ref} className={cn("flex items-center p-6 pt-0", className)} {...props} />
   ),
 );
-CardFooter.displayName = 'CardFooter';
+CardFooter.displayName = "CardFooter";
 
-export {
-  Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardDescription,
-  CardContent,
-};
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };
 ```
 
 ### 使用示例
@@ -564,12 +529,12 @@ export function useControlledState<T>({
 
   // 开发环境警告：模式切换
   useEffect(() => {
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       if (isControlled !== isControlledRef.current) {
         console.warn(
-          'useControlledState: 组件从' +
-          `${isControlledRef.current ? '受控' : '非受控'}切换到` +
-          `${isControlled ? '受控' : '非受控'}模式，这是反模式。`
+          "useControlledState: 组件从" +
+            `${isControlledRef.current ? "受控" : "非受控"}切换到` +
+            `${isControlled ? "受控" : "非受控"}模式，这是反模式。`,
         );
       }
     }
@@ -611,21 +576,18 @@ function Dropdown({ value, defaultValue, onChange }) {
   });
 
   return (
-    <select
-      value={selectedValue}
-      onChange={(e) => setSelectedValue(e.target.value)}
-    >
+    <select value={selectedValue} onChange={(e) => setSelectedValue(e.target.value)}>
       {/* options */}
     </select>
   );
 }
 
 // 非受控使用
-<Dropdown defaultValue="option1" />
+<Dropdown defaultValue="option1" />;
 
 // 受控使用
-const [value, setValue] = useState('option1');
-<Dropdown value={value} onChange={setValue} />
+const [value, setValue] = useState("option1");
+<Dropdown value={value} onChange={setValue} />;
 ```
 
 ---
@@ -637,11 +599,9 @@ const [value, setValue] = useState('option1');
 所有 UI 组件都使用 `forwardRef` 转发 ref：
 
 ```tsx
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (props, ref) => {
-    return <button ref={ref} {...props} />;
-  }
-);
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+  return <button ref={ref} {...props} />;
+});
 ```
 
 ### 2. displayName 设置
@@ -649,7 +609,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 便于 DevTools 调试：
 
 ```tsx
-Button.displayName = 'Button';
+Button.displayName = "Button";
 ```
 
 ### 3. 类型导出
@@ -658,7 +618,7 @@ Button.displayName = 'Button';
 
 ```tsx
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'default' | 'outline';
+  variant?: "default" | "outline";
 }
 
 export { Button, type ButtonProps };
@@ -669,7 +629,7 @@ export { Button, type ButtonProps };
 使用 `??` 或 `defaultVariants` 处理默认值：
 
 ```tsx
-const Comp = asChild ? Slot : 'button';
+const Comp = asChild ? Slot : "button";
 const offset = offsetNum ?? 10;
 ```
 
@@ -711,12 +671,12 @@ src/components/ui/
 
 ## 相关文件
 
-| 文件 | 说明 |
-|------|------|
-| `src/components/ui/button.tsx` | 按钮组件 |
-| `src/components/ui/card.tsx` | 卡片组件 |
-| `src/components/ui/popover.tsx` | 弹出框组件 |
-| `src/lib/utils.ts` | cn() 工具函数 |
+| 文件                              | 说明          |
+| --------------------------------- | ------------- |
+| `src/components/ui/button.tsx`    | 按钮组件      |
+| `src/components/ui/card.tsx`      | 卡片组件      |
+| `src/components/ui/popover.tsx`   | 弹出框组件    |
+| `src/lib/utils.ts`                | cn() 工具函数 |
 | `src/hooks/useControlledState.ts` | 受控状态 Hook |
-| `src/hooks/useFloatingUI.ts` | 浮动定位 Hook |
-| `src/constants/design-tokens.ts` | 设计令牌 |
+| `src/hooks/useFloatingUI.ts`      | 浮动定位 Hook |
+| `src/constants/design-tokens.ts`  | 设计令牌      |

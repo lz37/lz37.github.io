@@ -198,10 +198,10 @@ pnpm preview
 
 ```typescript
 // tsconfig.json 中定义
-import { cn } from '@lib/utils';           // src/lib/utils.ts
-import { Button } from '@components/ui/button';  // src/components/ui/button.tsx
-import { siteConfig } from '@constants/site-config';  // src/constants/site-config.ts
-import type { BlogPost } from '@types/blog';  // src/types/blog.ts
+import { cn } from "@lib/utils"; // src/lib/utils.ts
+import { Button } from "@components/ui/button"; // src/components/ui/button.tsx
+import { siteConfig } from "@constants/site-config"; // src/constants/site-config.ts
+import type { BlogPost } from "@types/blog"; // src/types/blog.ts
 ```
 
 | 别名            | 对应路径           |

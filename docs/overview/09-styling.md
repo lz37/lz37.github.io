@@ -47,27 +47,27 @@ astro-koharu 使用 **Tailwind CSS 4.x** 作为样式框架，结合**设计令�
 
 ```css
 /* 字体定义 */
-@import './theme/font.css';
+@import "./theme/font.css";
 
 /* Tailwind 基础 */
-@import './global/tailwind.css';
+@import "./global/tailwind.css";
 
 /* shadcn 主题变量 */
-@import './global/shadcn.css';
+@import "./global/shadcn.css";
 
 /* 全局动画 */
-@import './global/animate.css';
+@import "./global/animate.css";
 
 /* 组件样式 */
-@import './components/wave.css';
-@import './components/category.css';
-@import './components/post.css';
-@import './components/pagefind.css';
+@import "./components/wave.css";
+@import "./components/category.css";
+@import "./components/post.css";
+@import "./components/pagefind.css";
 
 /* 主题样式 */
-@import './theme/index.css';
-@import './theme/theme-transition.css';
-@import './theme/markdown.css';
+@import "./theme/index.css";
+@import "./theme/theme-transition.css";
+@import "./theme/markdown.css";
 ```
 
 ### 目录结构
@@ -190,21 +190,21 @@ import {
   shadows,
   borderRadius,
   animation as animationTokens,
-} from './src/constants/design-tokens.ts';
+} from "./src/constants/design-tokens.ts";
 
 export default {
   // 深色模式通过 class 控制
-  darkMode: ['class'],
+  darkMode: ["class"],
 
   theme: {
     // 响应式断点（自定义）
     screens: {
-      xs: { max: '480px' },
-      md: { max: '768px' },
-      lg: { max: '1440px' },
-      '2xl': '1440px',
-      tablet: { max: '992px' },
-      desktop: { min: '1480px' },
+      xs: { max: "480px" },
+      md: { max: "768px" },
+      lg: { max: "1440px" },
+      "2xl": "1440px",
+      tablet: { max: "992px" },
+      desktop: { min: "1480px" },
     },
 
     extend: {
@@ -212,14 +212,14 @@ export default {
       colors: {
         ...colors,
         // 渐变色变量
-        'gradient-start': 'var(--gradient-bg-start)',
-        'gradient-end': 'var(--gradient-bg-end)',
+        "gradient-start": "var(--gradient-bg-start)",
+        "gradient-end": "var(--gradient-bg-end)",
         // 自定义颜色
-        logo: '#e91e63',
+        logo: "#e91e63",
         mandy: {
-          50: '#fef2f3',
+          50: "#fef2f3",
           // ... 完整色板
-          950: '#470a1a',
+          950: "#470a1a",
         },
       },
 
@@ -231,26 +231,26 @@ export default {
       // 圆角
       borderRadius: {
         ...borderRadius,
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
 
       // 动画
       keyframes: {
-        'accordion-down': {
-          from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' },
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
-        'slide-in-from-right': {
-          from: { opacity: '0', transform: 'translateX(12px)' },
-          to: { opacity: '1', transform: 'translateX(0)' },
+        "slide-in-from-right": {
+          from: { opacity: "0", transform: "translateX(12px)" },
+          to: { opacity: "1", transform: "translateX(0)" },
         },
       },
 
       animation: {
-        'accordion-down': 'accordion-down 0.2s ease-out',
-        'slide-in-from-right': 'slide-in-from-right 0.2s ease-in-out',
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "slide-in-from-right": "slide-in-from-right 0.2s ease-in-out",
       },
 
       // 过渡时间（从设计令牌）
@@ -267,32 +267,32 @@ export default {
 
       // 渐变背景
       backgroundImage: {
-        gradient: 'var(--gradient-bg)',
-        'gradient-pink': 'var(--gradient-pink)',
-        'gradient-header': 'var(--gradient-header)',
-        'gradient-shoka-button': 'var(--gradient-shoka-button)',
+        gradient: "var(--gradient-bg)",
+        "gradient-pink": "var(--gradient-pink)",
+        "gradient-header": "var(--gradient-header)",
+        "gradient-shoka-button": "var(--gradient-shoka-button)",
       },
 
       // 字体
       fontFamily: {
-        sans: ['寒蝉全圆体', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-        'chill-round': ['寒蝉全圆体', 'sans-serif'],
+        sans: ["寒蝉全圆体", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        "chill-round": ["寒蝉全圆体", "sans-serif"],
       },
 
       // 自定义间距
       spacing: {
-        7.5: '1.875rem',
-        15: '3.75rem',
-        17: '4.25rem',
+        7.5: "1.875rem",
+        15: "3.75rem",
+        17: "4.25rem",
       },
     },
   },
 
   // 插件
   plugins: [
-    require('@tailwindcss/container-queries'),  // 容器查询
-    require('tailwindcss-animate'),              // 动画工具
-    require('@tailwindcss/typography'),          // 排版
+    require("@tailwindcss/container-queries"), // 容器查询
+    require("tailwindcss-animate"), // 动画工具
+    require("@tailwindcss/typography"), // 排版
   ],
 };
 ```
@@ -326,37 +326,37 @@ screens: {
 export const colors = {
   // 语义化颜色（使用 CSS 变量）
   primary: {
-    DEFAULT: 'hsl(var(--primary))',
-    foreground: 'hsl(var(--primary-foreground))',
+    DEFAULT: "hsl(var(--primary))",
+    foreground: "hsl(var(--primary-foreground))",
   },
 
   secondary: {
-    DEFAULT: 'hsl(var(--secondary))',
-    foreground: 'hsl(var(--secondary-foreground))',
+    DEFAULT: "hsl(var(--secondary))",
+    foreground: "hsl(var(--secondary-foreground))",
   },
 
   // 主题色（Shoka 粉红）
   shoka: {
-    DEFAULT: '#E95469',
-    light: '#FF6B7A',
-    dark: '#D63F55',
+    DEFAULT: "#E95469",
+    light: "#FF6B7A",
+    dark: "#D63F55",
   },
 
   // 主题切换图标色
   themeToggle: {
-    sun: '#ffbb52',
-    moon: '#17181c',
+    sun: "#ffbb52",
+    moon: "#17181c",
   },
 
   // UI 颜色
   muted: {
-    DEFAULT: 'hsl(var(--muted))',
-    foreground: 'hsl(var(--muted-foreground))',
+    DEFAULT: "hsl(var(--muted))",
+    foreground: "hsl(var(--muted-foreground))",
   },
 
-  background: 'hsl(var(--background))',
-  foreground: 'hsl(var(--foreground))',
-  border: 'hsl(var(--border))',
+  background: "hsl(var(--background))",
+  foreground: "hsl(var(--foreground))",
+  border: "hsl(var(--border))",
 };
 ```
 
@@ -364,30 +364,30 @@ export const colors = {
 
 ```typescript
 export const spacing = {
-  0: '0',
-  0.5: '0.125rem',  // 2px
-  1: '0.25rem',     // 4px
-  2: '0.5rem',      // 8px
-  3: '0.75rem',     // 12px
-  4: '1rem',        // 16px
-  5: '1.25rem',     // 20px
-  6: '1.5rem',      // 24px
-  8: '2rem',        // 32px
-  10: '2.5rem',     // 40px
-  12: '3rem',       // 48px
-  16: '4rem',       // 64px
-  20: '5rem',       // 80px
+  0: "0",
+  0.5: "0.125rem", // 2px
+  1: "0.25rem", // 4px
+  2: "0.5rem", // 8px
+  3: "0.75rem", // 12px
+  4: "1rem", // 16px
+  5: "1.25rem", // 20px
+  6: "1.5rem", // 24px
+  8: "2rem", // 32px
+  10: "2.5rem", // 40px
+  12: "3rem", // 48px
+  16: "4rem", // 64px
+  20: "5rem", // 80px
   // ... 更多
 };
 
 // 命名快捷方式
 export const spacingNames = {
-  xs: spacing[2],   // 8px
-  sm: spacing[3],   // 12px
-  md: spacing[4],   // 16px
-  lg: spacing[6],   // 24px
-  xl: spacing[8],   // 32px
-  '2xl': spacing[12], // 48px
+  xs: spacing[2], // 8px
+  sm: spacing[3], // 12px
+  md: spacing[4], // 16px
+  lg: spacing[6], // 24px
+  xl: spacing[8], // 32px
+  "2xl": spacing[12], // 48px
 };
 ```
 
@@ -395,24 +395,24 @@ export const spacingNames = {
 
 ```typescript
 export const shadows = {
-  none: 'none',
+  none: "none",
 
   // 层级 1：微妙深度
-  sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+  sm: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
 
   // 层级 2：卡片级别
-  DEFAULT: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
-  md: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+  DEFAULT: "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+  md: "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
 
   // 层级 3：浮动卡片、下拉菜单
-  lg: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+  lg: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
 
   // 层级 4：模态框、弹出框
-  xl: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
+  xl: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)",
 
   // 自定义阴影
-  card: '0 0.625rem 1.875rem rgba(90, 97, 105, 0.12)',
-  'shoka-button': '0px 0px 16px 0px rgb(233, 84, 105, 0.8)',
+  card: "0 0.625rem 1.875rem rgba(90, 97, 105, 0.12)",
+  "shoka-button": "0px 0px 16px 0px rgb(233, 84, 105, 0.8)",
 };
 ```
 
@@ -439,8 +439,8 @@ export const zIndex = {
 
 ```typescript
 // src/lib/utils.ts
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -456,17 +456,19 @@ export function cn(...inputs: ClassValue[]) {
 
 ```tsx
 // 条件类名
-<button className={cn(
-  'px-4 py-2 rounded',
-  variant === 'primary' && 'bg-primary text-white',
-  variant === 'outline' && 'border border-primary',
-  disabled && 'opacity-50 cursor-not-allowed',
-  className, // 允许外部覆盖
-)} />
+<button
+  className={cn(
+    "px-4 py-2 rounded",
+    variant === "primary" && "bg-primary text-white",
+    variant === "outline" && "border border-primary",
+    disabled && "opacity-50 cursor-not-allowed",
+    className, // 允许外部覆盖
+  )}
+/>;
 
 // 冲突解决
-cn('px-4', 'px-6')  // → 'px-6' (后者覆盖)
-cn('text-red-500', 'text-blue-500')  // → 'text-blue-500'
+cn("px-4", "px-6"); // → 'px-6' (后者覆盖)
+cn("text-red-500", "text-blue-500"); // → 'text-blue-500'
 ```
 
 ---
@@ -517,7 +519,12 @@ cn('text-red-500', 'text-blue-500')  // → 'text-blue-500'
   @apply text-foreground;
 
   /* 标题 */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply text-foreground font-bold;
   }
 
@@ -648,12 +655,12 @@ import { animation } from '@constants/design-tokens';
 
 ## 相关文件
 
-| 文件 | 说明 |
-|------|------|
-| `src/styles/index.css` | 样式入口 |
-| `src/styles/global/shadcn.css` | 主题 CSS 变量 |
-| `src/styles/theme/index.css` | 自定义主题变量 |
-| `src/styles/theme/markdown.css` | Markdown 排版 |
-| `src/constants/design-tokens.ts` | 设计令牌定义 |
-| `tailwind.config.mjs` | Tailwind 配置 |
-| `src/lib/utils.ts` | cn() 工具函数 |
+| 文件                             | 说明           |
+| -------------------------------- | -------------- |
+| `src/styles/index.css`           | 样式入口       |
+| `src/styles/global/shadcn.css`   | 主题 CSS 变量  |
+| `src/styles/theme/index.css`     | 自定义主题变量 |
+| `src/styles/theme/markdown.css`  | Markdown 排版  |
+| `src/constants/design-tokens.ts` | 设计令牌定义   |
+| `tailwind.config.mjs`            | Tailwind 配置  |
+| `src/lib/utils.ts`               | cn() 工具函数  |

@@ -9,34 +9,46 @@ astro-koharu is an Astro-based blog rebuilt from Hexo, inspired by the Shoka the
 ## Core Engineering Principles
 
 ### 1. Module-First Principle
+
 **Every feature must be implemented as a standalone module with clear boundaries.**
+
 - Logic organized into focused, single-responsibility modules
 - Module structure: `src/lib/` (utilities), `src/hooks/` (React hooks), `src/components/` (UI), `src/store/` (state), `src/constants/` (config)
 
 ### 2. Interface-First Design
+
 **Modules must expose clear, minimal public APIs.**
+
 - Use barrel exports (`index.ts`) to define public interfaces
 - Export TypeScript types alongside implementations
 - Document complex functions with JSDoc
 
 ### 3. Functional-First Approach
+
 **Prefer pure functions over stateful classes; manage side effects explicitly.**
+
 - Write pure functions (same input → same output)
 - Isolate side effects at boundaries
 - Immutable data transformations using es-toolkit
 
 ### 4. Test-Friendly Architecture
+
 **Design code to be testable without mocking.**
+
 - Pure functions are naturally testable
 - Testing priorities: High (lib utilities, data transformations) > Medium (hooks, state) > Low (UI components)
 
 ### 5. Simplicity & Anti-Abstraction
+
 **Resist premature abstraction; three instances before extracting a pattern.**
+
 - Don't create abstractions for single-use cases
 - Maximum 3 levels of module nesting
 
 ### 6. Dependency Hygiene
+
 **Manage dependencies carefully; avoid circular imports and bloat.**
+
 - Use dynamic imports for heavy dependencies (>100KB)
 - Conditional bundling for optional features
 - No circular dependencies
@@ -85,6 +97,7 @@ pnpm koharu list         # List all backups
 ## Architecture
 
 ### Tech Stack
+
 - **Framework**: Astro 6.x with React integration
 - **Styling**: Tailwind CSS 4.x with plugins
 - **Content**: Astro Content Collections (`src/content/blog/`)
@@ -95,6 +108,7 @@ pnpm koharu list         # List all backups
 - **Utilities**: es-toolkit, date-fns, sanitize-html
 
 ### Project Structure
+
 ```plain
 src/
 ├── components/   # React & Astro components
@@ -113,6 +127,7 @@ src/
 ### Module Organization
 
 **Dependency Flow** (avoid circular dependencies):
+
 ```plain
 pages/ → components/ → hooks/ → lib/ → constants/
                                ↓
@@ -120,16 +135,19 @@ pages/ → components/ → hooks/ → lib/ → constants/
 ```
 
 **File Naming**:
+
 - Barrel exports: `index.ts`
 - Single export: Match filename (`useMediaQuery.ts`)
 - React components: PascalCase (`PostCard.tsx`)
 
 **Module Size Limits**:
+
 - Max 500 lines per file
 - Max 15 public exports per module
 - Max 10 imports per file
 
 ### Path Aliases
+
 ```plain
 @/          → src/
 @lib/*      → src/lib/*
@@ -149,6 +167,7 @@ pages/ → components/ → hooks/ → lib/ → constants/
 **Theme System**: Dark/light toggle with localStorage, inline check in `<head>` prevents FOUC.
 
 **i18n System**: Two-layer translation architecture with locale-aware routing.
+
 - **UI strings** (`src/i18n/translations/`): TypeScript dictionaries with `t(locale, key, params?)` function. Keys defined in `zh.ts` (source-of-truth), other locales are partial overrides. ~170 keys.
 - **Content strings** (`config/i18n-content.yaml`): YAML-based translations for category names, series fields, featured category labels. Accessed via `getContentCategoryName()` / `getContentSeriesField()` / `getContentFeaturedCategoryField()` (internal to `src/lib/content/categories.ts`).
 - **Routing**: Default locale has no URL prefix; other locales use `/<locale>/` prefix. Static pages in `src/pages/[lang]/` are thin wrappers using `getLocaleStaticPaths()`. Dynamic pages (post, tags, categories, series) have per-locale `getStaticPaths`. Root pages derive locale from URL via `getLocaleFromUrl()`.
@@ -169,6 +188,7 @@ pages/ → components/ → hooks/ → lib/ → constants/
 3. **Composition over Configuration**: Use composable components
 
 ### UI Components
+
 - Follow **shadcn/ui patterns** with Radix UI primitives
 - Use **`class-variance-authority` (cva)** for variants
 - Merge Tailwind classes via `cn()` in `src/lib/utils.ts`
@@ -179,6 +199,7 @@ pages/ → components/ → hooks/ → lib/ → constants/
 **React components** (`.tsx`): Interactive UI (state, events)
 
 **Client directives**:
+
 - `client:load` - Critical interactive elements (header, nav, search)
 - `client:idle` - Lower-priority interactions (tooltips, modals)
 - `client:visible` - Below-the-fold components (footer, comments)
@@ -200,9 +221,11 @@ document.addEventListener("astro:before-swap", cleanup);
 ## Code Style & Quality
 
 ### Linting & Formatting
+
 Biome (line width: 128, single quotes, trailing commas). Tailwind classes must be sorted.
 
 ### Frontend Quality Priorities
+
 1. **User Experience** (Performance, Accessibility, Progressive Enhancement)
 2. **Correctness** (Type safety, Edge cases, Error handling)
 3. **Maintainability** (Clear abstractions, Component reuse)
@@ -210,18 +233,22 @@ Biome (line width: 128, single quotes, trailing commas). Tailwind classes must b
 5. **Code brevity** (Concise but clear)
 
 ### Core Web Vitals Targets
+
 - LCP < 2.5s
 - FID/INP < 100ms
 - CLS < 0.1
 
 ### Error Handling Strategy
+
 **Layered and context-appropriate:**
+
 1. **Data Layer** (`src/lib/`): Return `null` or throw typed errors
 2. **React Components**: Use `ErrorBoundary` for component errors
 3. **Async Operations**: Explicit try-catch or `.catch()`
 4. **Validation**: At system boundaries only
 
 ### Performance Best Practices
+
 - Lazy load heavy dependencies (>100KB): `const THREE = await import("three");`
 - Don't prematurely optimize - measure first
 - Use `useMemo()` for expensive computations only
@@ -230,6 +257,7 @@ Biome (line width: 128, single quotes, trailing commas). Tailwind classes must b
 - **Avoid large props**: Never pass large data (like `body` content) as props. Pre-compute derived values (e.g., `wordCount`, `readingTime`) instead. Large props get serialized into HTML when passed to client components, causing page bloat.
 
 ### Code Reuse Patterns
+
 1. **Pure Functions** (`src/lib/`): Extract when used 2+ times
 2. **React Hooks** (`src/hooks/`): Extract when pattern repeated 3+ times
 3. **Shared Types** (`src/types/`): Extract when used 3+ times
@@ -246,15 +274,16 @@ Biome (line width: 128, single quotes, trailing commas). Tailwind classes must b
 
 ```typescript
 // ✅ Good: URL state for filters
-const [search, setSearch] = useQueryState('q', { defaultValue: '' });
-const [category, setCategory] = useQueryState('category');
+const [search, setSearch] = useQueryState("q", { defaultValue: "" });
+const [category, setCategory] = useQueryState("category");
 // URL: /posts?q=react&category=tech (shareable!)
 ```
 
 For Astro projects, use native `URLSearchParams`:
+
 ```typescript
 const url = new URL(Astro.request.url);
-const search = url.searchParams.get('q') || '';
+const search = url.searchParams.get("q") || "";
 ```
 
 ### React Best Practices
@@ -297,9 +326,7 @@ describe("getCategoryLinks", () => {
     const category = {
       name: "笔记",
       link: "/category/notes",
-      children: [
-        { name: "前端", link: "/category/notes/front-end", children: [] }
-      ]
+      children: [{ name: "前端", link: "/category/notes/front-end", children: [] }],
     };
     expect(getCategoryLinks(category)).toEqual(["/category/notes/front-end"]);
   });
@@ -309,11 +336,13 @@ describe("getCategoryLinks", () => {
 ## Development Checklist
 
 ### Before Starting
+
 - [ ] Understand requirement clearly
 - [ ] Check existing code for similar patterns
 - [ ] Verify no circular dependencies
 
 ### During Implementation
+
 - [ ] Follow Module-First Principle
 - [ ] Write pure functions where possible
 - [ ] Use TypeScript strictly (no `any`)
@@ -322,6 +351,7 @@ describe("getCategoryLinks", () => {
 - [ ] Use existing hooks (`useMediaQuery`, `useIsMounted`, etc.)
 
 ### Component Development
+
 - [ ] Choose Astro vs React appropriately
 - [ ] Use correct client directive
 - [ ] Follow composition patterns
@@ -329,6 +359,7 @@ describe("getCategoryLinks", () => {
 - [ ] Handle SSR hydration properly
 
 ### Before Committing
+
 - [ ] **Run linter**: `pnpm lint:fix` ✅ Required
 - [ ] Run type checker: `pnpm check`
 - [ ] Check for unused code: `pnpm knip`
@@ -337,15 +368,18 @@ describe("getCategoryLinks", () => {
 ## Common Code Smells
 
 **Component-Level**:
+
 - Oversized components (> 300 lines)
 - Props drilling beyond 3 levels → use Context
 - Overuse of useEffect → use derived state
 
 **State Management**:
+
 - Duplicate state → single source of truth
 - Missing URL state for shareable filters → use nuqs
 
 **Performance**:
+
 - Unnecessary re-renders → missing memo when needed
 - Premature optimization → measure first
 - Large dependencies not lazy-loaded (> 100KB)
@@ -353,23 +387,29 @@ describe("getCategoryLinks", () => {
 ## Common Pitfalls
 
 ### 1. Circular Dependencies
+
 Extract shared logic to separate file instead of importing between peer modules.
 
 ### 2. Hydration Mismatches
+
 Use `useIsMounted()` for client-only values, never `suppressHydrationWarning`.
 
 ### 3. Overuse of useEffect
+
 Prefer derived values: `const fullName = \`${first} ${last}\``instead of`useEffect` synchronization.
 
 ### 4. Over-abstraction
+
 Inline until pattern appears 3 times. Avoid unnecessary abstractions.
 
 ### 5. Tight Coupling to Framework
+
 Keep business logic pure, framework calls at boundaries.
 
 ## Resources
 
 ### Documentation
+
 - [Astro Docs](https://docs.astro.build/)
 - [React Docs](https://react.dev/)
 - [Tailwind CSS](https://tailwindcss.com/)
@@ -377,11 +417,13 @@ Keep business logic pure, framework calls at boundaries.
 - [Nanostores](https://github.com/nanostores/nanostores)
 
 ### Tools
+
 - [Biome](https://biomejs.dev/) - Linter and formatter
 - [Pagefind](https://pagefind.app/) - Static search
 - [es-toolkit](https://es-toolkit.slash.page/) - Utility library
 
 ### Internal References
+
 - Core utilities: `src/lib/content/`, `src/lib/utils.ts`
 - Reusable hooks: `src/hooks/`
 - Animation presets: `src/constants/anim/`

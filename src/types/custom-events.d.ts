@@ -11,5 +11,3 @@ declare global {
     "content:decrypted": CustomEvent;
   }
 }
-
-export {};
