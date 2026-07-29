@@ -27,7 +27,7 @@ jobs:
       - uses: nix-community/cache-nix-action@v6
         with:
           primary-key: nix-${{ runner.os }}-${{ hashFiles('flake.lock') }}
-          restore-prefixes: nix-${{ runner.os }}-
+          restore-prefixes-first-match: nix-${{ runner.os }}-
       - name: Install dependencies
         run: nix develop --impure --command pnpm install --frozen-lockfile
       - name: Build
