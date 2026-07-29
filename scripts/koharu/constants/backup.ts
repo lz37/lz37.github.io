@@ -71,6 +71,13 @@ export const BACKUP_ITEMS: BackupItem[] = [
     required: true,
     kind: "directory",
   },
+  {
+    src: "src/lib/content/git-date-loader.ts",
+    dest: "lib/git-date-loader.ts",
+    label: "git 日期回填加载器",
+    required: true,
+    kind: "file",
+  },
   // 完整备份额外项目
   {
     src: "public/favicon.ico",

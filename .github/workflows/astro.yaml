@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # git-date fallback loader and baked frontmatter dates need full history
+          fetch-depth: 0
       - uses: pnpm/action-setup@v4
       - name: Use Node.js 24
         uses: actions/setup-node@v4
