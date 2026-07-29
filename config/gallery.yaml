@@ -1,0 +1,58 @@
+# Gallery groups — one entry per artist/album.
+# Images are remote CDN URLs (jsdelivr, gh @main branch) — keep them exactly
+# as written (already percent-encoded where required).
+groups:
+  - name: Archieve
+    title: Archieve
+    desc: Archieve大佬的作品
+    cover: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/29535589_74215883_p0_Archive%20%20里个人存档处_Melody%20of%20dream.jpg
+    images:
+      - alt: Melody of dream
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/29535589_74215883_p0_Archive%20%20里个人存档处_Melody%20of%20dream.jpg
+      - alt: DysonSphere of binary_starsystem
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/29535589_70310588_p0_Archive%20%20里个人存档处_DysonSphere%20of%20binary_starsystem.jpg
+      - alt: ( • ̀ω•́ )✧Great Crisis II
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/29535589_72608843_p0_Archive%20%20里个人存档处_%28%20%E2%80%A2%20%CC%80%CF%89%E2%80%A2%CC%81%20%29✧Great%20Crisis%20II.jpg
+      - alt: Ruler of stellar domain
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/29535589_73139361_p2_Archive%20%20里个人存档处_Ruler%20of%20stellar%20domain.jpg
+      - alt: 辉珖之朝
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/29535589_76842811_p0_Archive%20%20里个人存档处_辉珖之朝.jpg
+      - alt: 清空光露
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/29535589_78228344_p0_Archive%20%20里个人存档处_清空光露.jpg
+      - alt: 时域飞渡
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/29535589_81095956_p0_Archive%20%20里个人存档处_时域飞渡／Crossing%20the%20stellar%20domain.jpg
+      - alt: 辉珖突围
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/29535589_84295672_p0_Archive%20%20里个人存档处_辉珖突围.jpg
+      - alt: 兔与鸟
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/29535589_87376088_p0_Archive%20%20里个人存档处_兔与鸟.jpg
+  - name: ヒトこもる
+    title: ヒトこもる
+    desc: ヒトこもる太太的作品
+    cover: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_94573417_p0_ヒトこもる_祭花.jpg
+    images:
+      - alt: 祭花
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_94573417_p0_ヒトこもる_祭花.jpg
+      - alt: 無題
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_90929970_p0_ヒトこもる_無題.jpg
+      - alt: メイドさん
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_82882659_p0_ヒトこもる_メイドさん.jpg
+      - alt: no title
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_83115950_p0_ヒトこもる_no%20title.jpg
+      - alt: no title
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_84764299_p0_ヒトこもる_no%20title.jpg
+      - alt: no title
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_88427122_p2_ヒトこもる_no%20title.jpg
+      - alt: 舞獅
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_94748376_p0_ヒトこもる_舞獅.jpg
+      - alt: 暁旦
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_96145490_p0_ヒトこもる_暁旦.jpg
+      - alt: 🌒
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_89532340_p0_ヒトこもる_🌒.jpg
+      - alt: 落花
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_97608845_p0_ヒトこもる_落花.png
+      - alt: 🍊
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_99057205_p1_ヒトこもる_🍊.png
+      - alt: no title
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_80562260_p0_ヒトこもる_no%20title.jpg
+      - alt: 🩸
+        src: https://cdn.jsdelivr.net/gh/lz37/lz37.github.io@main/img/pixiv/30837811_89703294_p0_ヒトこもる_🩸.jpg

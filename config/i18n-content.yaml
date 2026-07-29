@@ -1,0 +1,17 @@
+# =============================================================================
+# i18n Content Translations
+# =============================================================================
+# Non-default locale translations for content-level strings.
+# Default locale (zh) values come from config/site.yaml — only add overrides here.
+#
+# Structure:
+#   <locale>:
+#     categories:    { <slug>: <translated name> }
+#     series:        { <slug>: { label?, fullName?, description? } }
+#     featuredCategories: { <link>: { label?, description? } }
+# =============================================================================
+
+zh:
+  categories: {}
+  series: {}
+  featuredCategories: {}
