@@ -52,6 +52,8 @@
             name = "blog";
             env = {
               COREPACK_INTEGRITY_KEYS = "0";
+              # corepack 下载包管理器时不再交互确认(无缓存 CI 会阻塞)
+              COREPACK_ENABLE_DOWNLOAD_PROMPT = "0";
             };
             languages = {
               nix = {
