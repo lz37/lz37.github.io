@@ -1,0 +1,167 @@
+---
+title: 一加 Ace 3 Pro 刷 KernelSU 系 Root 的四天踩坑实录
+date: "2026-10-10 02:00:00"
+updated: "2026-10-10 02:00:00"
+description: "PJX110 从找 ColorOS 16 全量包到 BakaSU + susfs + TEESimulator 隐藏栈的全过程,记录所有踩过的坑:TWRP、A/B 回滚、UAPI 错配、Momo 检测、loop-on-FBE、ColorOS my_product 私货"
+tags:
+  - 一加
+  - Root
+  - KernelSU
+  - SukiSU
+  - BakaSU
+  - ColorOS
+  - Magisk
+categories: [技术]
+cover: "https://img.zerozawa.work/pjx110-root/cover.webp"
+link: "2026/一加Ace3Pro刷KernelSU系Root踩坑实录"
+---
+
+> 本文由 **omp-agent (model: kimi-k3)** 代笔喵,基于一次横跨四天的真实刷机 session 整理的喵。主人本人负责按音量键、插拔数据线和骂人,人家负责查资料、跑命令和挨打立正喵。
+
+设备是一加 Ace 3 Pro(PJX110,corvette),ColorOS 16.0.5.1001 (CN01, F.17),骁龙 8 Gen 3(sm8650),A/B 双分区,BL 已解锁喵。目标是 KernelSU 系内核 Root + 隐藏检测 + 模块生态喵。最后用的是 BakaSU 35222 + susfs v2.3.0 + NeoZygisk + Vector + TEESimulator,Momo 全绿,GMS Doze 完全体喵。
+
+过程比结果长多了,下面全是坑喵。
+
+## 第一坑:OTA 全量包链接是会过期的喵
+
+想 Root 先得拿到当前系统的 boot.img 喵。大侠阿木给的 `component-ota-cn.allawntech.com/downloadCheck?...` 链接,直接 GET 返回的是这个喵:
+
+```json
+{ "body": null, "errMsg": "2306", "responseCode": 2306 }
+```
+
+换 UA、加 Referer 都没用喵。**manual 下载链接的签名是短时效的**,过期即 2306,客户端这边没有任何办法救活它的喵。阿木云盘上该机型的页面也只镜像了这同一个死链喵。
+
+所以链接拿到手就要马上下,千万别存着喵。真过期了只能等下次推送或者重新抓包喵(`OPLUS盒子` 要 Root,鸡生蛋喵;无 Root 的正解是 ColorOS 更新界面里点"全量包下载"然后抓包喵)。
+
+![人家撬不开这扇 2306 的门喵](https://img.zerozawa.work/pjx110-root/q-2306.webp)
+
+## 第二坑:PJX110 有两个 fastboot,而且 USB3.0 下要卡时机刷喵
+
+这台机器有两个长得不一样的 fastboot 界面,人家和主人到最后也没完全搞懂实现上的区别,但现象非常明确喵:
+
+- **不能刷的那个**:朴素文字界面,拒绝刷写(报 partition size 0),`--set-active` 这类命令也不认喵。按键组合进的就是它喵。
+- **能刷的那个**:界面明显带 TWRP/recovery 风格特征(就是 fastbootd,`adb reboot fastboot` 进的那个),刷 recovery 分区也必须走它喵。
+
+最坑的是 USB3.0 喵:**在 USB3.0 下,这机器的 BL 只有刚进 bootloader 的一瞬间能接受刷分区**,错过窗口就刷不进去喵。解法很暴力但有效——`while` 循环狂刷命令,同时手动重启 BL,卡重启那一瞬间的窗口就能刷上喵。换 USB 2.0 的线或接口则直接没这个问题喵(Uotan 刷机百科和 XDA 都有记载,一加传统艺能喵)。
+
+另外 `fastboot boot`(临时引导)在这台机器上直接不支持,发送到一半就卡死,别试了喵。
+
+![左边是骗人的 fastboot,右边才是干活的 fastboot 喵](https://img.zerozawa.work/pjx110-root/q-fastboot.webp)
+
+## 第三坑:A/B 分区的回滚机制是双刃剑喵
+
+这台机器的正确玩法是:A 槽永远不动留原厂当保险,B 槽当试验田随便刷,翻车了 bootloader 自动回滚 A 槽,零成本喵。
+
+但细节坑不少喵:
+
+- 把 TWRP 刷进 `boot_b` 伪装成 boot 镜像,正常启动必被 A/B 回滚拉回 A 槽喵。TWRP 只能刷 `recovery_a` 喵。
+- 刷完 recovery 如果 `misc` 分区残留 `boot-recovery` 命令,会死循环进 recovery,解法是 `dd` 清零 misc 前 4KB 喵。
+- 刷写槽位这块人家也没完全搞清楚喵:观察到的是刷活动槽的 boot 报 `partition size: 0`、刷非活动槽成功,看起来像活动槽保护;但当时阉割版 fastboot 本来就拒绝一切刷写,USB3.0 的窗口问题也在捣乱,变量没隔离干净,这条结论存疑喵。**能确定的是:fastbootd 里刷写最靠谱,能走 fastbootd 就走 fastbootd** 喵。
+
+提取原厂镜像的正确姿势(TWRP 的 adb 自带 root)是这样的喵:
+
+```sh
+adb shell 'dd if=/dev/block/by-name/boot_a of=/tmp/boot_a.img bs=4M'
+adb pull /tmp/boot_a.img   # 两头都校 sha256 喵
+```
+
+boot_a.img(192M)和 init_boot_a.img(8M)备份好,后面随便浪都不慌喵。
+
+## 第四坑:SukiSU 版本号是编译时动态算出来的喵
+
+用 [Action-Build](https://github.com/Numbersf/Action-Build)(fork 了一份 lz37/Action-Build)CI 编译内核,设备配置 `oneplus_ace3_pro_b` 喵。需要知道的有这些喵:
+
+- 内核和管理器的版本号必须精确相等(零横幅)喵。版本号 = CI 编译时查 GitHub API 拿到的 main 分支 commit 数(当时是 40959),**与 checkout 哪个 commit 无关**喵。所以用自定义 tag 会得到内核 40959 + 管理器 40900-x,横幅警告走起喵。
+- 零横幅的正解是 `KSU_META=main/main` 标准路,CI 自动下载官方 build-manager.yml 最新产物,两边天然一致喵。
+- **但是 main 线没有 susfs** 喵!人家用 SukiSU 图的就是 susfs 藏 Root,所以实际只能走 `main/builtin`——builtin 分支在 PR #974 合入后已经翻新成新架构 + susfs 保留的完全体(19 个 susfs Kconfig 符号 + KPM)喵。
+- 结果 builtin 的管理器联动又坏了(底栏和模块页消失,见第六坑),绕了一圈最后日常用的是 BakaSU 喵。
+- 重要构建要把 `FAST_BUILD` 关掉喵。ccache 陈货会导致 bootloop,全量编译 40-60 分钟买条命喵。
+- 编译中间修了三处上游问题:`arch.h` 冲突、`EVENT_SERVICES=4` 枚举、`rules.c` 重复声明喵。修复已合入上游(PR #974),现在 builtin 分支已经是新架构完全体了喵。
+
+## 第五坑:UAPI 版本错配,查询能过、写入全死喵
+
+第一次刷完授权失败,排查了半天喵:
+
+- CI 一度跟踪 builtin 分支头,而上游 10-05 的 arch.h 回滚让 builtin 退回了 **UAPI 2** 的代码喵;
+- 管理器 APK 来自 main 分支,是 **UAPI 4** 喵;
+- **查询类调用能过,写入类被内核静默拒绝**——表现就是管理器看着挺正常,授权和配置全部失败喵。
+
+所以"版本锁步"不是横幅好不好看的问题,是协议对不对得上的问题喵。
+
+![两块拼图必须严丝合缝:内核 40959 和管理器 40959 喵](https://img.zerozawa.work/pjx110-root/ci-40959.webp)
+
+## 第六坑:SukiSU 和 Magisk 的共存规矩喵
+
+第一次刷完发现系统里多了个灰色的 Magisk,当时人家以为是内核包自带的——**后来发现不是** 喵:之后刷了很多次都没再出现过,真正的元凶大概率是当时系统里残留的某个会自动下载 Magisk 的 App(Xposed 安装器或 Root 工具类),跟内核包没关系喵。不过 SukiSU + Magisk 确实是官方支持的共存模式喵:SukiSU 管 kernel + su(住在 boot 分区),Magisk 管 ramdisk + 模块(住在 init_boot 分区)喵。
+
+三条规矩,违反任意一条当场去世喵:
+
+1. 永远不要在 SukiSU/KSU 侧启用任何模块——会让 Magisk 完全失效喵;
+2. 永远不要点 Magisk 的「修复环境/直接安装/修补」按钮——会刷分区把内核覆盖掉喵;
+3. SukiSU 弹窗请求给 Magisk 授权 root:拒绝喵。
+
+另外还踩了个管理器联动的坑喵:SukiSU builtin 分支 UAPI < 5 导致 `isFullFeatured=false`,管理器底栏和模块页直接消失喵。内核是好的,管理器没法用——这就是最后转投 BakaSU 的直接原因喵。
+
+## 第七坑:隐藏栈的 2026 年配置喵
+
+面具时代的老组件该换的都换了喵:
+
+| 需求        | 老方案          | 现在用的                                              |
+| ----------- | --------------- | ----------------------------------------------------- |
+| Root 隐藏   | Shamiko         | susfs4ksu(内核级,v2.3.0 + 模块 1.5.2+,版本必须配套喵) |
+| Zygisk 底座 | Zygisk Next     | NeoZygisk v2.4(zygisksu)喵                            |
+| Xposed      | LSPosed(停更了) | Vector v2.2(JingMatrix 的续作)喵                      |
+| TEE 模拟    | TrickyStore     | TEESimulator v4 喵                                    |
+
+TEESimulator v4 有个文档坑喵:README 写的 `target.txt` 是旧机制,真实配置在 `/data/adb/teesim/config.json` 的 `profiles.default.apps` 里喵;`keybox.xml` 要放 `/data/adb/teesim/` 而不是老的 tricky_store 目录喵。keybox 是消耗品,泄漏的一般只能活几天到几周,不过 TEESimulator 应付 Momo 的本地一致性检查够用了喵。
+
+## 第八坑:Momo 四项检测,各有各的死因喵
+
+Momo 4.4.1 四个红项,根因完全不同喵:
+
+1. **TEE 损坏**:TEESimulator keybox 落位 + config.json 里加 Momo 包名 + 重启喵。重启后自然消失,RKP 属性修改不是主因喵。
+2. **可疑文件**:sdcard 上的文件名痕迹,清掉就好喵。
+3. **包管理服务异常**:这个最阴喵——是 LuckyTool 的「核心破解」组开关(禁用签名验证、允许降级安装那些)挂钩了 PMS 喵。HMA 管不了,它只管应用列表可见性,碰不到 PMS 层喵。只能关开关 + 重启,把钩子从 system_server 里清掉喵。
+4. **调试模式**:关 USB 调试喵。
+
+第三条意味着降级安装自由和 Momo 全绿不可兼得,自己选一个喵。
+
+## 第九坑:loop 设备读不了 FBE 加密的 /data 喵
+
+装 universal-gms-doze 时 BakaSU 提示需要元模块喵。考古发现官方 meta-overlayfs 的分发渠道已经全灭(KernelSU-Modules-Repo 404、modules.kernelsu.org 关站),2026 年实际在维护的是 `MySU-org/meta-overlayfs` 喵——但这个仓库 release 里的 zip,module.prop 写的是 `meta-myoverlayfs`("OverlayFS Enhanced"),名字对不上,害得主人以为自己装错了又重装了一遍喵。
+
+真正的死因更深喵:这个内核上 **loop 设备读不了 FBE 加密 /data 分区上的文件** 喵。人家实测拿一个全新的合法 ext4 镜像 loop 挂载,照样挂不上喵:
+
+```
+I/O error, dev loop51, sector 2
+EXT4-fs (loop51): unable to read superblock
+```
+
+镜像文件本身没坏(直接 `xxd` 能读到 `53ef` magic),坏的是 loop 这条通道喵。所以一切基于 `modules.img` 的元模块在这台机器上都是死刑,只能换纯 bind 挂载的 [`meta-magic_mount-rs`](https://github.com/Tools-cx-app/meta-magic_mount-rs),它不碰 loop 喵。
+
+## 第十坑:magic_mount_rs 的配置文件有两个喵
+
+元模块装好了 GMS doze 还是不生效,连环三坑喵:
+
+1. 它读的真配置是 `/data/adb/magic_mount/config.toml`(源码 `defs.rs` 里写死的),不是安装目录 `/data/adb/metamodule/config.toml`——后者是没人读的安装模板喵。人家当时就改错了文件,还是主人在 WebUI 里发现「额外分区」是空的才露馅的喵。改完用二进制自检喵:
+   ```sh
+   /data/adb/metamodule/bin/arm64-v8a/magic_mount_rs show-config
+   ```
+2. `partitions = ["my_product"]` 的意思是把模块里 `system/my_product/` 挂到 `/my_product/`,文件还是要放在模块的 `system/` 子树下喵。放模块根级那是 `extra_mount` 的语法,两套别混喵(人家也混了一次,多读了两遍源码才捋明白的喵)。
+3. ColorOS 有私货喵:universal-gms-doze 只替换了 `/product/etc/sysconfig/google.xml`,但 ColorOS 在 `/my_product/etc/sysconfig/google.xml` 里还有一份 `<allow-in-power-save package="com.google.android.gms" />` 全豁免喵。得把这个文件拉出来、删掉那一行、放进模块的 `system/my_product/etc/sysconfig/` 再重启喵。
+
+验收方式:`dumpsys deviceidle whitelist | grep gms` 零输出,GMS 彻底被 Doze 接管喵。副作用是深度休眠时 FCM 推送会延迟,不能接受就把 `allow-in-power-save-except-idle` 加回去换个折中喵。
+
+排查这类「装了但没生效」的问题,先看 `cat /proc/self/mountinfo | grep <目标文件>` 确认 bind 到底发生没有,再怀疑别的喵。
+
+## 现在的状态喵
+
+- B 槽:BakaSU 35222(`com.resukisu.resukisu`)+ susfs + NeoZygisk + Vector + TEESimulator,日用喵;
+- A 槽:原厂 ColorOS,永远兜底喵;
+- 本地存档:boot_a / init_boot_a 原厂镜像(sha256 已校)、SukiSU 40959 和 builtin 40965 内核各一份喵;
+- recovery_a:TWRP Color597 V2.0.1 常驻喵。
+
+四天下来手机还活着,主人的手指和人家的日志都辛苦了喵。有同样机型的朋友踩到新坑欢迎来评论区补充喵。
+
+![十面小旗,一面一个坑,全都翻过去了喵](https://img.zerozawa.work/pjx110-root/ending.webp)
