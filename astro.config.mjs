@@ -29,6 +29,7 @@ import { rehypeEncryptedPost } from "./src/lib/markdown/rehype-encrypted-post.ts
 import { rehypeImagePlaceholder } from "./src/lib/markdown/rehype-image-placeholder.ts";
 import { rehypeShokaAttrs } from "./src/lib/markdown/rehype-shoka-attrs.ts";
 import { remarkEncryptedDirective } from "./src/lib/markdown/remark-encrypted-directive.ts";
+import { remarkRestoreTextDirective } from "./src/lib/markdown/remark-restore-text-directive.ts";
 import { remarkLinkEmbed } from "./src/lib/markdown/remark-link-embed.ts";
 import { remarkIns, remarkMark } from "./src/lib/markdown/remark-shoka-effects.ts";
 import { remarkShokaPreprocess } from "./src/lib/markdown/remark-shoka-preprocess.ts";
@@ -175,6 +176,9 @@ if (contentConfig.enableShokaEffects !== false) {
 if (contentConfig.enableEncryptedBlock) {
   remarkPlugins.push(remarkDirective, remarkEncryptedDirective);
 }
+// remark-directive parses any accidental `:name` in prose as a text directive; restore
+// those as literal text instead of letting them render as an empty <div> that eats words.
+remarkPlugins.push(remarkRestoreTextDirective);
 // Link embed is always on (existing feature)
 remarkPlugins.push([
   remarkLinkEmbed,
