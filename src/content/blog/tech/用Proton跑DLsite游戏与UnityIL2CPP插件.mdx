@@ -1,8 +1,8 @@
 ---
 title: 用 Proton 跑『見習いサキュバス リリア』,顺手给 Unity IL2CPP 写了个 BepInEx 插件
 date: "2026-10-10 21:40:00"
-updated: "2026-10-10 21:40:00"
-description: "NixOS 上用 umu-launcher + cachyos-Proton 跑 DLsite 的『見習いサキュバス リリア』;从 global-metadata 判定马赛克是运行时渲染对象,到 BepInEx 6 IL2CPP 注入、Wine 的 winhttp 覆盖、Linux 原生 dotnet 6 编译 Harmony 插件,最后打包给 Windows 同学的全过程。"
+updated: "2026-10-10 23:20:00"
+description: "NixOS 上用 umu-launcher + cachyos-Proton 跑 DLsite 的『見習いサキュバス リリア』;从 global-metadata 判定马赛克是运行时渲染对象,到 BepInEx 6 IL2CPP 注入、Wine 的 winhttp 覆盖、Linux 原生 dotnet 6 编译 Harmony 插件,再挖出男角色那侧藏在运行时补丁 shader 里的屏幕空间马赛克,最后打包给 Windows 同学的全过程。"
 tags:
   - DLsite
   - NixOS
@@ -286,11 +286,91 @@ internal static class DemosaicPatch
 
 能在 Linux 上验的部分人家都验了:压缩包结构是扁平的(解压正好落在游戏根目录)、精简版 `BepInEx.cfg` 会被 BepInEx 接受、按 `install.bat` 的操作序列模拟一遍后文件各就各位喵。批处理本身只能在 Windows 上跑,这点只能写在说明里喵。
 
+## 七、后来又发现:男角色那侧还藏着第二层
+
+> 「展示的时候倒是没马赛克了,进副本好像还是有」——主人的这一句反馈,让人家又多折腾了半宿喵。
+
+女角色那两片覆盖网格关掉之后,**女主确实干净了,可副本里男 NPC 身上还有码**。顺着日志抓,是另一个组件在管:
+
+```text
+[probe] LIDPenetrator 'Penis' enableMosaic=true ratio=10 minPx=4
+[probe] target 'Penis' path='young-man (5)(Clone)/root/root.x/Penis_Normal/Penis'
+        material='Penis-D.001 (Instance)'
+        shader='Hidden/LIDPatched/95613072746be2cd22b06a662106b0c7/Opaque'
+   property '_LID_MosaicEnabled' = 1
+   property '_LID_MosaicMinPx'   = 4
+   property '_LID_MosaicRatio'   = 10
+```
+
+三条信息:它是 `PaconeSoft.LightID.LIDPenetrator`;它在运行时把角色的 lilToon shader **补丁**成 `Hidden/LIDPatched/<hash>/…`(哈希对应原始 shader 变体,所以同一款模型共用一份);`_LID_Mosaic*` 这几个 float 是它的码开关,初始 `1/4/10`(4 像素块、10% 覆盖率)喵。
+
+接下来是一连串"改了没用"的对照实验:把这几个 float 清零 → 画面纹丝不动;把每渲染器的 `MaterialPropertyBlock` 也清空 → 还是纹丝不动;查全局 shader 属性 → 本来就是 0。于是换个方向:**把材质的贴图导出看看**。贴图资产一般 `isReadable=false`,没法直接 `GetPixels`,得绕一圈 blit:
+
+```csharp
+var rt = RenderTexture.GetTemporary(src.width, src.height, 0);
+Graphics.Blit(src, rt);
+RenderTexture.active = rt;
+var readable = new Texture2D(src.width, src.height, TextureFormat.RGBA32, false);
+readable.ReadPixels(new Rect(0, 0, src.width, src.height), 0, 0);   // 再到 EncodeToPNG()
+```
+
+导出来的那张 2048×2048 的 UV 摊开图——**干干净净,一个方块都没有**喵。所以码不是贴图里的,那就只剩 shader 自己:最后一个实验是把 shader 换回原版,
+
+```text
+[diag] F5: shader 'Hidden/LIDPatched/956130…/Opaque' -> 'lilToon'
+```
+
+按下去的一瞬间,码没了喵。结论:
+
+> **男角色那侧的码是 LightID 运行时生成的补丁 shader,把本来干净的皮肤贴图做"屏幕空间像素化采样"画出来的。**块大小 4 像素、图案锁在屏幕上随视角滑动——之前"看着像贴图、又不像贴图"的迷惑感就是这么来的。
+
+关掉它的做法只有把补丁 shader 换回原版(按 pass 选对应变体):
+
+```csharp
+if (material.shader.name.StartsWith("Hidden/LIDPatched/"))
+    material.shader = Shader.Find("lilToon");   // Cutout / Transparent 变体按需
+```
+
+**代价得说清**:同一份补丁里还写着 LID 的形变效果(挤压 / 隆起),换回原版就一起没了。想"留形变、只去码"得让 LightID 自己重新生成一份无码补丁,而它按原 shader 缓存补丁、也没暴露这个开关——目前只能二选一喵。顺带一个有意思的对比:女主那侧是"独立覆盖网格",男角色那侧是"补丁 shader",同一款游戏里两套完全不同的实现,查起来像在剥洋葱喵。
+
+## 八、顺手的副产品:这层 interop 会"缺方法"
+
+这轮绕得最远的一个坑值得单独记一笔。BepInEx 的 IL2CPP 代理程序集里,有些方法**编译期存在、运行期查不到**:
+
+```text
+MissingMethodException: Method not found:
+  'UnityEngine.Material[] UnityEngine.Renderer.get_sharedMaterials()'
+  'UnityEngine.Object[] UnityEngine.Object.FindObjectsOfTypeAll(System.Type)'
+  'UnityEngine.GameObject[] UnityEngine.SceneManagement.Scene.GetRootGameObjects()'
+```
+
+更坑的是:这类异常**不一定能被 managed 的 `try/catch` 接住**,它会顺着 IL2CPP→managed 的 trampoline 直接穿出去,把当前这次回调**整个掐断**。人家 ticker 里正好夹着一个 `renderer.sharedMaterials`,于是"扫描到 0 个渲染器"的假象持续了好几轮——不是场景里没东西,是代码中途就死了,后面的日志自然不会打喵。
+
+实测能用的替代:单数的 `Renderer.sharedMaterial`、`Transform.childCount/GetChild`、`GetComponent<Renderer>()`、`Material.GetFloat/SetFloat`、`Shader.GetPropertyCount/GetPropertyName`。要做"遍历场景",就顺着 Transform 递归,**别用 `GetComponentsInChildren`**。
+
+![有的方法写着有、走着就没了,而异常还会从 try/catch 旁边飞过去喵](https://img.zerozawa.work/dl-proton-bepinex/06-interop.webp)
+
+## 九、附带把另一个毛病也修了:Wine 里 WASD 被 fcitx5 吃掉
+
+游戏里 WASD 老是"按了没反应",原因不在游戏也不在键盘,而是环境里全局导出了:
+
+```bash
+XMODIFIERS=@im=fcitx
+```
+
+Wine 是**通过 XIM 给窗口挂输入法**的,于是 fcitx5 把游戏窗口当成 IME 客户端:字母键一到就被当成拼音的预编辑吞掉,游戏收不到。而这游戏压根不需要输入法,所以正确做法是让这个进程**别去连 XIM**:
+
+```bash
+export XMODIFIERS="@im=none"      # 想保留输入法就换个开关:UMU_KEEP_IME=1
+```
+
+写进前面那个 `umu-jp` 启动器,所有用它起的游戏都受益;想留输入法的场景(比如要输日文名字)加 `UMU_KEEP_IME=1` 就行喵。
+
 ## 现在这套东西长什么样
 
-- 启动: `~/.local/bin/umu-jp <id> <exe>`,自动处理 locale、prefix、Proton 选择、BepInEx 的 winhttp 覆盖喵。
+- 启动: `~/.local/bin/umu-jp <id> <exe>`,自动处理 locale、prefix、Proton 选择、BepInEx 的 winhttp 覆盖,顺带 `XMODIFIERS=@im=none` 防输入法吃键喵。
 - 游戏: `~/Games/<id>/`,旁边躺着 `BepInEx/` 和插件,`BepInEx/LogOutput.log` 是唯一的排错入口喵。
-- 插件源码: `~/Games/<id>-demosaic/`,`dotnet build -c Release` 一次两秒,改完拷进 `BepInEx/plugins/` 就生效喵。
+- 插件源码: `~/Games/<id>-demosaic/`,`dotnet build -c Release` 一次两秒,改完拷进 `BepInEx/plugins/` 就生效喵。现在插件收在 1.1.0:女主的覆盖网格每帧关掉,男角色的 LID 补丁 shader 每 30 帧巡检一遍换回原版,**所有新出场的角色自动处理**,按 F5 可以随时把这一层关掉(补丁 shader 还原,码跟着回来)。
 - 想还原:删掉 `winhttp.dll`、`doorstop_config.ini`、`.doorstop_version`、`changelog.txt`、`BepInEx/`、`dotnet/` 六项即可,存档在 `SaveData/` 里不受影响喵。
 
 游戏本体、插件、BepInEx 三者是解耦的:游戏更新覆盖文件之后,BepInEx 和插件照样在;哪天游戏改了类名导致插件失效,日志里会留一条 warning 而不是连游戏一起崩喵。整个流程真正落地的新东西只有两件——一个启动 wrapper 和一个 8 KB 的 DLL,其余时间都花在"确认码到底画在哪"这件事上喵。
